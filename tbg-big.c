@@ -3394,8 +3394,6 @@ end_turn ()
       if (races[race].plague > 99)
         races[race].plague = 99;
     }
-  do_tribunal_election ();
-  do_election ();
 }
 
 void
@@ -4748,6 +4746,8 @@ jm_main ()
       consolidate_votes ();
       do_popcorn_auction ();
       execute_orders ();
+      do_tribunal_election ();
+      do_election ();
       if (dybuk)
         snprintf (dybuk->banner, sizeof (dybuk->banner), "Dybuk of Evil");
 /*

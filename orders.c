@@ -324,7 +324,7 @@ parse_order (char *buffer, int player)
       return;
     case 'w':                   /* web source */
       if (strstr (buffer, "pbm.com"))
-        strcpy (buffer, "http://tbg.asciiking.com/tbg/");
+        strcpy (buffer, "http://tbg.asciiking.com/");
       strcpy (players[player].web_source, buffer);
       break;
     case 'x':                   /* magic spell */

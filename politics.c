@@ -538,7 +538,7 @@ do_tribunal_election ()
         ministers[p] = 0;
     }
   fprintf (times,
-           "<hr><h2><font color=white>The new Tribune of the People is %s!</font></h2>\n",
+           "<hr><h2><span style=\"color:white;\">The new Tribune of the People is %s!</span></h2>\n",
            name_string (players[winner].name));
 }
 

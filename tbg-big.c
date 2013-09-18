@@ -2120,8 +2120,10 @@ init_new_player (struct PLAYER *player, int sort)
       if (ok)
         try = 32;
     }
-  if (strcmp (player->address, "tbg-admin@asciiking.com") == 0)
+  if (strcmp (player->address, "nobody@localhost") == 0)
     player->star = NOWHERE;
+  if (player->star >= 0 && player->star < MAX_STAR)
+    set_bit(player->stars, player->star);
   player->alliance =
     player < players + MAX_PLAYER ? PLAYER_ALLIANCE : SHOP_ALLIANCE;
   /* should depend on num_players but not set yet */

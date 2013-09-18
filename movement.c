@@ -220,6 +220,8 @@ jump (FILE * fd, struct PLAYER *player, int from, int to)
           fprintf (fd, "<P>Jumped to %s for $0\n", star_names[player->old_star]);
         }
       player->star = player->old_star;
+      if (player->star >= 0 && player->star < MAX_STAR)
+          set_bit(player->stars, player->star);
       return;
     }
   if (from == NOWHERE)
@@ -260,6 +262,8 @@ jump (FILE * fd, struct PLAYER *player, int from, int to)
     }
   player->old_star = player->star;
   player->star = to;
+  if (player->star >= 0 && player->star < MAX_STAR)
+    set_bit(player->stars, player->star);  
   if (to < MAX_STAR)
     {
       fprintf (fd, "<P>Jumped to %s for $%d\n", star_names[to], cost);

@@ -722,7 +722,7 @@ execute_orders ()
   for (p = 0; p < MAX_PLAYER; p++)
     {
       players[p].movement = players[p].star;
-      if (strcmp (players[p].address, "tbg-moderator@asciiking.com") == 0)
+      if (strcmp (players[p].address, "nobody@localhost") == 0)
         players[p].star = NOWHERE;
     }
   do

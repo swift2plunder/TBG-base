@@ -1443,20 +1443,24 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
           switch(sort)
             {
             case engineering:
-              fprintf (fd, "<OPTION VALUE=U%d>Destabilize orbit of %s %d\n",
-                       loc, location_types[type].name, loc);
+              if (effective_skill_level (player, engineering) > 0)
+                 fprintf (fd, "<OPTION VALUE=U%d>Destabilize orbit of %s %d\n",
+                          loc, location_types[type].name, loc);
               break;
             case science:
-              fprintf (fd, "<OPTION VALUE=U%d>Dephase %s %d\n",
-                       loc, location_types[type].name, loc);
+              if (effective_skill_level (player, science) > 0)
+                fprintf (fd, "<OPTION VALUE=U%d>Dephase %s %d\n",
+                         loc, location_types[type].name, loc);
               break;
             case medical:
-              fprintf (fd, "<OPTION VALUE=U%d>Poison %s %d\n",
-                       loc, location_types[type].name, loc);
+              if (effective_skill_level (player, science) > 0)
+                fprintf (fd, "<OPTION VALUE=U%d>Poison %s %d\n",
+                         loc, location_types[type].name, loc);
               break;
             case weaponry:
-              fprintf (fd, "<OPTION VALUE=U%d>Attack %s %d\n",
-                       loc, location_types[type].name, loc);
+              if (effective_skill_level (player, weaponry) > 0)
+                 fprintf (fd, "<OPTION VALUE=U%d>Attack %s %d\n",
+                          loc, location_types[type].name, loc);
               break;
             }
         }

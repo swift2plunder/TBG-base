@@ -1084,7 +1084,7 @@ do_popcorn_auction ()
           open_results (&fd, player);
 
           if (amount == 0)
-            fprintf (fd, "<P>Didn't trade any popcorn, going price was$%d\n",
+            fprintf (fd, "<P>Didn't trade any popcorn, going price was $%d\n",
                      popcorn_price);
           else if (amount > 0)
             {

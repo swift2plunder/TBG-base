@@ -580,10 +580,9 @@ big_ranking (FILE * output, int index, char *title)
       printf ("Can't create ranking file\n");
       exit (1);
     }
-  // Bug 128
-  for (player = players + 1; player < players + MAX_PLAYER - 1; player++)
+  for (player = players + 1; player < players + MAX_PLAYER; player++)
     {
-      if (strcmp (player->address, "tbg-moderator@asciiking.com") == 0
+      if (strcmp (player->address, "nobody@localhost") == 0
           || ! player->account_number)
         continue;
       if (mothballed(player - players))
@@ -591,7 +590,7 @@ big_ranking (FILE * output, int index, char *title)
       big_rank (fd, player, index);
     }
   fclose (fd);
-  sprintf (buffer, "sort -r -g %s/ranks >%s/sorted",
+  sprintf (buffer, "/bin/sort -r -g %s/ranks >%s/sorted",
            desired_directory, desired_directory);
   SYSTEM (buffer);
   sprintf (buffer, "%s/sorted", desired_directory);

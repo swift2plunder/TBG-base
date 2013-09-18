@@ -1276,6 +1276,8 @@ show_gif_map (FILE * fd, struct PLAYER *player)
       fprintf (fd, "</TR>\n");
     }
   fprintf (fd, "</TABLE><HR>\n");
+  if (player->last_restart == turn)
+    fprintf (fd, "<p>Run Long Range Scan to populate starmap</p>");
 }
 
 void

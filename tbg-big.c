@@ -2603,6 +2603,9 @@ press (int player, const char *text, const char *author)
   const char *p = text;
   char buffer[1024];
 
+  if (want_verbose)
+    printf ("Player %d writing as %s submitted the following press:\n%s\n", 
+      player, author, text);
   /* check for embedded <HR> */
   while (*p)
     {
@@ -2644,7 +2647,7 @@ press (int player, const char *text, const char *author)
     rumour = dice (MAX_RUMOUR);
   while (rumours[rumour]);
   if (player)
-    sprintf (buffer, "<a href=http://%s/news/mail.cgi?%d>%s</a>",
+    sprintf (buffer, "<a href=\"http://%s/cgi-bin/mail.crm?id=%d\">%s</a>",
              server, player, author);
   else
     strcpy (buffer, author);
@@ -4097,7 +4100,9 @@ close_times ()
   for (rumour = 0; rumour < MAX_RUMOUR; rumour++)
     if (rumours[rumour])
       player_rumours++;
-
+  if (want_verbose)
+    printf ("Found %d player rumors\n", player_rumours);
+  /* This may not be working...
   target_rumours = 2 + dice(5) + average_players/10;
 
   for (rumour = 0; rumour < MAX_RUMOUR; rumour++)
@@ -4120,7 +4125,20 @@ close_times ()
     {
       generate_times (dice (5));
     }
-    
+  ...let's try something simpler  */  
+
+  generate_times (dice (5));
+
+  for (rumour = 0; rumour < MAX_RUMOUR; rumour++)
+    if (rumours[rumour])
+      {
+        if (rumours[rumour][0] == '!')
+          new_ranking (rumours[rumour] + 1);
+        else
+          fprintf (times,"%s\n", rumours[rumour]);
+      }
+  generate_times (dice (5));
+
   do_rankings (times);
 
 

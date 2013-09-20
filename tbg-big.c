@@ -4092,8 +4092,8 @@ close_times ()
 
   fclose (report);
   sprintf (buffer,
-           "mail -s \"TBG: Turn %d Report\" tbg-moderator@asciiking.com <$TBG/tbg/report",
-           turn);
+           "mail -s \"TBG: Turn %d Report\" tbg-moderator@asciiking.com <%s/report",
+           turn, desired_directory );
   if (really_send)
     SYSTEM (buffer);
 

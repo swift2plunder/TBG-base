@@ -2090,7 +2090,7 @@ init_new_player (struct PLAYER *player, int sort)
     account = 0;
   if (account == 0)
     {
-      strcpy (buffer2, "tbg-admin@asciiking.com");
+      strcpy (buffer2, "nobody@localhost");
       player->account_number = 0;
     }
   else

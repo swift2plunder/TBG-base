@@ -4300,26 +4300,26 @@ make_web_form (FILE * fd, char *label, int code)
 {
   int p, k;
 
-  fprintf (fd, "<INPUT TYPE=HIDDEN NAME=\"Z\" VALUE=\"%d\">\n", game);
-  fprintf (fd, "<INPUT TYPE=HIDDEN NAME=\"z\" VALUE=\"%d\">\n", code);
+  fprintf (fd, "<input type=\"hidden\" name=\"Z\" value=\"%d\">\n", game);
+  fprintf (fd, "<input type=\"hidden\" name=\"z\" value=\"%d\">\n", code);
   if (code == -2)
     {
       fprintf (fd,
-               "<TEXTAREA NAME=\"n\" ROWS=8 COLS=70>\n\n\n\n\n\n\n\nSigned:\n");
-      fprintf (fd, "</TEXTAREA><BR>\n");
+               "<textarea name=\"n\" rows=\"8\" cols=\"50\">\n\n\n\n\n\n\n\nSigned:\n");
+      fprintf (fd, "</textarea>\n");
     }
-  fprintf (fd, "<SELECT NAME=\"t\">\n");
+  fprintf (fd, "<select name=\"t\">\n");
 
-  fprintf (fd, "<OPTION VALUE=0>CHANGE THIS TO SOMETHING ELSE!\n");
+  fprintf (fd, "<option value=\"0\">CHANGE THIS TO SOMETHING ELSE!</option>\n");
   for (p = 1; p < MAX_PLAYER; p++)
     {
       k = sorted_names[p];
       if (players[k].account_number) 
-        fprintf (fd, "<OPTION VALUE=%d>%s\n", k, name_string (players[k].name));
+        fprintf (fd, "<option value=\"%d\">%s</option>\n", k, name_string (players[k].name));
     }
-  fprintf (fd, "</SELECT>\n");
-  fprintf (fd, "<INPUT TYPE=submit VALUE=\"%s\">\n", label);
-  fprintf (fd, "</FORM>\n");
+  fprintf (fd, "</select>\n");
+  fprintf (fd, "<input type=\"submit\" value=\"%s\">\n", label);
+  fprintf (fd, "</form>\n");
 }
 
 void
@@ -4417,18 +4417,21 @@ make_web_pages ()
       printf ("Can't open web page file\n");
       exit (1);
     }
-  fprintf (fd, "<HTML><HEADER><TITLE>TBG Utilities</TITLE><CENTER>\n");
-  fprintf (fd, "</HEADER><BODY BGCOLOR=\"BLACK\" TEXT=\"#6effc4\">\n");
-  fprintf (fd, "<H1>Anonymous Mail</H2>\n");
+  fprintf (fd, "<html><head><title>TBG Utilities</title>\n");
+  fprintf (fd, "</head><body><div style=\"background-color:black;color:#ff8;float:right;\">\n");
+  fprintf (fd, "<div id=\"all\">\n<h1>Anonymous Mail</h2>\n");
+  fprintf (fd, "<div id=\"anon_mail\">\n");
   fprintf (fd,
-           "<FORM ACTION=\"http://%s/cgi-bin/tbgmail.cgi\" METHOD= \"POST\">\n",
+           "<form action=\"http://%s/cgi-bin/tbgmail.cgi\" method= \"post\">\n",
            server);
   //fprintf (fd, "<INPUT NAME=\"to\" VALUE=\"tbg@%s\" TYPE=HIDDEN>\n", mail_server);
   make_web_form (fd, "Send mail via server", -2);
+  fprintf (fd, "</div><div style=\"margin:1em\">\n");
 
-  fprintf (fd, "<HR><H1>Resending Results and Orders</H1>\n");
+  fprintf (fd, "<h1>Resending Results and Orders</h1>\n");
+  fprintf (fd, "<div id=\"results\">\n");
   fprintf (fd,
-           "<FORM ACTION=\"http://%s/cgi-bin/tbgmail.cgi\" METHOD= \"POST\">\n",
+           "<form action=\"http://%s/cgi-bin/tbgmail.cgi\" method= \"post\">\n",
            server);
   //fprintf (fd, "<INPUT NAME=\"to\" VALUE=\"tbg@%s\" TYPE=HIDDEN>\n", mail_server);
   make_web_form (fd, "Resend Results", -3);
@@ -4440,13 +4443,14 @@ make_web_pages ()
   //fprintf (fd, "<INPUT NAME=\"to\" VALUE=\"tbg@%s\" TYPE=HIDDEN>\n", mail_server);
   make_web_form (fd, "Resend Orders", -4);
 */
+  fprintf (fd, "</div><div id=\"resend_url\"\n");
   fprintf (fd,
-           "<FORM ACTION=\"http://%s/cgi-bin/tbgmail.cgi\" METHOD= \"POST\">\n",
+           "<form action=\"http://%s/cgi-bin/tbgmail.cgi\" method= \"post\">\n",
            server);
   //fprintf (fd, "<INPUT NAME=\"to\" VALUE=\"tbg@%s\" TYPE=HIDDEN>\n", mail_server);
   make_web_form (fd, "Resend Secret URL", -8);
 
-  fprintf (fd, "</BODY></HTML>\n");
+  fprintf (fd, "</div></div></div></body></html>\n");
   fclose (fd);
 }
 

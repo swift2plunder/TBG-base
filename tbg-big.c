@@ -2599,6 +2599,54 @@ new_ranking (char *p)
 void
 press (int player, const char *text, const char *author)
 {
+  int rumour;
+  char buf1[1024], buf2[1024];
+  int s = 0, t = 0;
+
+  if (want_verbose)
+    printf ("Player %d writing as %s submitted the following press:\n%s\n",
+      player, author, text);
+
+  memset(buf1, '\0', sizeof(buf1));
+  while (text[s])
+  {
+    switch (text[s])
+    {
+      case '\"':
+        sprintf (buf1, "%s%s", buf1, "&quot;");
+        t += 6;
+        s++;
+        break;
+      default:
+        buf1[t++] = text[s++];
+        break;
+    }
+  }
+
+  do
+    rumour = dice (MAX_RUMOUR);
+  while (rumours[rumour]);
+
+  if (player)
+    sprintf (buf2, "<a href=\"http://%s/cgi-bin/mail.crm?id=%d\">%s</a>",
+             server, player, author);
+  else
+    strcpy (buf2, author);
+ 
+  rumours[rumour] = malloc (strlen (buf1) + 300 + strlen (buf2));
+
+  if (buf1[0] == '!')
+    sprintf (rumours[rumour], "%s", buf1);
+  else
+    sprintf (rumours[rumour],
+             "<HR><iframe sandbox seamless srcdoc=\"<div class=\"press\"><div class=\"rumor\">%s</div>\n<div class=\"author\">%s</div></div>\"></iframe>\n",
+             buf1, buf2); 
+}
+
+/*
+void
+press (int player, const char *text, const char *author)
+{
   int state = 0, rumour;
   const char *p = text;
   char buffer[1024];
@@ -2606,7 +2654,7 @@ press (int player, const char *text, const char *author)
   if (want_verbose)
     printf ("Player %d writing as %s submitted the following press:\n%s\n", 
       player, author, text);
-  /* check for embedded <HR> */
+  // check for embedded <HR>
   while (*p)
     {
       switch (*p++)
@@ -2659,6 +2707,7 @@ press (int player, const char *text, const char *author)
              "<HR><table><tr><th>%s</th></tr>\n<tr><td>%s</td></tr></table>\n",
              buffer, text);
 }
+*/
 
 int
 decode_starname (char *name, int current)

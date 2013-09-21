@@ -1440,7 +1440,8 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
         continue;
 
       // Added test for "none".
-      if ((location_types[type].instability_skill == sort) && !strcmp(location_types[type].name, "none" ))
+      // if ((location_types[type].instability_skill == sort) && !strcmp(location_types[type].name, "none" ))
+      if (location_types[type].instability_skill == sort)
         {
           switch(sort)
             {

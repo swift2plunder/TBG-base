@@ -1461,7 +1461,7 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
                          loc, location_types[type].name, loc);
               break;
             case weaponry:
-              if (effective_skill_level (player, weaponry) > 0)
+              //if (effective_skill_level (player, weaponry) > 0)
                  fprintf (fd, "<OPTION VALUE=U%d>Sabotage %s %d\n",
                           loc, location_types[type].name, loc);
               break;

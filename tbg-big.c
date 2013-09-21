@@ -1275,9 +1275,9 @@ show_gif_map (FILE * fd, struct PLAYER *player)
         fprintf (fd, "<TD COLSPAN=%d> </TD>\n", skipping);
       fprintf (fd, "</TR>\n");
     }
-  fprintf (fd, "</TABLE><HR>\n");
+  fprintf (fd, "</TABLE>\n");
   if (player->last_restart == turn)
-    fprintf (fd, "<p>Run Long Range Scan to populate starmap</p>");
+    fprintf (fd, "<p>Run Long Range Scan to populate starmap</p><hr>");
 }
 
 void

@@ -2642,6 +2642,9 @@ press (int player, const char *text, const char *author)
     sprintf (rumours[rumour],
              "<HR><iframe sandbox seamless srcdoc=\"<div class=\"press\"><div class=\"rumor\">%s</div>\n<div class=\"author\">%s</div></div>\"></iframe>\n",
              buf1, buf2); 
+  // Testing whether rumor is stored.
+  if (want_verbose)
+    printf ("%s\n", rumours[rumour]);
 }
 
 /*

@@ -2776,6 +2776,8 @@ disable (FILE * fd, struct PLAYER *player, int item)
 {
   if (! items[item].sort < pod)
     {
+      if (want_verbose)
+        printf ("%s is %d should be less than %d", item_string (items + item), items[item].sort, pod);
       fprintf (fd, "<P>Can't shut down %s.\n",
                item_string (items + item));
     }

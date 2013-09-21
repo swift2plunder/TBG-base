@@ -1770,7 +1770,7 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf (fd, "</TD></TR>\n");
   fprintf (fd, "</TABLE>\n");
   fprintf (fd, "<TABLE BORDER=1>\n");
-  fprintf (fd, "<TR><TH ALIGN=CENTER>Minor Options<div style=\"font-size:8pt;\"></div></TH></TR>\n");
+  fprintf (fd, "<TR><TH ALIGN=CENTER>Minor Options<div style=\"font-size:8pt;\">Hold control or command key to select multiple options.</div></TH></TR>\n");
   fprintf (fd, "<TR ALIGN=CENTER>\n");
   show_scrap_options (fd, player);
   fprintf (fd, "</TR><TR ALIGN=CENTER>\n");

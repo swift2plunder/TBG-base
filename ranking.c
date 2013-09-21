@@ -571,7 +571,7 @@ big_ranking (FILE * output, int index, char *title)
   int n_selected;
   FILE *fd;
   char buffer[256];
-  int rating_off = (index != -1) && (really_send);
+  int rating_off = ((index != -1) && (really_send));
 
   sprintf (buffer, "%s/ranks", desired_directory);
   fd = fopen (buffer, "w");
@@ -582,8 +582,8 @@ big_ranking (FILE * output, int index, char *title)
     }
   for (player = players + 1; player < players + MAX_PLAYER; player++)
     {
-      if (strcmp (player->address, "nobody@localhost") == 0
-          || ! player->account_number)
+      if ((strcmp (player->address, "nobody@localhost") == 0)
+          || (! player->account_number))
         continue;
       if (mothballed(player - players))
         continue;
@@ -615,11 +615,10 @@ big_ranking (FILE * output, int index, char *title)
         players[p].ranking = i;
       // EEM
 
-      /*
-      if (strcmp (players[p].address, "tbg-admin@asciiking.com") == 0)
-        //          || player->account_number == 0) */
+      if ((strcmp (players[p].address, "nobody@localhost") == 0)
+                 || player->account_number == 0) 
 
-      if (player->account_number == 0) //Alternative to above
+      //if (player->account_number == 0) //Alternative to above
         continue;
       if (n_selected++ >= 20)
         continue;

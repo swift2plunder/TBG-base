@@ -1984,7 +1984,7 @@ create_header (struct PLAYER *player)
       printf ("Can't create header file\n");
       exit (1);
     }
-  fprintf (fd, "<HTML><HEAD><TITLE>To Boldly Go, Turn %d</TITLE>\n", turn);
+  fprintf (fd, "<HTML><HEAD><TITLE>To Boldly Go - Starship %s, Turn %d</TITLE>\n", name_string (player->name), turn);
   html_header (fd, player->web_source);
   fprintf (fd, "<H1>To Boldly Go - Starship %s, Turn %d</H1>\n",
            name_string (player->name), turn);

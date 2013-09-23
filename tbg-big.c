@@ -4849,6 +4849,7 @@ jm_main ()
       init_game();
       parse_order ("X", 0);
       reset_npcs ();
+      open_times ();   // Times needs to be open for turn 0, too
     }
 
   write_results ();

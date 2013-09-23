@@ -7,7 +7,6 @@
 #include <gsl/gsl_randist.h>
 gsl_rng *random_generator;
 
-
 void
 init_rng()
 {

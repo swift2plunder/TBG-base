@@ -4853,7 +4853,7 @@ jm_main ()
 
   write_results ();
   consolidate_votes ();
-  open_times ();
+  //open_times ();   // Times is already open.
   show_candidates ();
   fprintf (times, "<HR>\n");
   big_ranking (times, -1, "Top Twenty");        // seems to cause memory violation, but do does Kipper block

@@ -48,8 +48,8 @@ mothballed (int p)
 void
 print_rules_link (FILE *fd, const char *link, const char *text)
 {
-  fprintf(fd,"<A HREF=\"http://%s/Rules.html#%s\">", server, link);
-  fprintf(fd,"%s</A>", text);
+  fprintf(fd,"<a href=\"http://%s/Rules.html#%s\">", server, link);
+  fprintf(fd,"%s</a>", text);
 }
 
 /* maps full range of module types down to generic 0-9 */

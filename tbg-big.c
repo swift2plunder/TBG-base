@@ -3512,7 +3512,32 @@ show_experience (FILE * fd, struct PLAYER *player)
   fprintf (fd, "<H2>");
   print_rules_link(fd, "Adventures", "Adventures");
   fprintf (fd, " Known at:</H2>\n");
+
+  // New adventure table header
+  fprintf (fd, "<table class=\"adventures\">\n<thead>\n");
+  fprintf (fd, "<tr>\n<th>Skill</th><th>Level</th><th>Type</th>");
+  fprintf (fd, "<th>Location</th><th>System</th>\n</tr>\n");
+  fprintf (fd, "</thead>\n<tbody>\n");
+
+  // New adventure table body
   for (ad = 0; ad < MAX_ADVENTURE; ad++)
+    if (get_ad (player, ad))
+      {
+        parameter = adventures[ad].parameter;
+        fprintf (fd, "<tr><td><span class=\"hidden\">%d</span>%s</td><td>%d</td><td>%s</td><td>%s-%d</td><td>%s</td></tr>",
+          ADVENTURE_SKILL (parameter),
+          skill_names[ADVENTURE_SKILL (parameter)],
+          ADVENTURE_LEVEL (parameter),
+          ad_types[ADVENTURE_TYPE (parameter)].ad_name,
+          loc_string (adventures[ad].loc),
+          adventures[ad].loc,
+          star_names[adventures[ad].star]);
+      }
+  // New adventure table footer
+  fprintf (fd, "</tbody>\n</table>");
+
+
+/*for (ad = 0; ad < MAX_ADVENTURE; ad++)
     if (get_ad (player, ad))
       {
         parameter = adventures[ad].parameter;
@@ -3523,7 +3548,7 @@ show_experience (FILE * fd, struct PLAYER *player)
                  loc_string (adventures[ad].loc),
                  adventures[ad].loc,
                  star_names[adventures[ad].star]);
-      }
+      }   */
 
   fprintf (fd, "<H2>");
   print_rules_link(fd, "Terminals", "Terminals");

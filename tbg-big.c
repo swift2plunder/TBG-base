@@ -2629,7 +2629,7 @@ press (int player, const char *text, const char *author)
   while (rumours[rumour]);
 
   if (player)
-    sprintf (buf2, "<a href=\"http://%s/cgi-bin/mail.crm?id=%d\">%s</a>",
+    sprintf (buf2, "<a href=&quot;http://%s/cgi-bin/mail.crm?id=%d&quot;>%s</a>",
              server, player, author);
   else
     strcpy (buf2, author);
@@ -2640,7 +2640,7 @@ press (int player, const char *text, const char *author)
     sprintf (rumours[rumour], "%s", buf1);
   else
     sprintf (rumours[rumour],
-             "<HR><iframe sandbox seamless srcdoc=\"<div class=\"press\"><div class=\"rumor\">%s</div>\n<div class=\"author\">%s</div></div>\"></iframe>\n",
+             "<HR><iframe sandbox seamless srcdoc=\"<div class=&quot;press&quot;><div class=&quot;rumor&quot;>%s</div>\n<div class=&quot;author&quot;>%s</div></div>\"></iframe>\n",
              buf1, buf2); 
   // Testing whether rumor is stored.
   if (want_verbose)

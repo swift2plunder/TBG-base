@@ -2121,6 +2121,8 @@ init_new_player (struct PLAYER *player, int sort)
   for (try = 0; try < 32; try++)
     {
       player->star = homeworlds[dice (25)];
+      if (player->star >= 0 && player->star < MAX_STAR)
+        set_bit(player->stars, player->star);
       ok = TRUE;
       for (other = 0; other < MAX_PLAYER; other++)
         if (other != (player - players) &&

@@ -4192,8 +4192,8 @@ close_times ()
           new_ranking (rumours[rumour] + 1);
         else
           fprintf (times,"%s\n", rumours[rumour]);
+          generate_times (dice (5));
       }
-  generate_times (dice (5));
 
   do_rankings (times);
 

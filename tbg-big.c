@@ -1787,15 +1787,15 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf (fd,
            "<br>(No HTML allowed. Images can be accessed as a special case, but only from the %s server's <a href=\"http://%s/images\">images</a> directory, uploaded via your w++ account page. To set one of these images as your banner, use the hash character and its filename, eg #deathstar.gif)\n",
            server, server);
-  fprintf (fd, "<H2>Press/Rumours for next issue of ");
-  fprintf (fd, "<A HREF=\"http://%s/times.html\">Subspace Times</A></H2>\n",
+  fprintf (fd, "<h2>Press/Rumours for next issue of ");
+  fprintf (fd, "<a href=\"http://%s/times.html\">Subspace Times</A></h2>\n",
            server);
-  fprintf (fd, "<INPUT TYPE=TEXT SIZE=70 NAME=\"p\"><BR>Signed %s<BR>\n",
+  fprintf (fd, "<textarea rows=\"5\" cols=\"70\" name=\"p\"></textarea><br>Signed %s<br>\n",
            player->address);
-  fprintf (fd, "<INPUT TYPE=TEXT SIZE=70 NAME=\"q\"><BR>Signed %s<BR>\n",
+  fprintf (fd, "<textarea rows=\"5\" cols=\"70\" name=\"q\"></textarea><br>Signed %s<br>\n",
            name_string (player->name));
   fprintf (fd,
-           "<INPUT TYPE=TEXT SIZE=70 NAME=\"o\"><BR>Signed Anonymous<BR>\n");
+           "<textarea rows=\"5\" cols=\"70\" name=\"o\"></textarea><br>Signed Anonymous<br>\n");
 
   fprintf (fd, "<HR>\n");
   fprintf (fd,

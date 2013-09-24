@@ -1647,11 +1647,9 @@ show_scrap_options (FILE * fd, struct PLAYER *player)
 
   while (item != items)
     {
-      /* Populating the list of items that can be shut down.
-         We want to remove Demo Mods from this list.
-         If we're wrong then *only* demo mods will be listed. - cb */
-      //if (item->sort < pod && !(item->flags & ITEM_BROKEN) )
-      if (item->sort < pod && !(item->flags & ITEM_BROKEN) && !(item->flags & ITEM_DEMO))
+      // Putting demos back on the shut down list
+      if (item->sort < pod && !(item->flags & ITEM_BROKEN) )
+      // if (item->sort < pod && !(item->flags & ITEM_BROKEN) && !(item->flags & ITEM_DEMO))
         fprintf (fd, "<OPTION VALUE=%d>Shut down %s\n",
                  item - items, item_string (item));
       item = items + item->link;

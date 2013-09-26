@@ -3024,8 +3024,10 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
           player->energy -= goods[GOOD_NUMBER (parameter)].basic_value;
         }
       if (amount > 0)
+        {
         fprintf (fd, "<p><em>Failed to buy from factory><br>\n");
         fprintf (fd, "Check your pod space and available energy</em></p>\n");
+        }
       break;
     case homeworld:
       amount =

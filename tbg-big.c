@@ -2601,6 +2601,7 @@ new_ranking (char *p)
     }
 }
 
+/*
 void
 press (int player, const char *text, const char *author)
 {
@@ -2650,8 +2651,9 @@ press (int player, const char *text, const char *author)
   if (want_verbose)
     printf ("%s\n", rumours[rumour]);
 }
+*/
 
-/*
+
 void
 press (int player, const char *text, const char *author)
 {
@@ -2715,7 +2717,6 @@ press (int player, const char *text, const char *author)
              "<HR><table><tr><th>%s</th></tr>\n<tr><td>%s</td></tr></table>\n",
              buffer, text);
 }
-*/
 
 int
 decode_starname (char *name, int current)

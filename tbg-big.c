@@ -4017,31 +4017,31 @@ merge_results ()
           if (one_email)
             {
               snprintf (buffer, 2000,
-                       "HOME=$TBG; mail -s \"TBG Turn %d & News\" -a $TBG/results/%d/%s%d.html -a $TBG/results/%d/times%d.html %s < $TBG/secrets/%d/%s",
+                       "HOME=$TBG; mail -s \"TBG Turn %d & News\" -a $TBG/results/%d/%s%d.html -a $TBG/results/%d/times%d.html %s < %s/secrets/%d/%s",
                        turn, 
                        game, players[player].name, turn, 
                        game,  turn,
                        players[player].address,
-                       game, players[player].name);
+                       desired_directory, game, players[player].name);
               printf ("running: %s\n", buffer);
               SYSTEM (buffer);
             }
           else
             {
               snprintf (buffer, 2000,
-                       "HOME=$TBG; mail -s \"TBG Turn %d\" -a $TBG/results/%d/%s%d.html %s < $TBG/secrets/%d/%s",
-                       turn, 
+                       "HOME=$TBG; mail -s \"TBG Turn %d\" -a %s/results/%d/%s%d.html %s < %s/secrets/%d/%s",
+                       turn, webroot, 
                        game, players[player].name, turn,
                        players[player].address,
-                       game, players[player].name);
+                       desired_directory, game, players[player].name);
               printf ("running: %s\n", buffer);
               SYSTEM (buffer);
               snprintf (buffer, 2000,
-                       "HOME=$TBG; mail -s \"Subspace News %d\" -a $TBG/results/%d/times%d.html %s < $TBG/secrets/%d/%s",
-                       turn, 
+                       "HOME=$TBG; mail -s \"Subspace News %d\" -a %s/results/%d/times%d.html %s < %s/secrets/%d/%s",
+                       turn, webroot,
                        game, turn,
                        players[player].address,
-                       game, players[player].name);
+                       desired_directory, game, players[player].name);
               sleep (2);
               printf ("running: %s\n", buffer);
               SYSTEM (buffer);

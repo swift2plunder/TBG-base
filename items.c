@@ -523,6 +523,73 @@ generate_ship (struct PLAYER *ship, int tech, int extras, int demo)
 }
 
 int
+weighted_tech ()
+{
+  int rand_int;
+
+  rand_int = dice (10) + 1;
+  switch (rand_int)
+    {
+    case 1:
+    case 2:
+    case 3:
+      return (1);
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+      return (2);
+    case 8:
+    case 9:
+      return (3);
+    case 10:
+      return (4);
+    default:
+      return (1);
+    }
+}
+
+void
+generate_shop (struct PLAYER *ship)
+{
+  item_sort sort;
+  int new, extras;
+
+  new = new_item (warp_drive, weighted_tech(), 60 + dice(36), 2, FALSE);
+  if (new < 0)
+    {
+      ship->ship = 0;
+      return;
+    }
+  ship->ship = new;
+  for (sort = warp_drive; sort <= shield; sort++)
+    {
+      ship->ship = add_item (ship, new_item (sort, weighted_tech(), 60 + dice(36), 2, FALSE));
+    }
+  ship->ship = add_item (ship, new_item (pod, weighted_tech(), 95, 2, FALSE));
+  if (!dice(2))
+    ship->ship = add_item (ship, new_item (life_support, weighted_tech(), 60 + dice(36), 2, FALSE));
+  else
+    ship->ship = add_item (ship, new_item (sensor, weighted_tech(), 60 + dice(36), 2, FALSE));
+  extras = dice(6) + 1;
+  while (extras--)
+    {
+      // include pods as a possible extra in the non-weapon category
+      sort = dice(8);
+      if (sort <= shield)
+        ship->ship = add_item (ship, new_item (sort, weighted_tech(), 60 + dice(36), 2, FALSE));
+      else
+        ship->ship = add_item (ship, new_item (pod, weighted_tech(), 95, 2, FALSE));
+    }
+  extras = dice(6) + 1;
+  while (extras--)
+    {
+      ship->ship =
+        add_item (ship, new_item (ram + dice (7), weighted_tech(), 60 + dice(36), 2, FALSE));
+    }
+}
+
+int
 is_weapon (item_sort sort)
 {
   return (sort >= ram && sort <= fighter);

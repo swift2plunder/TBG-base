@@ -19,6 +19,7 @@ const char * item_string (struct ITEM *item);
 int transfer_item (int item, struct PLAYER *new_owner);
 void transmute_items (struct PLAYER *ship, item_sort from, item_sort to);
 void generate_ship (struct PLAYER *ship, int tech, int extras, int demo);
+void generate_shop (struct PLAYER *ship);
 int is_weapon (item_sort sort);
 int mass (struct PLAYER *player);
 int owner (struct PLAYER *player, int item);

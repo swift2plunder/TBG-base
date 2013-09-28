@@ -1802,7 +1802,6 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf (fd, "<HR>\n");
   fprintf (fd,
            "<H2>Links to Useful Resources - Don't Die of Ignorance!</H2>\n");
-  fprintf (fd, "</CENTER>\n");
   fprintf (fd,
            "<LI>The <A HREF=\"http://%s/Rules.html\"><EM>RULES</EM></A>: if you want to do well, read early and often\n",
            server);
@@ -1829,7 +1828,7 @@ show_orders (FILE *fd, struct PLAYER *player)
            "<LI>Here are just the <a href=\"http://%s/news/rank.cgi?%s\">ranking lists</a> which contain your ship\n",
            server, url_shipname (player->name));
   fprintf (fd,
-           "<CENTER><P><HR><H2>Administrative Section (Not needed in normal turns)</H2>\n");
+           "<P><HR><H2>Administrative Section (Not needed in normal turns)</H2>\n");
   if (player->x_from[0])
     fprintf (fd, "Your orders this turn came from %s.\n", player->x_from);
   fprintf (fd, "<H2>Preferences</H2>\n");
@@ -1968,7 +1967,7 @@ show_player (FILE * fd, struct PLAYER *player)
            "<hr><a href=\"http://%s\"><img src=\"http://%s/counter.gif\"></a>\n",
            server, server);
 
-  fprintf (fd, "</CENTER></BODY></HTML>\n");
+  fprintf (fd, "</BODY></HTML>\n");
 }
 
 
@@ -4045,7 +4044,7 @@ open_times ()
   fprintf (times, "</HEAD>\n");
   fprintf (times,
            "<BODY BGCOLOR=\"black\" TEXT=\"yellow\" LINK=\"White\" VLINK=\"green\">\n");
-  fprintf (times, "<CENTER><H1>Subspace Times</H1>\n");
+  fprintf (times, "<H1>Subspace Times</H1>\n");
   timer = (timer + 386380800) / 86400;
   fprintf (times, "<H1>Issue %d - Stardate %ld.%ld</H1>\n",
            turn, timer / 10, timer % 10);
@@ -4186,7 +4185,7 @@ close_times ()
            "<hr><a href=\"http://%s\"><img src=\"http://%s/counter.gif\"></a>\n",
            server, server);
 
-  fprintf (times, "</CENTER></BODY></HTML>\n");
+  fprintf (times, "</BODY></HTML>\n");
   fclose (times);
 }
 
@@ -4592,10 +4591,10 @@ make_ship_files ()
       fprintf (fd, "<HTML><HEAD><TITLE>%s, Turn %d</TITLE></HEAD>\n",
                name_string (players[p].name), turn);
       fprintf (fd,
-               "<BODY TEXT=\"yellow\" BGCOLOR=\"black\" LINK=\"white\" VLINK=\"cyan\"><CENTER>\n");
+               "<BODY TEXT=\"yellow\" BGCOLOR=\"black\" LINK=\"white\" VLINK=\"cyan\">\n");
       show_ship (fd, players + p);
       show_factors (fd, players + p);
-      fprintf (fd, "</CENTER></BODY></HTML>\n");
+      fprintf (fd, "</BODY></HTML>\n");
       fclose (fd);
     }
 }

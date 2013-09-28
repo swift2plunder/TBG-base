@@ -127,9 +127,13 @@ standardise_name (char *name, char *buffer)
 void
 html_header (FILE * fd, char *web_source)
 {
-  fprintf (fd, "<BASE HREF=\"%s\"></HEAD>\n", web_source);
-  fprintf (fd,
-           "<BODY TEXT=\"Yellow\" BACKGROUND=\"%sstars.gif\" BGCOLOR=\"Black\" LINK=\"White\" VLINK=\"Cyan\"><CENTER>\n",
-           web_source);
+  fprintf (fd, "<BASE HREF=\"%s\">\n", web_source);
+  fprintf (fd, "<link rel=\"shortcut icon\" href=\"/favicon.ico\">");
+  fprintf (fd, "<link type=\"text/css\" rel=\"stylesheet\" href=\"/includes/tbg.css\">");
+  fprintf (fd, "<script type=\"text/javascript\" src=\"/includes/jquery-1.8.0.min.js\"></script>");
+  fprintf (fd, "<script type=\"text/javascript\" src=\"/includes/jquery.tablesorter.min.js\"></script>");
+  fprintf (fd, "<script language=JavaScript>");
+  fprintf (fd, "$(document).ready(function()\n{\n$(\".adventures\").tablesorter();\n}\n);");
+  fprintf (fd, "</script>\n</HEAD>\n<BODY>\n");
 }
 

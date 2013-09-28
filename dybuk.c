@@ -1170,7 +1170,7 @@ destabilize (FILE *fd, struct PLAYER *player, int loc)
                    : ", killing many, but many are still living.");
           break;
         }
-      fprintf (fd, " and collects %d popcorn in the process.\n", pop);
+      fprintf (fd, " and you collect %d popcorn in the process.\n", pop);
       player->popcorn += pop;
     }
   else

@@ -616,7 +616,7 @@ big_ranking (FILE * output, int index, char *title)
       // EEM
 
       if ((strcmp (players[p].address, "nobody@localhost") == 0)
-                 || player->account_number == 0) 
+                 || (player->account_number == 0)) 
 
       //if (player->account_number == 0) //Alternative to above
         continue;

@@ -3944,41 +3944,57 @@ merge_results ()
           int url_only = players[player].preferences & 128;
           int one_email = players[player].preferences & 1;
           
-          snprintf (buffer, 2000,
-                   "mail -s \"TBG Turn %d Ready\" %s < %s/secrets/%d/%s ",
-                   turn, players[player].address, desired_directory, game, players[player].name);
+//          snprintf (buffer, 2000,
+//                   "mail -s \"TBG Turn %d Ready\" %s < %s/secrets/%d/%s ",
+//                   turn, players[player].address, desired_directory, game, 
+//                   players[player].name);
+
+          snprintf (buffer, 2000, "%s/bin/smail.crm %s \"TBG Turn %d Ready\" %s",
+                   gameroot, players[player].name, turn, players[player].address);
+
           SYSTEM (buffer);
           if (url_only)
             continue;
           if (one_email)
             {
-              snprintf (buffer, 2000,
+/*              snprintf (buffer, 2000,
                        "HOME=$TBG; mail -s \"TBG Turn %d & News\" -a $TBG/results/%d/%s%d.html -a $TBG/results/%d/times%d.html %s < %s/secrets/%d/%s",
                        turn, 
                        game, players[player].name, turn, 
                        game,  turn,
                        players[player].address,
                        desired_directory, game, players[player].name);
+*/
+          snprintf (buffer, 2000, "%s/bin/smail.crm %s \"TBG Turn %d & News\" %s",
+                   gameroot, players[player].name, turn, players[player].address); 
+
               printf ("running: %s\n", buffer);
               SYSTEM (buffer);
             }
           else
             {
-              snprintf (buffer, 2000,
+/*              snprintf (buffer, 2000,
                        "HOME=$TBG; mail -s \"TBG Turn %d\" -a %s/results/%d/%s%d.html %s < %s/secrets/%d/%s",
                        turn, webroot, 
                        game, players[player].name, turn,
                        players[player].address,
                        desired_directory, game, players[player].name);
+*/
+          snprintf (buffer, 2000, "%s/bin/smail.crm %s \"TBG Turn %d\" %s",
+                   gameroot, players[player].name, turn, players[player].address); 
               printf ("running: %s\n", buffer);
               SYSTEM (buffer);
-              snprintf (buffer, 2000,
+/*              snprintf (buffer, 2000,
                        "HOME=$TBG; mail -s \"Subspace News %d\" -a %s/results/%d/times%d.html %s < %s/secrets/%d/%s",
                        turn, webroot,
                        game, turn,
                        players[player].address,
                        desired_directory, game, players[player].name);
               sleep (2);
+*/
+          snprintf (buffer, 2000, "%s/bin/smail.crm %s \"Subspace News %d\" %s",
+                   gameroot, players[player].name, turn, players[player].address);
+
               printf ("running: %s\n", buffer);
               SYSTEM (buffer);
             }

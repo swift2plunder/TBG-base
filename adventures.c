@@ -235,14 +235,18 @@ init_adventures ()
 void
 find_adventure (FILE * fd, struct PLAYER *player)
 {
-  int ad;
+  int ad, i;
 
+  i = 0;
   do
     {
       ad = dice (MAX_ADVENTURE);
+      if (i++ > 1000)
+        break;
     }
-  while (ADVENTURE_LEVEL (ad) >
-         skill_level (player->skills[ADVENTURE_SKILL (ad)]));
+  while ((ADVENTURE_LEVEL (ad) >
+         skill_level (player->skills[ADVENTURE_SKILL (ad)]))
+         || get_ad (player, ad));
   set_ad (player, ad);
   fprintf (fd, "<P>The Wise One reveals an adventure at %s:<br>\n",
            star_names[adventures[ad].star]);

@@ -2332,7 +2332,14 @@ reset_shops ()
             {
               if (item->price > 25 * (1 << item->efficiency))
                 {
-                  item->price -= 1 << item->efficiency;
+                  switch (dice (2))
+                    {
+                    case 1:
+                      item->price -= 1 << item->efficiency;
+                      break;
+                    default:
+                      break;
+                    }
                 }
               else
                 {

@@ -4045,15 +4045,19 @@ open_times ()
       printf ("Can't open times (%s)\n", buffer);
       exit (1);
     }
-  fprintf (times, "<HTML><HEAD><TITLE>Subspace Times</TITLE>\n");
+  fprintf (times, "<html><head><title>Subspace Times</title>\n");
+  fprintf (times, "<link rel=\"shortcut icon\" href=\"/favicon.ico\">\n");
+  fprintf (times, "<link type=\"text/css\" rel=\"stylesheet\" href=\"http://%s/includes/tbg.css\">\n", server);
+  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery-1.8.0.min.js\"></script>\n", server);
+  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery.tablesorter.min.js\"></script>\n", server);
+  //fprintf (times, "<script language=JavaScript>$(document).ready(function(){$(\".adventures\").tablesorter();});</script>\n");
   timer = time (NULL);
   stardate = localtime (&timer);
-  fprintf (times, "</HEAD>\n");
-  fprintf (times,
-           "<BODY BGCOLOR=\"black\" TEXT=\"yellow\" LINK=\"White\" VLINK=\"green\">\n");
-  fprintf (times, "<H1>Subspace Times</H1>\n");
+  fprintf (times, "</head>\n");
+  fprintf (times, "<body>\n");
+  fprintf (times, "<h1>Subspace Times</h1>\n");
   timer = (timer + 386380800) / 86400;
-  fprintf (times, "<H1>Issue %d - Stardate %ld.%ld</H1>\n",
+  fprintf (times, "<h1>Issue %d - Stardate %ld.%ld</h1>\n",
            turn, timer / 10, timer % 10);
   sprintf (buffer, "%s/edit%d", desired_directory, turn);
   fd = fopen (buffer, "r");
@@ -4192,7 +4196,7 @@ close_times ()
            "<hr><a href=\"http://%s\"><img src=\"http://%s/counter.gif\"></a>\n",
            server, server);
 
-  fprintf (times, "</BODY></HTML>\n");
+  fprintf (times, "</body></html>\n");
   fclose (times);
 }
 

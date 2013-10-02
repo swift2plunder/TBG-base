@@ -50,32 +50,24 @@ goto /:egress:/
 {
 # TBG Turn ### Ready
 match [:subject:] (:: :turn:) /^TBG Turn ([[:digit:]]+) Ready$/
-input (:body:) [\/home\/tbg\/work\/tbg\/secrets\/1\/:*:ship_name:]
-isolate (:payload:) /:*:main_headers:\n:*:body:/
+input (:secret:) [\/home\/tbg\/work\/tbg\/secrets\/1\/:*:ship_name:]
+isolate (:payload:) /:*:main_headers:\n:*:secret:/
 }
 
 {
 # TBG Turn ###
 match [:subject:] (:: :turn:) /^TBG Turn ([[:digit:]]+)$/
 
-isolate (:inner: :outer:) //
-syscall (::) (:inner:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
-syscall (::) (:outer:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
-isolate (:inner:) /[[:alnum:]]+/
-isolate (:outer:) /[[:alnum:]]+/
-
-input (:secret:) [\/home\/tbg\/work\/tbg\/secrets\/1\/:*:ship_name:]
 input (:results:) [\/home\/tbg\/work\/WWW\/results\/1\/:*:ship_name::*:turn:.html]
-input (:times:) [\/home\/tbg\/work\/WWW\/results\/1\/times:*:turn:.html]
+isolate (:text_results:) //
+syscall (:*:results:) (:text_results:) /\/usr\/\local\/bin\/lynx -dump -stdin -nolist -nomargins -notitle/
 
-isolate (:body:) /Content-Type: multipart\/mixed; boundary=:*:outer:\n\n\
+isolate (:body:) /Content-Type: multipart\/alternative; boundary=:*:outer:\n\n\
 --:*:outer:\n\
 Content-Type: text\/plain\n\
-Content-Disposition: inline\n\n\
-:*:secret:\n\n\
+:*:text_results:\n\n\
 --:*:outer:\n\
-Content-Type: text\/html\n\
-Content-Disposition: attachment; filename=:*:ship_name::*:turn:.html\n\n\
+Content-Type: text\/html\n\n\
 :*:results:\n\n\
 --:*:outer:--\n/
 
@@ -86,24 +78,16 @@ isolate (:payload:) /:*:main_headers::*:body:/
 # Subspace News ###
 match [:subject:] (:: :turn:) /^Subspace News ([[:digit:]]+)$/
 
-isolate (:inner: :outer:) //
-syscall (::) (:inner:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
-syscall (::) (:outer:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
-isolate (:inner:) /[[:alnum:]]+/
-isolate (:outer:) /[[:alnum:]]+/
-
-input (:secret:) [\/home\/tbg\/work\/tbg\/secrets\/1\/:*:ship_name:]
-input (:results:) [\/home\/tbg\/work\/WWW\/results\/1\/:*:ship_name::*:turn:.html]
+isolate (:text_times:) //
 input (:times:) [\/home\/tbg\/work\/WWW\/results\/1\/times:*:turn:.html]
+syscall (:*:times:) (:text_times:) /\/usr\/\local\/bin\/lynx -dump -stdin -nolist -nomargins -notitle/
 
-isolate (:body:) /Content-Type: multipart\/mixed; boundary=:*:outer:\n\n\
+isolate (:body:) /Content-Type: multipart\/alternative; boundary=:*:outer:\n\n\
 --:*:outer:\n\
-Content-Type: text\/plain\n\
-Content-Disposition: inline\n\n\
-:*:secret:\n\n\
+Content-Type: text\/plain\n\n\
+:*:text_times:\n\n\
 --:*:outer:\n\
-Content-Type: text\/html\n\
-Content-Disposition: attachment; filename=times:*:turn:.html\n\n\
+Content-Type: text\/html\n\n\
 :*:times:\n\n\
 --:*:outer:--\n/
 
@@ -114,25 +98,24 @@ isolate (:payload:) /:*:main_headers::*:body:/
 # TBG Turn ### & News
 match [:subject:] (:: :turn:) /^TBG Turn ([[:digit:]]+) & News$/
 
-isolate (:inner: :outer:) //
-syscall (::) (:inner:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
-syscall (::) (:outer:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
-isolate (:inner:) /[[:alnum:]]+/
-isolate (:outer:) /[[:alnum:]]+/
-
-input (:secret:) [\/home\/tbg\/work\/tbg\/secrets\/1\/:*:ship_name:]
+isolate (:text_results:) //
 input (:results:) [\/home\/tbg\/work\/WWW\/results\/1\/:*:ship_name::*:turn:.html]
+syscall (:*:results:) (:text_results:) /\/usr\/\local\/bin\/lynx -dump -stdin -nolist -nomargins -notitle/
+
+isolate (:text_times:) //
 input (:times:) [\/home\/tbg\/work\/WWW\/results\/1\/times:*:turn:.html]
+syscall (:*:times:) (:text_times:) /\/usr\/\local\/bin\/lynx -dump -stdin -nolist -nomargins -notitle/
 
 isolate (:body:) /Content-Type: multipart\/mixed; boundary=:*:outer:\n\n\
 --:*:outer:\n\
-Content-Type: text\/plain\n\
-Content-Disposition: inline\n\n\
-:*:secret:\n\n\
---:*:outer:\n\
-Content-Type: text\/html\n\
-Content-Disposition: attachment; filename=:*:ship_name::*:turn:.html\n\n\
+Content-Type: multipart\/alternative; boundary=:*:inner:\n\n\
+--:*:inner:\n\
+Content-Type: text\/plain\n\n\
+:*:text_results:\n\n\
+--:*:inner:\n\
+Content-Type: text\/html\n\n\
 :*:results:\n\n\
+--:*:inner:--\n\
 --:*:outer:\n\
 Content-Type: text\/html\n\
 Content-Disposition: attachment; filename=times:*:turn:.html\n\n\
@@ -193,7 +176,7 @@ match [:recv:] /^250/
 isolate (:send:) /QUIT\n/
 syscall (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
 match [:recv:] /^221/
-output /Sent via SMTP\n/
+# output /Sent via SMTP\n/
 return
 }
 

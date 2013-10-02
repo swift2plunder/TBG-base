@@ -1,0 +1,201 @@
+#!/usr/bin/crm
+# smail.crm - mail replacement for TBG built by Chris Babcock
+# Takes parameters:
+# :_pos2: Ship_Name
+# :_pos3: Subject
+# :_pos4: Email of destination
+#/ 
+
+window
+
+isolate (:ship_name:) /:*:_pos2:/
+isolate (:subject:)   /:*:_pos3:/
+isolate (:address:)   /:*:_pos4:/
+
+{
+# Check the list of banned addresses.
+}
+
+isolate (:main_headers:) /From: TBG Mail <tbg@asciiking.com>\n\
+To: ":*:ship_name:" <:*:address:>\n\
+Reply-to: TBG Moderator <tbg-moderator@asciiking.com>\n\
+Subject: :*:subject:\n\
+Organization: ASCII King Games\n\
+X-CAN-SPAM: This message may contain a solicitation or advertisement within the specific\n\
+ meaning of the CAN-SPAM Act of 2003. You can decline to receive further email messages \n\
+ from this game server by following the instructions in this email.\n\
+ My physical address is: 5335 N 19th Ave #803, Phoenix, AZ 85015\n\
+X-Recipient: :*:address:\n\
+X-Mailer: Script shell by C. Babcock.\n\
+MIME-Version: 1.0\n/
+
+#input (:tbg_msg:) [tbg.msg]
+#input (:tbg_footer:) [tbg.footer]
+
+{
+isolate (:fortune:) //
+syscall (::) (:fortune:) /fortune taow/
+trap //
+}
+
+#eval (:tbg_msg:) /:*:tbg_msg:/
+#eval (:tbg_footer:) /:*:tbg_footer:/
+
+{
+# Do not send mail to nobody.
+match [:_pos4:] /^nobody@/
+goto /:egress:/
+}
+
+{
+# TBG Turn ### Ready
+match [:subject:] (:: :turn:) /^TBG Turn ([[:digit:]]+) Ready$/
+input (:body:) [\/home\/tbg\/work\/tbg\/secrets\/1\/:*:ship_name:]
+isolate (:payload:) /:*:main_headers:\n:*:body:/
+}
+
+{
+# TBG Turn ###
+match [:subject:] (:: :turn:) /^TBG Turn ([[:digit:]]+)$/
+
+isolate (:inner: :outer:) //
+syscall (::) (:inner:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
+syscall (::) (:outer:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
+isolate (:inner:) /[[:alnum:]]+/
+isolate (:outer:) /[[:alnum:]]+/
+
+input (:secret:) [\/home\/tbg\/work\/tbg\/secrets\/1\/:*:ship_name:]
+input (:results:) [\/home\/tbg\/work\/WWW\/results\/1\/:*:ship_name::*:turn:.html]
+input (:times:) [\/home\/tbg\/work\/WWW\/results\/1\/times:*:turn:.html]
+
+isolate (:body:) /Content-Type: multipart\/mixed; boundary=:*:outer:\n\n\
+--:*:outer:\n\
+Content-Type: text\/plain\n\
+Content-Disposition: inline\n\n\
+:*:secret:\n\n\
+--:*:outer:\n\
+Content-Type: text\/html\n\
+Content-Disposition: attachment; filename=:*:ship_name::*:turn:.html\n\n\
+:*:results:\n\n\
+--:*:outer:--\n/
+
+isolate (:payload:) /:*:main_headers::*:body:/
+}
+
+{
+# Subspace News ###
+match [:subject:] (:: :turn:) /^Subspace News ([[:digit:]]+)$/
+
+isolate (:inner: :outer:) //
+syscall (::) (:inner:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
+syscall (::) (:outer:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
+isolate (:inner:) /[[:alnum:]]+/
+isolate (:outer:) /[[:alnum:]]+/
+
+input (:secret:) [\/home\/tbg\/work\/tbg\/secrets\/1\/:*:ship_name:]
+input (:results:) [\/home\/tbg\/work\/WWW\/results\/1\/:*:ship_name::*:turn:.html]
+input (:times:) [\/home\/tbg\/work\/WWW\/results\/1\/times:*:turn:.html]
+
+isolate (:body:) /Content-Type: multipart\/mixed; boundary=:*:outer:\n\n\
+--:*:outer:\n\
+Content-Type: text\/plain\n\
+Content-Disposition: inline\n\n\
+:*:secret:\n\n\
+--:*:outer:\n\
+Content-Type: text\/html\n\
+Content-Disposition: attachment; filename=times:*:turn:.html\n\n\
+:*:times:\n\n\
+--:*:outer:--\n/
+
+isolate (:payload:) /:*:main_headers::*:body:/
+}
+
+{
+# TBG Turn ### & News
+match [:subject:] (:: :turn:) /^TBG Turn ([[:digit:]]+) & News$/
+
+isolate (:inner: :outer:) //
+syscall (::) (:inner:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
+syscall (::) (:outer:) /date +%s | sha256sum | base64 | head -c 32 ; echo/
+isolate (:inner:) /[[:alnum:]]+/
+isolate (:outer:) /[[:alnum:]]+/
+
+input (:secret:) [\/home\/tbg\/work\/tbg\/secrets\/1\/:*:ship_name:]
+input (:results:) [\/home\/tbg\/work\/WWW\/results\/1\/:*:ship_name::*:turn:.html]
+input (:times:) [\/home\/tbg\/work\/WWW\/results\/1\/times:*:turn:.html]
+
+isolate (:body:) /Content-Type: multipart\/mixed; boundary=:*:outer:\n\n\
+--:*:outer:\n\
+Content-Type: text\/plain\n\
+Content-Disposition: inline\n\n\
+:*:secret:\n\n\
+--:*:outer:\n\
+Content-Type: text\/html\n\
+Content-Disposition: attachment; filename=:*:ship_name::*:turn:.html\n\n\
+:*:results:\n\n\
+--:*:outer:\n\
+Content-Type: text\/html\n\
+Content-Disposition: attachment; filename=times:*:turn:.html\n\n\
+:*:times:\n\n\
+--:*:outer:--\n/
+
+isolate (:payload:) /:*:main_headers::*:body:/
+}
+
+
+# Send SMTP messages
+call /:smtp:/ [:*:payload:]
+
+:egress:
+
+exit
+
+
+:shorten: (:longUrl:)
+isolate (:tmp:) //
+syscall (::) (:tmp:) /curl -sfm 10 http:\/\/api.bit.ly\/shorten?login=swift2plunder\&apiKey=R_0a0ed7bf3cf5e199ffd7ddddad80724d\&version=2.0.1\&longUrl=:*:longUrl:/
+{
+match [:tmp:] (:: :shortUrl:) /"errorCode": 0.+"shortUrl": "([[:graph:]]+?)".+"statusCode": "OK"/
+return /:*:shortUrl:/
+}
+return //
+exit
+
+
+:smtp: (:smtp_data:)
+{
+# Don't let users accidentally truncate their mail with a "." escape.
+match <nomultiline fromend> [:smtp_data:] (:: :dot:) /^(\.)+[[:space:]]*/
+alter (:dot:) /../
+liaf
+}
+{
+isolate (:send:) //
+isolate (:recv:) //
+isolate (:status:) //
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^220/
+isolate (:send:) /HELO localhost\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^250/
+isolate (:send:) /MAIL FROM: tbg@asciiking.com\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^250/
+isolate (:send:) /RCPT TO: :*:_pos4:\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^250/
+isolate (:send:) /DATA\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^354/
+isolate (:send:) /:*:smtp_data:\n.\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^250/
+isolate (:send:) /QUIT\n/
+syscall (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^221/
+output /Sent via SMTP\n/
+return
+}
+
+syscall (:*:smtp_data:) <async> /\/usr\/sbin\/sendmail -ctr tbg-moderator@asciiking.com /
+return

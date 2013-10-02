@@ -1,0 +1,116 @@
+#!/usr/bin/crm
+# remind.crm - remind replacement for TBG built by Chris Babcock
+# This script requires the players file piped to stdin.
+#/ 
+
+window
+input (:body:) [\/home\/tbg\/work\/remind]
+input (:g1:) [\/home\/tbg\/work\/tbg\/g1]
+match [:g1:] (:: :next_turn:) /^([[:digit:]]+)\n/
+
+#input (:tbg_msg:) [tbg.msg]
+#input (:tbg_footer:) [tbg.footer]
+
+{
+isolate (:fortune:) //
+syscall (::) (:fortune:) /fortune taow/
+trap //
+}
+
+#eval (:tbg_msg:) /:*:tbg_msg:/
+#eval (:tbg_footer:) /:*:tbg_footer:/
+
+{
+:continue:
+window <eofaccepts> /.*/ /\n/
+match (:: :ship_name: :account: :prefs: :address:) /([[:graph:]]+)[[:space:]]+([[:digit:]]+)[[:space:]]+([[:digit:]]+)[[:space:]]+[[:digit:]]+[[:space:]]+([[:graph:]]+)/
+
+  {
+  # Check the list of banned addresses.
+  }
+
+  {
+  # Check account number
+  match [:account:] /^0$/
+  goto /:continue:/
+  }
+
+  {
+  # Check preferences
+  isolate (:confirm:) //
+  syscall (::) (:confirm:) /echo $((:*:prefs: & 32))/
+  match [:confirm:] /32/
+  goto /:continue:/
+  }
+
+  {
+  # Check for orders
+  input (:orders:) [\/home\/tbg\/work\/WWW\/orders\/1\/:*:ship_name::*:next_turn:]
+  match [:orders:] /:*:ship_name:/
+  #output /:*:ship_name: has orders in\n/
+  goto /:continue:/
+  trap //
+  }
+
+isolate (:main_headers:) /From: TBG Mail <tbg@asciiking.com>\n\
+To: ":*:ship_name:" <:*:address:>\n\
+Reply-to: TBG Moderator <tbg-moderator@asciiking.com>\n\
+Subject: TBG Reminder - :*:ship_name:\n\
+Organization: ASCII King Games\n\
+X-CAN-SPAM: This message may contain a solicitation or advertisement within the specific\n\
+ meaning of the CAN-SPAM Act of 2003. You can decline to receive further email messages \n\
+ from this game server by following the instructions in this email.\n\
+ My physical address is: 5335 N 19th Ave #803, Phoenix, AZ 85015\n\
+X-Recipient: :*:address:\n\
+X-Mailer: Script shell by C. Babcock.\n\
+MIME-Version: 1.0\n/
+
+isolate (:payload:) /:*:main_headers::*:body:/
+
+# Send SMTP messages
+call /:smtp:/ [:*:payload:]
+#output /To: ":*:ship_name:" <:*:address:>\n/
+
+liaf
+}
+
+exit 
+
+:smtp: (:smtp_data:)
+{
+# Don't let users accidentally truncate their mail with a "." escape.
+match <nomultiline fromend> [:smtp_data:] (:: :dot:) /^(\.)+[[:space:]]*/
+alter (:dot:) /../
+liaf
+}
+{
+isolate (:send:) //
+isolate (:recv:) //
+isolate (:status:) //
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^220/
+isolate (:send:) /HELO localhost\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^250/
+isolate (:send:) /MAIL FROM: tbg@asciiking.com\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^250/
+isolate (:send:) /RCPT TO: :*:_pos4:\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^250/
+isolate (:send:) /DATA\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^354/
+isolate (:send:) /:*:smtp_data:\n.\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^250/
+isolate (:send:) /QUIT\n/
+syscall (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+match [:recv:] /^221/
+# output /Sent via SMTP\n/
+return
+}
+
+syscall (:*:smtp_data:) <async> /\/usr\/sbin\/sendmail -ctr tbg-moderator@asciiking.com /
+return
+

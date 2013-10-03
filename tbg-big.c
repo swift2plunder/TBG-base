@@ -3197,7 +3197,10 @@ open_results (FILE ** fd, struct PLAYER *player)
   char buffer[128];
 
   if (*fd)
+    {
+    fprintf (*fd, "<!-- Close section A -->\n");
     fclose (*fd);
+    }
   sprintf (buffer, "%s/results/%d/%s%d.a", webroot,
            game, player->name, turn);
   if (player->results)
@@ -3210,6 +3213,7 @@ open_results (FILE ** fd, struct PLAYER *player)
       exit (1);
     }
   player->results = TRUE;
+  fprintf (*fd, "<!-- Open section A -->\n");
 }
 
 

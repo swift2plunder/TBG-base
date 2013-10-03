@@ -324,7 +324,7 @@ maintain (FILE * fd, struct PLAYER *player, struct ITEM *item)
     increase -= item->efficiency * item->efficiency;
   if (!owner (player, item - items))
     {
-      fprintf (fd, "<P>Can't maintain %s - it's gone\n", item_string (item));
+      fprintf (fd, "<li>Can't maintain %s - it's gone</li>\n", item_string (item));
       return;
     }
   if (increase > 0)
@@ -336,7 +336,7 @@ maintain (FILE * fd, struct PLAYER *player, struct ITEM *item)
     item->reliability = 99;
   player->skills[repairers[item->sort]] |=
     skill_bit (maintain_skill, item->sort);
-  fprintf (fd, "<P>%s officer maintained %s up to %d%%\n",
+  fprintf (fd, "<li>%s officer maintained %s up to %d%%</li>\n",
            skill_names[repairers[item->sort]], item_string (item),
            item->reliability);
 }

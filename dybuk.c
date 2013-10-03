@@ -1084,16 +1084,16 @@ do_popcorn_auction ()
           open_results (&fd, player);
 
           if (amount == 0)
-            fprintf (fd, "<P>Didn't trade any popcorn, going price was $%d\n",
+            fprintf (fd, "<p>Didn't trade any popcorn, going price was $%d</p>\n",
                      popcorn_price);
           else if (amount > 0)
             {
-              fprintf (fd, "<P>Bought %d Popcorn for $%d each, total $%d\n",
+              fprintf (fd, "<p>Bought %d Popcorn for $%d each, total $%d</p>\n",
                        amount, popcorn_price, amount * popcorn_price);
             }
           else
             {
-              fprintf (fd, "<P>Sold %d Popcorn for $%d each, total $%d\n",
+              fprintf (fd, "<p>Sold %d Popcorn for $%d each, total $%d</p>\n",
                        -amount, popcorn_price, -amount * popcorn_price);
             }
           player->popcorn += amount;

@@ -1230,7 +1230,7 @@ show_gif_map (FILE * fd, struct PLAYER *player)
           if (board[x][y] != 0xff && star_seen (player, board[x][y]))
             {
               if (skipping)     /* catch up */
-                fprintf (fd, "<td colspan=\"%d\"> </td>\n", skipping);
+                fprintf (fd, "<td colspan=\"%d\">&nbsp;</td>\n", skipping);
               if (board[x][y] >= MAX_HAB_STAR)
                 {
                   fprintf (fd, "<td><img src=\"nonhab.gif\"");
@@ -1273,7 +1273,7 @@ show_gif_map (FILE * fd, struct PLAYER *player)
             skipping++;
         }
       if (skipping)             /* catch up */
-        fprintf (fd, "<td colspan=\"%d\"> </td>\n", skipping);
+        fprintf (fd, "<td colspan=\"%d\">&nbsp;</td>\n", skipping);
       fprintf (fd, "</tr>\n");
     }
   fprintf (fd, "</table>\n");

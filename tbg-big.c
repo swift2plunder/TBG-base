@@ -105,29 +105,29 @@ show_good_artifact (FILE * fd, struct ITEM *item)
 {
   int i;
 
-  fprintf (fd, "<TD>%s</TD>", item_string (item));
+  fprintf (fd, "<td>%s</td>", item_string (item));
   for (i = 0; i < 8; i++)
     if (item->magic & (0x10000 << i))
-      fprintf (fd, "<TD>%s</TD>", short_item_names[i]);
-  fprintf (fd, "<TD>");
+      fprintf (fd, "<td>%s</td>", short_item_names[i]);
+  fprintf (fd, "<td>");
   for (i = 0; i < 8; i++)
     if (item->magic & (0x100 << i))
       fprintf (fd, "%s", short_item_names[i]);
   if ((item->magic & 0xff00) == 0)
     fprintf (fd, "None");
-  fprintf (fd, "</TD><TD>");
+  fprintf (fd, "</td><td>");
   for (i = 0; i < 8; i++)
     if (item->magic & (1 << i))
       fprintf (fd, "%d", i);
-  fprintf (fd, "</TD>");
+  fprintf (fd, "</td>");
   fprintf (fd, "\n");
 }
 
 void
 show_bad_artifact (FILE * fd, struct ITEM *item)
 {
-  fprintf (fd, "<TD>%s</TD>", item_string (item));
-  fprintf (fd, "<TD>%d</TD><TD>%d</TD><TD>%d</TD>",
+  fprintf (fd, "<td>%s</td>", item_string (item));
+  fprintf (fd, "<td>%d</td><td>%d</td><td>%d</td>",
            (item->magic >> 20) & 0x03ff,
            (item->magic >> 10) & 0x03ff,
            item->magic & 0x03ff);
@@ -141,17 +141,17 @@ show_item (FILE * fd, short it)
 
   if (it == 0)
     return;
-  fprintf (fd, "<TR ALIGN=CENTER>");
+  fprintf (fd, "<tr>");
   switch (item->sort)
     {
     default:
-      fprintf (fd, "<TD>%s</TD><TD>%s</TD><TD>%2d%%</TD><TD>%d</TD>",
+      fprintf (fd, "<td>%s</td><td>%s</td><td>%2d%%</td><td>%d</td>",
                item_string (item),
                tech_level_names[item->efficiency],
                item->reliability, 3 - item->collection);
       break;
     case pod:
-      fprintf (fd, "<TD>%s</TD><TD>%d</TD><TD>%s</TD><TD>%d</TD>",
+      fprintf (fd, "<td>%s</td><td>%d</td><td>%s</td><td>%d</td>",
                item_string (item),
                item->efficiency,
                item->reliability < BASE_UNIT ?
@@ -165,7 +165,7 @@ show_item (FILE * fd, short it)
       show_bad_artifact (fd, item);
       break;
     }
-  fprintf (fd, "</TR>");
+  fprintf (fd, "</tr>");
   fprintf (fd, "\n");
 }
 
@@ -254,15 +254,16 @@ show_ship (FILE * fd, struct PLAYER *ship)
              server, ship->account_number, name_string (ship->name), flag);
   else
     sprintf (buffer, "%s %s", name_string (ship->name), flag);
-  fprintf (fd, "<A NAME=\"%s\"></A>\n", ship->name);
-  fprintf (fd, "<TABLE BORDER=1>\n");
-  fprintf (fd, "<TR><TH COLSPAN=4 ALIGN=CENTER>%s</TH></TR>\n", buffer);
+  fprintf (fd, "<div class=\"ship\">\n");
+  fprintf (fd, "<a name=\"%s\"></a>\n", ship->name);
+  fprintf (fd, "<table>\n");
+  fprintf (fd, "<tr><th colspan=\"4\">%s</th></tr>\n", buffer);
   if (ship->ship)
     {
       if (item->sort < pod)
         {
           fprintf (fd,
-                   "<TR><TH>Component</TH><TH>Tech</TH><TH>Reliability</TH><TH>E Cost</TH></TR>\n");
+                   "<tr><th>Component</th><th>Tech</th><th>Reliability</th><th>E Cost</th></tr>\n");
           do
             {
               show_item (fd, item - items);
@@ -274,7 +275,7 @@ show_ship (FILE * fd, struct PLAYER *ship)
       if (item->sort == pod)
         {
           fprintf (fd,
-                   "<TR><TH>Component</TH><TH>Capacity</TH><TH>Cargo</TH><TH>Amount</TH></TR>\n");
+                   "<tr><th>Component</th><th>Capacity</th><th>Cargo</th><th>Amount</th></tr>\n");
           do
             {
               show_item (fd, item - items);
@@ -288,7 +289,7 @@ show_ship (FILE * fd, struct PLAYER *ship)
       if (item->sort == artifact)
         {
           fprintf (fd,
-                   "<TR><TH>Artifact</TH><TH>Bless</TH><TH>Curse</TH><TH>Keys</TH></TR>\n");
+                   "<tr><th>Artifact</th><th>Bless</th><th>Curse</th><th>Keys</th></tr>\n");
           do
             {
               show_item (fd, item - items);
@@ -300,7 +301,7 @@ show_ship (FILE * fd, struct PLAYER *ship)
       if (item->sort == evil_artifact)
         {
           fprintf (fd,
-                   "<TR><TH>Evil Zapper</TH><TH>Biopedos</TH><TH>Logipedos</TH><TH>Bangpedos</TH></TR>\n");
+                   "<tr><th>Evil Zapper</th><th>Biopedos</th><th>Logipedos</th><th>Bangpedos</th></tr>\n");
           do
             {
               show_item (fd, item - items);
@@ -310,19 +311,19 @@ show_ship (FILE * fd, struct PLAYER *ship)
           while (item != items);
         }
     }
-  fprintf (fd, "</TABLE>\n");
+  fprintf (fd, "</table>\n");
   if (ship->prisoner)
-    fprintf (fd, "<P>Holding %s prisoner\n",
+    fprintf (fd, "<p>Holding %s prisoner</p>\n",
              criminal_string (ship->prisoner));
   if (ship->medicine)
-    fprintf (fd, "<P>Holding %s Medicine Value $%d\n",
+    fprintf (fd, "<p>Holding %s Medicine Value $%d</p>\n",
              races[ship->medicine / 1000].name, 50*(ship->medicine % 1000));
   collection = total_collection (items + ship->ship);
-  fprintf (fd, "<P><STRONG>Mass = %d, Energy Cost = %d, ",
+  fprintf (fd, "<p><div class=\"stats\">Mass = %d, Energy Cost = %d, ",
            total, collection);
   fprintf (fd, "Torpedo Stock = %d, ", ship->torps);
   fprintf (fd, "Cargo capacity: %d ", cargo);
-  fprintf (fd, "</STRONG><P>\n");
+  fprintf (fd, "</div></p></div>\n");
 }
 
 
@@ -688,7 +689,7 @@ show_military (FILE * fd, struct PLAYER *player)
 void
 show_factors (FILE * fd, struct PLAYER *player)
 {
-  fprintf (fd, "<STRONG>\n");
+  fprintf (fd, "<div class=\"factors\">\n");
   fprintf (fd, "Warp %d%%, Impulse %d%%, Sensor %d%%, Cloak %d%%, ",
            factor (warp_drive, player), factor (impulse_drive, player),
            factor (sensor, player), factor (cloak, player));
@@ -696,7 +697,7 @@ show_factors (FILE * fd, struct PLAYER *player)
            factor (life_support, player), factor (sick_bay, player),
            factor (shield, player));
   fprintf (fd, "Weapon %d%%\n", factor (ram, player));
-  fprintf (fd, "<P></STRONG>\n");
+  fprintf (fd, "</div>\n");
   show_military (fd, player);
 }
 

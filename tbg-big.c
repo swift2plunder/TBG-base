@@ -1967,7 +1967,7 @@ show_player (FILE * fd, struct PLAYER *player)
            "<hr><a href=\"http://%s\"><img src=\"http://%s/counter.gif\"></a>\n",
            server, server);
 
-  fprintf (fd, "</BODY></HTML>\n");
+  fprintf (fd, "</div></body></html>\n");
 }
 
 
@@ -4054,7 +4054,7 @@ open_times ()
   timer = time (NULL);
   stardate = localtime (&timer);
   fprintf (times, "</head>\n");
-  fprintf (times, "<body>\n");
+  fprintf (times, "<body>\n<div id=\"times\"\n");
   fprintf (times, "<h1>Subspace Times</h1>\n");
   timer = (timer + 386380800) / 86400;
   fprintf (times, "<h1>Issue %d - Stardate %ld.%ld</h1>\n",
@@ -4196,7 +4196,7 @@ close_times ()
            "<hr><a href=\"http://%s\"><img src=\"http://%s/counter.gif\"></a>\n",
            server, server);
 
-  fprintf (times, "</body></html>\n");
+  fprintf (times, "</div></body></html>\n");
   fclose (times);
 }
 
@@ -4599,13 +4599,14 @@ make_ship_files ()
           printf ("Can't open ship file\n");
           exit (1);
         }
-      fprintf (fd, "<HTML><HEAD><TITLE>%s, Turn %d</TITLE></HEAD>\n",
+      fprintf (fd, "<html><head><title>%s, Turn %d</title>\n",
                name_string (players[p].name), turn);
-      fprintf (fd,
-               "<BODY TEXT=\"yellow\" BGCOLOR=\"black\" LINK=\"white\" VLINK=\"cyan\">\n");
+      fprintf (fd,"<link rel=\"shortcut icon\" href=\"/favicon.ico\">\n");
+      fprintf (fd,"<link type=\"text/css\" rel=\"stylesheet\" href=\"/includes/tbg.css\">\n");
+      fprintf (fd,"</head>\n<body><div id=\"results\"\n");
       show_ship (fd, players + p);
       show_factors (fd, players + p);
-      fprintf (fd, "</BODY></HTML>\n");
+      fprintf (fd, "</div></body></html>\n");
       fclose (fd);
     }
 }

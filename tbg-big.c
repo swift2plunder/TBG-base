@@ -1213,32 +1213,32 @@ show_gif_map (FILE * fd, struct PLAYER *player)
   int skipping;
   int jump;
 
-  fprintf (fd, "<HR><H2>Starmap</H2>\n");
+  fprintf (fd, "<hr><div class=\"starmap\"><h2>Starmap</h2>\n");
   if ((player->star >= 0 && player->star < MAX_STAR)
       || player->star == OLYMPUS)
     {
       fprintf (fd, "<p id=\"jumpcost\">jump cost = 0</p>\n");
     }
 
-  fprintf (fd, "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>\n");
+  fprintf (fd, "<table>\n");
   for (y = 0; y < MAXY; y++)
     {
-      fprintf (fd, "<TR ALIGN=CENTER>\n");
+      fprintf (fd, "<tr>\n");
       skipping = 0;
       for (x = 0; x < MAXX; x++)
         {
           if (board[x][y] != 0xff && star_seen (player, board[x][y]))
             {
               if (skipping)     /* catch up */
-                fprintf (fd, "<TD COLSPAN=%d> </TD>\n", skipping);
+                fprintf (fd, "<td colspan=\"%d\"> </td>\n", skipping);
               if (board[x][y] >= MAX_HAB_STAR)
                 {
-                  fprintf (fd, "<TD><IMG SRC=\"nonhab.gif\"");
+                  fprintf (fd, "<td><img src=\"nonhab.gif\"");
                   sprintf (name, "S#%-02d", board[x][y] - MAX_HAB_STAR);
                 }
               else
                 {
-                  fprintf (fd, "<TD><IMG SRC=\"hab.gif\"");
+                  fprintf (fd, "<td><img src=\"hab.gif\"");
                   sprintf (name, "%s", star_names[board[x][y]]);
                 }
               if ((player->star >= 0 && player->star < MAX_STAR)
@@ -1263,9 +1263,9 @@ show_gif_map (FILE * fd, struct PLAYER *player)
                      player->star); */
                 }
 
-              fprintf(fd, "></TD>");
+              fprintf(fd, "></td>");
               name[NAME_SIZE] = '\0';
-              fprintf (fd, "<TD COLSPAN=%d>%s</TD>", strlen (name), name);
+              fprintf (fd, "<td colspan=\"%d\">%s</TD>", strlen (name), name);
               x += NAME_SIZE - 1;
               skipping = NAME_SIZE - strlen (name) - 1;
             }
@@ -1273,12 +1273,13 @@ show_gif_map (FILE * fd, struct PLAYER *player)
             skipping++;
         }
       if (skipping)             /* catch up */
-        fprintf (fd, "<TD COLSPAN=%d> </TD>\n", skipping);
-      fprintf (fd, "</TR>\n");
+        fprintf (fd, "<td colspan=\"%d\"> </td>\n", skipping);
+      fprintf (fd, "</tr>\n");
     }
-  fprintf (fd, "</TABLE>\n");
+  fprintf (fd, "</table>\n");
   if (player->last_restart == turn)
     fprintf (fd, "<p>Run Long Range Scan to populate starmap</p><hr>");
+  fprintf (fd, "</div>\n");
 }
 
 void

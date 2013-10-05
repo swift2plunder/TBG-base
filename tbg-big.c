@@ -1214,12 +1214,12 @@ show_gif_map (FILE * fd, struct PLAYER *player)
   int jump;
 
   fprintf (fd, "<hr><div class=\"starmap\"><h2>Starmap</h2>\n");
-  if ((player->star >= 0 && player->star < MAX_STAR)
+/*if ((player->star >= 0 && player->star < MAX_STAR)
       || player->star == OLYMPUS)
     {
       fprintf (fd, "<p id=\"jumpcost\">jump cost = 0</p>\n");
     }
-
+*/
   fprintf (fd, "<table>\n");
   for (y = 0; y < MAXY; y++)
     {
@@ -1244,7 +1244,17 @@ show_gif_map (FILE * fd, struct PLAYER *player)
               if ((player->star >= 0 && player->star < MAX_STAR)
                   || player->star == OLYMPUS)
                 {
-                  fprintf (fd, " onmouseover=\"document.getElementById");
+                  jump = jump_cost(player - players,
+                                   player->star, board[x][y]);
+                  if (jump <= player->energy)
+                    {
+                      fprintf (fd, "title=\"jump cost = %d\"", jump);
+                    }
+                  else
+                    {
+                      fprintf (fd, "title=\"jump cost = too much\"");
+                    }
+/*                fprintf (fd, " onmouseover=\"document.getElementById");
                   fprintf (fd, "('jumpcost').textContent = ");
                   jump = jump_cost(player - players,
                                    player->star, board[x][y]);
@@ -1256,6 +1266,7 @@ show_gif_map (FILE * fd, struct PLAYER *player)
                     {
                       fprintf (fd, "'jump cost = too much';\"");
                     }
+*/
                 }
               else
                 {

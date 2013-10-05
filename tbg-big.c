@@ -4060,7 +4060,7 @@ open_times ()
   timer = time (NULL);
   stardate = localtime (&timer);
   fprintf (times, "</head>\n");
-  fprintf (times, "<body>\n<div id=\"times\"\n");
+  fprintf (times, "<body>\n<div id=\"times\">\n");
   fprintf (times, "<h1>Subspace Times</h1>\n");
   timer = (timer + 386380800) / 86400;
   fprintf (times, "<h1>Issue %d - Stardate %ld.%ld</h1>\n",

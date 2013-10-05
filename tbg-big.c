@@ -1288,9 +1288,9 @@ show_gif_map (FILE * fd, struct PLAYER *player)
       fprintf (fd, "</tr>\n");
     }
   fprintf (fd, "</table>\n");
-  if (player->last_restart == turn)
+/*if (player->last_restart == turn)
     fprintf (fd, "<p>Run Long Range Scan to populate starmap</p><hr>");
-  fprintf (fd, "</div>\n");
+  fprintf (fd, "</div>\n");   */
 }
 
 void
@@ -2070,7 +2070,7 @@ void
 init_new_player (struct PLAYER *player, int sort)
 {
   char buffer1[256], buffer2[256], buffer3[256];
-  int try, other, ok, prefs;
+  int try, other, ok, prefs, s;
   int passwd, account;
   int special = sort == 3;
 
@@ -2147,6 +2147,11 @@ init_new_player (struct PLAYER *player, int sort)
     player->star = NOWHERE;
   if (player->star >= 0 && player->star < MAX_STAR)
     set_bit(player->stars, player->star);
+  // Give new players a full star map, courtesy of the GOO, as having to
+  // do a LRS before you can do anything is annoying.
+  for (s = 0 ; s < MAX_STAR ; s++)
+    if (!stars[s].hidden)
+      set_bit (player->stars, s);
   player->alliance =
     player < players + MAX_PLAYER ? PLAYER_ALLIANCE : SHOP_ALLIANCE;
   /* should depend on num_players but not set yet */

@@ -2094,8 +2094,9 @@ init_new_player (struct PLAYER *player, int sort)
   player->preferences = 32;     /* keep restart in for testing */
   if (sort != 2)
     {
-      player->preferences |= 128;
-      /* goto web results for new players */
+      player->preferences |= 144;
+      /* goto web results for new players
+      make order confirmation the default   */
     }
   else
     player->preferences = prefs;

@@ -1979,7 +1979,7 @@ show_player (FILE * fd, struct PLAYER *player)
            "<hr><a href=\"http://%s\"><img src=\"http://%s/counter.gif\"></a>\n",
            server, server);
 
-  fprintf (fd, "</div></body></html>\n");
+  fprintf (fd, "</div>\n");
 }
 
 

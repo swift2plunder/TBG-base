@@ -1094,22 +1094,22 @@ show_general_options (FILE * fd, struct PLAYER *player)
     }
   fprintf (fd, "</TR><TR ALIGN=CENTER>\n");
 
-  fprintf (fd, "<TD><STRONG><INPUT TYPE=submit VALUE=\"Make It So\">\n");
-  fprintf (fd, "<INPUT TYPE=reset></STRONG>\n");
+  fprintf (fd, "<td><span class=\"submit\"><input type=\"submit\" title=\"Make It So\" value=\"Submit\"></input></span>\n");
+  fprintf (fd, "<span class=\"reset\"><input type=\"reset\"></span>\n");
 
   if (player->star != HOLIDAY && player->star < MAX_STAR)
     {
-      fprintf (fd, "<SELECT NAME=\"e\">\n");
+      fprintf (fd, "<span class=\"explore\"><select name=\"e\">\n");
       for (i = 0; i < MAX_LOCATION; i++)
         if (locations[i].star == player->star &&
             loc_type (i, LOC_EXPLORABLE) && loc_accessible (player, i))
-          fprintf (fd, "<OPTION VALUE=%d>Explore %s (%d)\n",
+          fprintf (fd, "<option value=\"%d\">Explore %s (%d)</option>\n",
                    i, loc_string (i), i);
-      fprintf (fd, "</SELECT>\n");
+      fprintf (fd, "</select></span>\n");
     }
-  fprintf (fd, "</TD>\n");
+  fprintf (fd, "</td>\n");
 
-  fprintf (fd, "</TR><TR ALIGN=CENTER>\n");
+  fprintf (fd, "</tr><tr>\n");
 
   fprintf (fd, "<TD><SELECT NAME=\"l\" SIZE=6>\n");
   fprintf (fd, "<OPTION VALUE=\"\">No Change\n");

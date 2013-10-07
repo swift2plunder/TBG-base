@@ -4070,9 +4070,10 @@ open_times ()
   fprintf (times, "<html><head><title>Subspace Times</title>\n");
   fprintf (times, "<link rel=\"shortcut icon\" href=\"/favicon.ico\">\n");
   fprintf (times, "<link type=\"text/css\" rel=\"stylesheet\" href=\"http://%s/includes/tbg.css\">\n", server);
-  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery-1.8.0.min.js\"></script>\n", server);
+  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery-1.10.2.min.js\"></script>\n", server);
   fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery.tablesorter.min.js\"></script>\n", server);
-  //fprintf (times, "<script language=JavaScript>$(document).ready(function(){$(\".adventures\").tablesorter();});</script>\n");
+  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery.iframe-auto-height.plugin.1.9.3.min.js\"></script>\n", server);
+  fprintf (times, "<script language=JavaScript>$(document).ready(function () {$('iframe').iframeAutoHeight({debug: true});});</script>\n");
   timer = time (NULL);
   stardate = localtime (&timer);
   fprintf (times, "</head>\n");

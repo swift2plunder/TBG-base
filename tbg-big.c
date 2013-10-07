@@ -2596,7 +2596,7 @@ press (int player, const char *text, const char *author)
     rumour = dice (MAX_RUMOUR);
   while (rumours[rumour]);
 
-  sprintf (buf1, "<iframe seamless sandbox src=\"http://%s/cgi-bin/iframe.crm?id=%s\"></iframe>", server, text);
+  sprintf (buf1, "<iframe seamless src=\"http://%s/cgi-bin/iframe.crm?id=%s\"></iframe>", server, text);
 
   if (player)
     sprintf (buf2, "<a href=\"http://%s/cgi-bin/mail.crm?id=%d\">%s</a>",

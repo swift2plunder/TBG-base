@@ -2597,7 +2597,7 @@ press (int player, const char *text, const char *author)
     rumour = dice (MAX_RUMOUR);
   while (rumours[rumour]);
 
-  sprintf (buf1, "<iframe seamless src=\"http://%s/cgi-bin/iframe.crm?id=%s\"></iframe>", server, text);
+  sprintf (buf1, "<div  class=\"resizable\" class=\"ui-widget-content\"><iframe seamless sandbox src=\"http://%s/cgi-bin/iframe.crm?id=%s\"></iframe></div>", server, text);
 
   if (player)
     sprintf (buf2, "<a href=\"http://%s/cgi-bin/mail.crm?id=%d\">%s</a>",
@@ -4071,10 +4071,18 @@ open_times ()
   fprintf (times, "<html><head><title>Subspace Times</title>\n");
   fprintf (times, "<link rel=\"shortcut icon\" href=\"/favicon.ico\">\n");
   fprintf (times, "<link type=\"text/css\" rel=\"stylesheet\" href=\"http://%s/includes/tbg.css\">\n", server);
+  fprintf (times, "<link type=\"text/css\" rel=\"stylesheet\" href=\"http://%s/includes/jquery-ui-1.10.3.custom/css/smoothness/jquery-ui-1.10.3.custom.css\">\n", server);
   fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery-1.10.2.min.js\"></script>\n", server);
-  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery.tablesorter.min.js\"></script>\n", server);
-  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery.iframe-auto-height.plugin.1.9.3.min.js\"></script>\n", server);
-  fprintf (times, "<script language=JavaScript>$(document).ready(function () {$('iframe').iframeAutoHeight({debug: true});});</script>\n");
+  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery-ui.js\"></script>\n", server);
+//  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery.tablesorter.min.js\"></script>\n", server);
+//  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery.iframe-auto-height.plugin.1.9.3.min.js\"></script>\n", server);
+//  fprintf (times, "<script language=JavaScript>$(document).ready(function () {$('iframe').iframeAutoHeight({debug: true});});</script>\n");
+  fprintf (times, "<script>\n");
+  fprintf (times, "$(function() {\n");
+  fprintf (times, "$( \".resizable\" ).resizable();\n");
+  fprintf (times, "});\n");
+  fprintf (times, "</script>\n");
+
   timer = time (NULL);
   stardate = localtime (&timer);
   fprintf (times, "</head>\n");

@@ -582,11 +582,11 @@ big_ranking (FILE * output, int index, char *title)
     }
   for (player = players + 1; player < players + MAX_PLAYER; player++)
     {
-      if ((strcmp (player->address, "nobody@localhost") == 0)
+/*    if ((strcmp (player->address, "nobody@localhost") == 0)
           || (player->account_number == 0))
         continue;
       if (mothballed(player - players))
-        continue;
+        continue;    */
       big_rank (fd, player, index);
     }
   fclose (fd);

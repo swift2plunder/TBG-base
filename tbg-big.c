@@ -4883,7 +4883,7 @@ jm_main ()
   consolidate_votes ();
   //open_times ();   // Times is already open.
   show_candidates ();
-  fprintf (times, "<HR>\n");
+  fprintf (times, "<hr>\nThe Minister of Industry directs the construction of %s %ss.<hr>\n", tech_level_names[restock_tech], item_names[restock_item]);
   big_ranking (times, -1, "Top Twenty");        // seems to cause memory violation, but do does Kipper block
   all_rankings ();
   close_times ();

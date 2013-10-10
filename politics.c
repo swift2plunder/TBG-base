@@ -89,7 +89,7 @@ generate_voting_options (FILE * fd, struct PLAYER *player)
 
   if (turn - player->last_restart < 100)
     {
-      fprintf (fd, "<p>Vote for Tribune of the People\n");
+      fprintf (fd, "<div class=\"tribune\">Vote for Tribune of the People\n");
       fprintf (fd, "<br>(Votes last turn shown in brackets)\n");
       fprintf (fd, "<br><select name=\"P\">\n");
       fprintf (fd, "<option value=T0>No-one\n");
@@ -98,23 +98,23 @@ generate_voting_options (FILE * fd, struct PLAYER *player)
             && (players[p].plebs || player - players == p)
             && p != ministers[VEEP]
             && p != ministers[PRESIDENT])
-          fprintf (fd, "<option value=T%d %s>%s (%d)\n",
+          fprintf (fd, "<option value=T%d %s>%s (%d)</option>\n",
                    p,
                    p == player->trib ? "selected" : "",
                    name_string (players[p].name),
                    players[p].plebs);
-      fprintf (fd, "</select>\n");
+      fprintf (fd, "</select></div>\n");
     }
   if (turn % 10 == 9)
     {
-      fprintf (fd, "<H2>Election Time - Choose a President!</H2>\n");
+      fprintf (fd, "<div class=\"politics\" style=\"bottom-margin:1.5em;\"><h2>Election Time - Choose a President!</h2>\n");
       fprintf (fd, "<select name=\"P\">\n");
-      fprintf (fd, "<OPTION VALUE=\"Z0\">No-one\n");
+      fprintf (fd, "<option value=\"Z0\">No-one</option>\n");
       for (p = 1; p < MAX_PLAYER; p++)
         if (players[p].politics & CANDIDATE)
-          fprintf (fd, "<OPTION VALUE=\"Z%d\">%s\n",
+          fprintf (fd, "<option value=\"Z%d\">%s</option>\n",
                    p, name_string (players[p].name));
-      fprintf (fd, "</select><p>\n");
+      fprintf (fd, "</select></div>\n");
     }
 }
 
@@ -126,48 +126,48 @@ generate_presidential_options (FILE * fd, struct PLAYER *player)
 
   if (ministers[PRESIDENT] == player - players)
     {
-      fprintf (fd, "<table border=1><tr><th>As President</th></tr>\n");
+      fprintf (fd, "<div class=\"politics\"><table><tr><th>As President</th></tr>\n");
       for (skill = engineering; skill <= weaponry; skill++)
         {
           fprintf (fd, "<th>Appoint %s Minister</th>\n", skill_names[skill]);
-          fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+          fprintf (fd, "<tr><td><select name=\"P\">\n");
           for (p = 1; p < MAX_PLAYER; p++)
             if ((players[p].politics & CANDIDATE)
                 && !(players[p].politics & CENSORED)
                 && ministers[VEEP] != p
                 && ministers[TRIBUNE] != p)
-              fprintf (fd, "<OPTION VALUE=\"Q%d\" %s>%s\n",
+              fprintf (fd, "<option value=\"Q%d\" %s>%s</option>\n",
                        MAX_PLAYER * skill + p,
                        ministers[skill] == p ? "selected" : "",
                        name_string (players[p].name));
-          fprintf (fd, "</SELECT></td></tr>\n");
+          fprintf (fd, "</select></td></tr>\n");
         }
 
       fprintf (fd, "<th>Appoint Industry Minister</th>\n");
-      fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+      fprintf (fd, "<tr align=center><td><select name=\"P\">\n");
       for (p = 1; p < MAX_PLAYER; p++)
         if ((players[p].politics & CANDIDATE)
             && !(players[p].politics & CENSORED)
             && ministers[VEEP] != p
             && ministers[TRIBUNE] != p)
-          fprintf (fd, "<OPTION VALUE=\"Q%d\" %s>%s\n",
+          fprintf (fd, "<option value=\"Q%d\" %s>%s</option>\n",
                    MAX_PLAYER * MIN_IND + p,
                    ministers[MIN_IND] == p ? "selected" : "",
                    name_string (players[p].name));
-      fprintf (fd, "</SELECT></td></tr>\n");
+      fprintf (fd, "</select></td></tr>\n");
 
       fprintf (fd, "<th>Appoint Justice Minister</th>\n");
-      fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+      fprintf (fd, "<tr><td><select name=\"P\">\n");
       for (p = 1; p < MAX_PLAYER; p++)
         if ((players[p].politics & CANDIDATE)
             && !(players[p].politics & CENSORED)
             && ministers[VEEP] != p
             && ministers[TRIBUNE] != p)
-          fprintf (fd, "<OPTION VALUE=\"Q%d\" %s>%s\n",
+          fprintf (fd, "<option value=\"Q%d\" %s>%s</option>\n",
                    MAX_PLAYER * MIN_JUST + p,
                    ministers[MIN_JUST] == p ? "selected" : "",
                    name_string (players[p].name));
-      fprintf (fd, "</SELECT></td></tr>\n");
+      fprintf (fd, "</select></td></tr>\n");
 
 #if 0
       fprintf (fd, "<th>Propose Shop Tech Level</th>\n");
@@ -188,57 +188,57 @@ generate_presidential_options (FILE * fd, struct PLAYER *player)
       fprintf (fd, "</SELECT></td></tr>\n");
 #endif
 
-      fprintf (fd, "</table>\n");
+      fprintf (fd, "</table></div>\n");
     }
   if (ministers[VEEP] == player - players)
     {
-      fprintf (fd, "<table border=1><tr><th>As Vice President</th></tr>\n");
+      fprintf (fd, "<div class=\"politics\"><table><tr><th>As Vice President</th></tr>\n");
 
       fprintf (fd, "<th>Propose Shop Tech Level</th>\n");
-      fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+      fprintf (fd, "<tr align=center><td><select name=\"P\">\n");
       for (p = 1; p < 7; p++)
-        fprintf (fd, "<OPTION VALUE=\"R%d\" %s>%s\n",
+        fprintf (fd, "<option value=\"R%d\" %s>%s</option>\n",
                  100 * VEEP + p,
                  p == proposed_techs[VEEP] ? "selected" : "",
                  tech_level_names[p]);
-      fprintf (fd, "</SELECT></td></tr>\n");
+      fprintf (fd, "</select></td></tr>\n");
 
       fprintf (fd, "<th>Propose Shop Modules</th>\n");
-      fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+      fprintf (fd, "<tr align=center><td><select name=\"P\">\n");
       for (p = warp_drive; p < artifact; p++)
-        fprintf (fd, "<OPTION VALUE=\"S%d\" %s>%s\n",
+        fprintf (fd, "<option value=\"S%d\" %s>%s</option>\n",
                  100 * VEEP + p,
                  p == proposed_types[VEEP] ? "selected" : "",
                  item_names[p]);
 
-      fprintf (fd, "</SELECT></td></tr>\n");
+      fprintf (fd, "</select></td></tr>\n");
 
-      fprintf (fd, "</table>\n");
+      fprintf (fd, "</table></div>\n");
     }
 
   if (ministers[TRIBUNE] == player - players)
     {
-      fprintf (fd, "<table border=1><tr><th>As Tribune</th></tr>\n");
+      fprintf (fd, "<div class=\"tribune\"><table><tr><th>As Tribune</th></tr>\n");
 
       fprintf (fd, "<th>Propose Shop Tech Level</th>\n");
-      fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+      fprintf (fd, "<tr align=center><td><select name=\"P\">\n");
       for (p = 1; p < 3; p++)
-        fprintf (fd, "<OPTION VALUE=\"R%d\" %s>%s\n",
+        fprintf (fd, "<option value=\"R%d\" %s>%s</option>\n",
                  100 * TRIBUNE + p,
                  p == proposed_techs[TRIBUNE] ? "selected" : "",
                  tech_level_names[p]);
-      fprintf (fd, "</SELECT></td></tr>\n");
+      fprintf (fd, "</select></td></tr>\n");
 
       fprintf (fd, "<th>Propose Shop Modules</th>\n");
-      fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+      fprintf (fd, "<tr align=center><td><select name=\"P\">\n");
       for (p = warp_drive; p < artifact; p++)
-        fprintf (fd, "<OPTION VALUE=\"S%d\" %s>%s\n",
+        fprintf (fd, "<option value=\"S%d\" %s>%s</option>\n",
                  100 * TRIBUNE + p,
                  p == proposed_types[TRIBUNE] ? "selected" : "",
                  item_names[p]);
-      fprintf (fd, "</SELECT></td></tr>\n");
+      fprintf (fd, "</select></td></tr>\n");
 
-      fprintf (fd, "</table>\n");
+      fprintf (fd, "</table></div>\n");
     }
 
   for (skill = engineering; skill <= weaponry; skill++)
@@ -247,76 +247,76 @@ generate_presidential_options (FILE * fd, struct PLAYER *player)
         {
           int i = restock_item;
           fprintf (fd,
-                   "<table border=1><tr><th>As %s Minister</th></tr>\n",
+                   "<div class=\"politics\"><table><tr><th>As %s Minister</th></tr>\n",
                    skill_names[skill]);
           fprintf (fd, "<th>Propose Shop Tech Level</th>\n");
-          fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+          fprintf (fd, "<tr align=center><td><select name=\"P\">\n");
           for (p = 1; p < 7; p++)
-            fprintf (fd, "<OPTION VALUE=\"R%d\" %s>%s\n",
+            fprintf (fd, "<option value=\"R%d\" %s>%s</option>\n",
                      100 * skill + p,
                      p == restock_tech ? "selected" : "",
                      tech_level_names[p]);
-          fprintf (fd, "</SELECT></td></tr>\n");
+          fprintf (fd, "</select></td></tr>\n");
           fprintf (fd, "<th>Propose Shop Modules</th>\n");
-          fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+          fprintf (fd, "<tr><td><select name=\"P\">\n");
           while (repairers[i] != skill)
             i = 1 + dice(pod);
           for (p = warp_drive; p < artifact; p++)
             if (repairers[p] == skill)
               {
-                fprintf (fd, "<OPTION VALUE=\"S%d\" %s>%s\n",
+                fprintf (fd, "<option value=\"S%d\" %s>%s</option>\n",
                          100 * skill + p,
                          p == proposed_types[skill] ? "selected" : "",
                          item_names[p]);
               }
-          fprintf (fd, "</SELECT></td></tr>\n");
-          fprintf (fd, "</table>\n");
+          fprintf (fd, "</select></td></tr>\n");
+          fprintf (fd, "</table></div>\n");
         }
     }
 
   if (ministers[MIN_JUST] == player - players)
     {
       fprintf (fd,
-               "<table border=1><tr><th>As Minister of Justice</th></tr>\n");
-      fprintf (fd, "<tr align=center><th>Judge in Favour of</th></tr>\n");
-      fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
-      fprintf (fd, "<OPTION VALUE=\"J%d\">%s (Accuser)\n",
+               "<div class=\"politics\"><table><tr><th>As Minister of Justice</th></tr>\n");
+      fprintf (fd, "<tr><th>Judge in Favour of</th></tr>\n");
+      fprintf (fd, "<tr><td><select name=\"P\">\n");
+      fprintf (fd, "<option value=\"J%d\">%s (Accuser)</option>\n",
                accuser, races[accuser].name);
-      fprintf (fd, "<OPTION VALUE=\"J%d\" SELECTED>%s (Defendent)\n",
+      fprintf (fd, "<option value=\"J%d\" selected>%s (Defendent)</option>\n",
                defendent, races[defendent].name);
       fprintf (fd, "</SELECT></td></tr>\n");
       fprintf (fd, "<tr><th>Choose Rogue Race</th></tr>\n");
-      fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+      fprintf (fd, "<tr><td><select name=\"P\">\n");
       for (p = 0; p < MAX_RACE; p++)
-        fprintf (fd, "<OPTION VALUE=\"G%d\" %s>%s\n",
+        fprintf (fd, "<option value=\"G%d\" %s>%s</option>\n",
                  p, p == restock_rogues_race ? "selected" : "", races[p].name);
-      fprintf (fd, "</SELECT></td></tr>\n");
+      fprintf (fd, "</select></td></tr>\n");
       fprintf (fd, "<tr><th>Choose Rogue Skill</th></tr>\n");
-      fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+      fprintf (fd, "<tr align=center><td><select name=\"P\">\n");
       for (p = 0; p < 4; p++)
-        fprintf (fd, "<OPTION VALUE=\"H%d\" %s>%s\n",
+        fprintf (fd, "<option value=\"H%d\" %s>%s</option>\n",
                  p, p == restock_rogues_skill ? "selected" : "", skill_names[p]);
-      fprintf (fd, "</SELECT></td></tr>\n");
-      fprintf (fd, "</table>\n");
+      fprintf (fd, "</select></td></tr>\n");
+      fprintf (fd, "</table></div>\n");
     }
   if (ministers[MIN_IND] == player - players)
     {
       fprintf (fd,
-               "<table border=1><tr><th>As Minister of Industry</th></tr>\n");
+               "<div class=\"politics\"><table><tr><th>As Minister of Industry</th></tr>\n");
       fprintf (fd, "<th>Choose shop production:</th>\n");
-      fprintf (fd, "<tr align=center><td><SELECT NAME=\"P\">\n");
+      fprintf (fd, "<tr><td><select name=\"P\">\n");
       for (p = 0; p < 7; p++)
         {
           if (p == PRESIDENT)
             continue;
-          fprintf (fd, "<OPTION VALUE=\"U%d\" %s>%s %s\n",
+          fprintf (fd, "<option value=\"U%d\" %s>%s %s</option>\n",
                    100 * proposed_types[p] + proposed_techs[p],
                    p == VEEP ? "selected" : "",
                    tech_level_names[proposed_techs[p]],
                    item_names[proposed_types[p]]);
         }
-      fprintf (fd, "</SELECT></td></tr>\n");
-      fprintf (fd, "</table>\n");
+      fprintf (fd, "</select></td></tr>\n");
+      fprintf (fd, "</table></div>\n");
     }
 }
 
@@ -414,7 +414,7 @@ check_votes (FILE * fd, struct PLAYER *player)
   int votes = 0;
   int i;
 
-  fprintf (fd, "<h3>Politics</h3>\n");
+  fprintf (fd, "<div class=\"politics\"><h3>Politics</h3>\n");
 
   for (i = 0 ; i < 9 ; i++)
     {
@@ -424,13 +424,13 @@ check_votes (FILE * fd, struct PLAYER *player)
 
   if (player->votes == 0)
     {
-      fprintf (fd, "<p>You control no Presidential votes\n");
+      fprintf (fd, "<p>You control no Presidential votes</p>\n");
     }
   else
     {
-      fprintf (fd, "<table border=1>\n");
+      fprintf (fd, "<table>\n");
       fprintf (fd,
-               "<tr><th colspan=2>You control %d Presidential votes</th></tr>\n",
+               "<tr><th colspan=\"2\">You control %d Presidential votes</th></tr>\n",
                player->votes);
       fprintf (fd, "<tr><th>Location</th><th>Influence</th></tr>\n");
       for (loc = 0; loc < MAX_LOCATION; loc++)
@@ -444,13 +444,13 @@ check_votes (FILE * fd, struct PLAYER *player)
                 race = locations[loc].parameter;
               votes += locations[loc].votes;
               fprintf (fd,
-                       "<tr align=center><td>%s %s (%d) at %s</td><td>%d</td></tr>\n",
+                       "<tr><td>%s %s (%d) at %s</td><td>%d</td></tr>\n",
                        races[race].name, loc_string (loc), loc,
                        star_names[locations[loc].star],
                        locations[loc].influence);
             }
         }
-      fprintf (fd, "</table>\n");
+      fprintf (fd, "</table></div>\n");
     }
 }
 
@@ -491,24 +491,25 @@ do_election ()
       if (runner_up == 0)
         runner_up = ministers[VEEP];
 
-      fprintf (times, "<HR><H2>The new President is %s!</H2>",
+      fprintf (times, "<hr><div class=\"politics\"><h2>The new President is %s!</h2>",
                name_string (players[winner].name));
       ministers[PRESIDENT] = winner;
       players[winner].politics |= PROCONSUL;
 
-      fprintf (times, "<HR><H2>The new Vice President is %s!</H2>",
+      fprintf (times, "<h3>The new Vice President is %s!</h3>",
                name_string (players[runner_up].name));
       ministers[VEEP] = runner_up;
 
-      fprintf (times, "<H2>Votes for each candidate were:</H2>\n");
-      fprintf (times, "<LI>No-one: %d\n", total_votes[0]);
+      fprintf (times, "<h4>Votes for each candidate were:</h4>\n");
+      fprintf (times, "<ul><li>No-one: %d</li>\n", total_votes[0]);
       for (i = 1; i < MAX_PLAYER; i++)
         {
           if (total_votes[i])
-            fprintf (times, "<LI>%s: %d\n",
+            fprintf (times, "<li>%s: %d</li>\n",
                      name_string (players[i].name), total_votes[i]);
           players[i].politics &= KEEP_POLITICS_FLAGS;
         }
+      fprintf (times, "</ul></div>\n");
     }
   consolidate_votes ();
 }
@@ -538,7 +539,7 @@ do_tribunal_election ()
         ministers[p] = 0;
     }
   fprintf (times,
-           "<hr><h2><span style=\"color:white;\">The new Tribune of the People is %s!</span></h2>\n",
+           "<hr><h2 class=\"tribune\">The new Tribune of the People is %s!</h2>\n",
            name_string (players[winner].name));
 }
 
@@ -549,7 +550,7 @@ resolve_judgement ()
   int loc, case_loser;
 
   fprintf (times,
-           "<hr>Hear ye! Hear ye! Hear ye!<br>The case of %s vs %s is judged in favour of the %s nation<br>(The honourable Judge %s presiding)\n",
+           "<hr><div class=\"politics\">Hear ye! Hear ye! Hear ye!<br>The case of %s vs %s is judged in favour of the %s nation<br>(The honourable Judge %s presiding)\n",
            races[accuser].name, races[defendent].name,
            races[case_winner].name,
            name_string (players[ministers[MIN_JUST]].name));
@@ -590,7 +591,7 @@ resolve_judgement ()
   do
     defendent = dice (MAX_RACE);
   while (accuser == defendent);
-  fprintf (times, "<hr>The next case will be %s vs %s\n",
+  fprintf (times, "The next case will be %s vs %s</div>\n",
            races[accuser].name, races[defendent].name);
 }
 

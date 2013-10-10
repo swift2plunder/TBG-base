@@ -369,15 +369,15 @@ const char *tech_level_names[] = {
 
 
 const char *item_names[] = {
-  "warp drive",
-  "impulse drive",
-  "sensor",
-  "cloak",
-  "life support",
-  "sickbay",
-  "shield",
-  "ram", "gun", "disruptor", "laser", "missile", "drone", "fighter",
-  "pod", "artifact",
+  "Warp drive",
+  "Impulse drive",
+  "Sensor",
+  "Cloak",
+  "Life support",
+  "Sickbay",
+  "Shield",
+  "Ram", "Gun", "Disruptor", "Laser", "Missile", "Drone", "Fighter",
+  "Pod", "Artifact",
 };
 
 const char *short_item_names[] = {

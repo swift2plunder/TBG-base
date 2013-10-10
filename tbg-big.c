@@ -673,7 +673,7 @@ show_military (FILE * fd, struct PLAYER *player)
     }
   if (!found_some)
     return;
-  fprintf (fd, "<STRONG>Mercenary Strengths: \n");
+  fprintf (fd, "<div class=\"mercs\" style=\"font-weight:bold;margin-bottom:1.5em;\">Mercenary Strengths: \n");
   for (sort = regular_infantry; sort <= assault_mechs; sort++)
     {
       strengths[0] += local_strength (sort, ruins, troops[sort]);
@@ -681,9 +681,9 @@ show_military (FILE * fd, struct PLAYER *player)
       strengths[2] += local_strength (sort, ocean, troops[sort]);
       strengths[3] += local_strength (sort, factory, troops[sort]);
     }
-  fprintf (fd, "Ruins %d, Badlands %d, Ocean %d, Factory %d<BR>\n",
+  fprintf (fd, "Ruins %d, Badlands %d, Ocean %d, Factory %d<br>\n",
            strengths[0], strengths[1], strengths[2], strengths[3]);
-  fprintf (fd, "<P></STRONG>\n");
+  fprintf (fd, "</div>\n");
 }
 
 void
@@ -1674,35 +1674,35 @@ show_merc_options (FILE * fd, struct PLAYER *player)
 {
   int bid;
 
-  fprintf (fd, "<HR><H2>");
+  fprintf (fd, "<hr><h2><div class=\"mercs\" style=\"margin-bottom:1.5em;\">");
   print_rules_link(fd, "Mercenaries", "Mercenary");
-  fprintf (fd, " Actions</H2>\n");
+  fprintf (fd, " Actions</h2>\n");
   if ((player->flags & DISGRACED) && (dice (20) == 0))
     {
       printf ("%s redeemed\n", player->name);
       player->flags &= ~DISGRACED;
-      fprintf (fd, "<P>Mercenaries are now willing to work for you again\n");
+      fprintf (fd, "<p>Mercenaries are now willing to work for you again</p>\n");
     }
   if ((next_unit == -1) || (player->flags & DISGRACED))
-    fprintf (fd, "<P>No unit available for hire this turn\n");
+    fprintf (fd, "<p>No unit available for hire this turn</p>\n");
   else
     {
-      fprintf (fd, "<P>Next unit available for hire is the %s\n",
+      fprintf (fd, "<p>Next unit available for hire is the %s</p>\n",
                units[next_unit].name);
       fprintf (fd,
-               "<BR>To hire them, use either or both of these menus to bid salary you'll pay them PER TURN:\n");
-      fprintf (fd, "<SELECT NAME=\"u\">\n");
+               "<p>To hire them, use either or both of these menus to bid salary you'll pay them PER TURN:</p>\n");
+      fprintf (fd, "<select name=\"u\">\n");
       for (bid = 0; bid < 100; bid += 10)
         {
-          fprintf (fd, "<OPTION VALUE=-%d>Pay $%d per turn\n", bid, bid);
+          fprintf (fd, "<option value=\"-%d\">Pay $%d per turn</option>\n", bid, bid);
         }
-      fprintf (fd, "</SELECT>\n");
-      fprintf (fd, "<SELECT NAME=\"u\">\n");
+      fprintf (fd, "</select>\n");
+      fprintf (fd, "<select name=\"u\">\n");
       for (bid = 0; bid < 10; bid++)
         {
-          fprintf (fd, "<OPTION VALUE=-%d>Pay $%d per turn\n", bid, bid);
+          fprintf (fd, "<option value=\"-%d\">Pay $%d per turn</option>\n", bid, bid);
         }
-      fprintf (fd, "</SELECT><P>\n");
+      fprintf (fd, "</select></div>\n");
     }
 
 

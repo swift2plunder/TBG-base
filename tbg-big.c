@@ -4098,11 +4098,13 @@ open_times ()
       printf ("Can't open editorial\n");
       return;
     }
+  fprintf (times, "<div id=\"editorial\">\n");
   while (!feof (fd))
     {
       if (fgets (buffer, 80, fd))
         fprintf (times, buffer);
     }
+  fprintf (times, "</div>\n");
   fclose (fd);
 }
 

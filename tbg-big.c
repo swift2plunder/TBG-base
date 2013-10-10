@@ -1094,7 +1094,7 @@ show_general_options (FILE * fd, struct PLAYER *player)
     }
   fprintf (fd, "</TR><TR ALIGN=CENTER>\n");
 
-  fprintf (fd, "<td><span class=\"submit\"><input type=\"submit\" title=\"Make It So\" value=\"Submit\"></input></span>\n");
+  fprintf (fd, "<td><span class=\"submit\"><input type=\"submit\" value=\"Make It So\" title=\"Submit\"></input></span>\n");
   fprintf (fd, "<span class=\"reset\"><input type=\"reset\"></span>\n");
 
   if (player->star != HOLIDAY && player->star < MAX_STAR)

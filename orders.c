@@ -813,10 +813,10 @@ execute_orders ()
         {
           load_pod (items + players[p].ship, BASE_UNIT + current_unit, 1);
           units[current_unit].pay = high_bid;
-          fprintf (fd, "<P>%s has been hired for $%d per turn\n",
+          fprintf (fd, "<div class=\"mercs\">%s has been hired for $%d per turn</div>\n",
                    units[current_unit].name, units[current_unit].pay);
           fprintf (times,
-                   "<HR><FONT COLOR=\"MAGENTA\">%s has been hired for $%d per turn</FONT>\n",
+                   "<hr><div class=\"mercs\">%s has been hired for $%d per turn</div>\n",
                    units[current_unit].name, units[current_unit].pay);
         }
       if (players[p].star == locations[current_contract].star)
@@ -838,7 +838,7 @@ execute_orders ()
       if (next_fee > 15)
         next_fee /= 2;
       fprintf (times,
-               "<HR><FONT COLOR=\"MAGENTA\">%s won the mercenary contract at %s - the fee is $%d for the next one</FONT>\n",
+               "<hr><div class=\"mercs\">%s won the mercenary contract at %s - the fee is $%d for the next one</FONT>\n",
                name_string (players[high_fighter].name),
                star_names[locations[current_contract].star], next_fee);
     }
@@ -847,7 +847,7 @@ execute_orders ()
       if (next_fee < 480)
         next_fee *= 2;
       fprintf (times,
-               "<HR><FONT COLOR=\"MAGENTA\">No-one took the mercenary contract at %s - the fee is $%d for the next one</FONT>\n",
+               "<hr><div class=\"mercs\">No-one took the mercenary contract at %s - the fee is $%d for the next one</div>\n",
                star_names[locations[current_contract].star], next_fee);
     }
 

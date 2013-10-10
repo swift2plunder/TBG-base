@@ -611,7 +611,7 @@ read_data ()
           units[i].pay++;
       if (times)
         fprintf (times,
-                 "<HR><FONT COLOR=MAGENTA>Mercenary Shortage, all units' pay increased by $1</FONT>\n");
+                 "<hr><div class=\"mercs\">Mercenary Shortage, all units' pay increased by $1</div>\n");
       next_unit = -1;
     }
 

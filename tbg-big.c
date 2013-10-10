@@ -4878,7 +4878,7 @@ jm_main ()
       reset_npcs ();
       open_times ();   // Times needs to be open for turn 0, too
     }
-
+  init_rings ();
   write_results ();
   consolidate_votes ();
   //open_times ();   // Times is already open.

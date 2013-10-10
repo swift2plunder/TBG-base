@@ -4687,7 +4687,7 @@ show_candidates ()
 {
   int p;
 
-  fprintf (times, "<HR><FONT COLOR=\"LIGHTGREEN\">");
+  fprintf (times, "<HR><div class=\"politics\">");
   fprintf (times, "<table border=1>\n");
   fprintf (times, "<tr><th colspan=2>The Galactic Council</th></tr>\n");
   fprintf (times, "<tr align=center><td>President</td><td>%s</td></tr>\n",
@@ -4709,7 +4709,7 @@ show_candidates ()
                name_string (players[p].name),
                players[p].politics & CENSORED ? " (disqualified)" : "");
   fprintf (times, "</table>\n");
-  fprintf (times, "</FONT>\n");
+  fprintf (times, "</div>\n");
 }
 
 void

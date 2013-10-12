@@ -1702,16 +1702,16 @@ show_merc_options (FILE * fd, struct PLAYER *player)
         {
           fprintf (fd, "<option value=\"-%d\">Pay $%d per turn</option>\n", bid, bid);
         }
-      fprintf (fd, "</select></div>\n");
+      fprintf (fd, "</select>\n");
     }
 
 
-  fprintf (fd, "<P>A contract for next turn is offered at %s\n",
+  fprintf (fd, "<p>A contract for next turn is offered at %s\n",
            star_names[locations[next_contract].star]);
-  fprintf (fd, "<BR>The terrain is %s, fee is $%d\n",
+  fprintf (fd, "<br>The terrain is %s, fee is $%d\n",
            loc_string (next_contract), next_fee);
   fprintf (fd,
-           "<BR>To win it, be at %s at the end of next turn with the strongest mercenary force, allowing for terrain bonuses/penalties\n",
+           "<br>To win it, be at %s at the end of next turn with the strongest mercenary force, allowing for terrain bonuses/penalties</p></div>\n",
            star_names[locations[next_contract].star]);
 }
 

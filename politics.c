@@ -403,7 +403,7 @@ make_president_link (FILE * fd, int minister)
   force_symlink(buf1, buf2);
   
   fprintf (fd,
-           "<A HREF=\"http://%s/Report_%s%d.htm\">Report from Alien ships</A><p>",
+           "<a href=\"http://%s/Report_%s%d.htm\">Report from Alien ships</a>",
            server, uint32_name (unique_url), turn);
 }
 
@@ -424,7 +424,7 @@ check_votes (FILE * fd, struct PLAYER *player)
 
   if (player->votes == 0)
     {
-      fprintf (fd, "<p>You control no Presidential votes</p>\n");
+      fprintf (fd, "<p>You control no Presidential votes</p></div>\n");
     }
   else
     {

@@ -1674,7 +1674,7 @@ show_merc_options (FILE * fd, struct PLAYER *player)
 {
   int bid;
 
-  fprintf (fd, "<hr><h2><div class=\"mercs\" style=\"margin-bottom:1.5em;\">");
+  fprintf (fd, "<hr><div class=\"mercs\" style=\"margin-bottom:1.5em;\"><h2>");
   print_rules_link(fd, "Mercenaries", "Mercenary");
   fprintf (fd, " Actions</h2>\n");
   if ((player->flags & DISGRACED) && (dice (20) == 0))

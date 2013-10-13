@@ -2207,7 +2207,7 @@ reset_aliens ()
           sprintf (aliens[i].banner, "A peaceful trader");
           break;
         case pirate:
-          sprintf (aliens[i].banner, "Give me cargo pods");
+          sprintf (aliens[i].banner, "All your pod are belong to us");
           break;
         }
       target = pairing (aliens + i);

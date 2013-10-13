@@ -2987,7 +2987,7 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
         }
       if (amount > 0)
         {
-        fprintf (fd, "<p><em>Failed to buy from factory><br>\n");
+        fprintf (fd, "<p><em>Failed to buy from factory<br>\n");
         fprintf (fd, "Check your pod space and available energy</em></p>\n");
         }
       break;

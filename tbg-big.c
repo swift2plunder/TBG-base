@@ -779,7 +779,7 @@ show_other_ships (FILE * fd, struct PLAYER *player, int star)
     {
       fprintf (fd, "%s leftover<BR>\n", pair_string (base));
     }
-  fprintf (fd, "<H3>Details</H3>\n");
+  //fprintf (fd, "<H3>Details</H3>\n");
   base = sort_ships (star);
   while (base)
     {

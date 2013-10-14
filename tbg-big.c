@@ -1997,9 +1997,9 @@ create_header (struct PLAYER *player)
       printf ("Can't create header file\n");
       exit (1);
     }
-  fprintf (fd, "<HTML><HEAD><TITLE>To Boldly Go - Starship %s, Turn %d</TITLE>\n", name_string (player->name), turn);
+  fprintf (fd, "<html><head><title>To Boldly Go - Starship %s, Turn %d</title>\n", name_string (player->name), turn);
   html_header (fd, player->web_source);
-  fprintf (fd, "<H1>To Boldly Go - Starship %s, Turn %d</H1>\n",
+  fprintf (fd, "<h1>To Boldly Go - Starship %s, Turn %d</h1>\n",
            name_string (player->name), turn);
   if (player->rings_held)
     fprintf (fd, "Holding %s\n", ring_string (player->rings_held));
@@ -2828,7 +2828,7 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
     case constituency:
       if (locations[loc].used)
         fprintf (fd,
-                 "<P><EM>Someone more impressive already campaigned for votes at %s %s</EM>\n",
+                 "<li>Someone more impressive already campaigned for votes at %s %s</li>\n",
                  races[race].name, loc_string (loc));
       else
         {
@@ -2837,24 +2837,28 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
           int p = player - players;
 
           fprintf (fd,
-                   "<P>%s officer campaigned at %s %s with %d influence\n",
+                   "<li>%s officer campaigned at %s %s with %d influence\n",
                    skill_names[skill], races[race].name, loc_string (loc),
                    influence);
           if (locations[loc].voter == 0 || locations[loc].voter == p)
             {
               locations[loc].influence += influence;
               locations[loc].voter = p;
+              fprintf (fd, "</li>\n");
             }
           else
             {
               locations[loc].influence -= influence;
               if (locations[loc].influence == 0)
-                locations[loc].voter = 0;
+                {
+                  locations[loc].voter = 0;
+                  fprintf (fd, "</li>\n");
+                }
               if (locations[loc].influence < 0)
                 {
                   locations[loc].influence = -locations[loc].influence;
                   locations[loc].voter = p;
-                  fprintf (fd, "<BR>and took control of the location\n");
+                  fprintf (fd, "<br>and took control of the location</li>\n");
                 }
             }
           locations[loc].used = TRUE;
@@ -2865,27 +2869,27 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
           skills[parameter] & skill_bit (academy_skill, qualifier - 'A'))
         {
           fprintf (fd,
-                   "<P><EM>%s officer has already taken that academy course</EM>\n",
+                   "<li>%s officer has already taken that academy course</li>\n",
                    skill_names[parameter]);
           break;
         }
       if (player->energy < (qualifier - 'A') * (qualifier - 'A') * 100)
         {
-          fprintf (fd, "<P><EM>Can't afford academy fee</EM>\n");
+          fprintf (fd, "<li>Can't afford academy fee</li>\n");
           break;
         }
       if (skill_level (player->skills[parameter]) < (qualifier - 'A') * 4 - 4)
         {
-          fprintf (fd, "<P><EM>Need skill %d for that academy course</EM>\n",
+          fprintf (fd, "<li>Need skill %d for that academy course</li>\n",
                    (qualifier - 'A') * 4 - 4);
           break;
         }
       player->energy -= (qualifier - 'A') * (qualifier - 'A') * 100;
       player->skills[parameter] |= skill_bit (academy_skill, qualifier - 'A');
-      fprintf (fd, "<P>Studied at %s academy\n", skill_names[parameter]);
+      fprintf (fd, "<li>Studied at %s academy</li>\n", skill_names[parameter]);
       break;
     case arsenal:
-      fprintf (fd, "<P>Bought %d Photon Torpedoes\n", qualifier - 'A');
+      fprintf (fd, "<li>Bought %d Photon Torpedoes</li>\n", qualifier - 'A');
       player->energy -= 10 * (qualifier - 'A');
       player->torps += (qualifier - 'A');
       break;
@@ -2900,11 +2904,11 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
       stars[player->star].ore -= amount;
       amount = fuzz(5*amount);
       player->energy += amount;
-      fprintf (fd, "<P>Collected ore worth $%d\n", amount);
+      fprintf (fd, "<li>Collected ore worth $%d</li>\n", amount);
       break;
     case colony:
       if ((price = sell (fd, player, parameter)))
-        fprintf (fd, "<P>Sold %s to %s Colony for $%d\n",
+        fprintf (fd, "<li>Sold %s to %s Colony for $%d</li>\n",
                  goods[GOOD_NUMBER (parameter)].name,
                  races[RACE_NUMBER (parameter)].name, price);
       break;
@@ -2912,25 +2916,25 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
       if (locations[loc].used)
         {
           fprintf (fd,
-                   "<P><EM>Chocolate already collected from these comets this turn</EM>\n");
+                   "<li>Chocolate already collected from these comets this turn</li>\n");
           break;
         }
       if (load_pod (items + player->ship, CHOCOLATE, 1))
         {
-          fprintf (fd, "<P>Collected chocolate comets\n");
+          fprintf (fd, "<li>Collected chocolate comets</li>\n");
           locations[loc].used = TRUE;
         }
       else
-        fprintf (fd, "<P><EM>No room to load chocolate</EM>\n");
+        fprintf (fd, "<li>No room to load chocolate</li>\n");
       break;
     case corona:
       if (!loc_accessible (player, loc))
         {
-          fprintf (fd, "<P><EM>Can't get close enough to skim star</EM>\n");
+          fprintf (fd, "<li>Can't get close enough to skim star</li>\n");
           break;
         }
       amount = fuzz(5 * locations[loc].risk);
-      fprintf (fd, "<P>Gained $%d skimming star", amount);
+      fprintf (fd, "<li>Gained $%d skimming star>\n", amount);
       player->energy += amount;
       if (dice (100) < locations[loc].risk)
         {
@@ -2939,14 +2943,18 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
             break;
           items[target].flags |= ITEM_BROKEN;
           items[target].reliability -= dice (20);
-          fprintf (fd, "<BR><EM>Unexpected Flare damages %s!</EM>\n",
+          fprintf (fd, "<br>>Unexpected Flare damages %s!</li>\n",
                    item_string (items + target));
           if (items[target].reliability > 200)
             {
-              fprintf (fd, "<BR><EM>Damage destroys %s!</EM>\n",
+              fprintf (fd, "<br>Damage destroys %s!</li>\n",
                        item_string (items + target));
               destroy_item (target);
             }
+        }
+      else
+        {
+        fprintf (fd, "</li>\n");
         }
       break;
     case deep_space:
@@ -2954,7 +2962,7 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
       if (player->star == popcorn.star)
         harvest_popcorn (fd, player);
       else
-        fprintf (fd, "<P><EM>The Popcorn source is not here</EM>\n");
+        fprintf (fd, "<li>The Popcorn source is not here</li>\n");
       break;
     case factory:
       if (qualifier < 'a')
@@ -2966,12 +2974,12 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
           if (unload_pod (fd, player, SCRAP))
             {
               player->energy += 25;
-              fprintf (fd, "<P>Sold scrap to Factory for $25\n");
+              fprintf (fd, "<li>Sold scrap to Factory for $25</li>\n");
               amount++;
             }
           else
             {
-              fprintf (fd, "<P><EM>Failed to sell scrap</EM>\n");
+              fprintf (fd, "<li>Failed to sell scrap</li>\n");
               amount = 0;
             }
         }
@@ -2980,21 +2988,21 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
              load_pod (items + player->ship, GOOD_NUMBER (parameter), 1))
         {
           amount--;
-          fprintf (fd, "<P>Bought 1 %s from factory for $%d\n",
+          fprintf (fd, "<li>Bought 1 %s from factory for $%d</li>\n",
                    goods[GOOD_NUMBER (parameter)].name,
                    goods[GOOD_NUMBER (parameter)].basic_value);
           player->energy -= goods[GOOD_NUMBER (parameter)].basic_value;
         }
       if (amount > 0)
         {
-        fprintf (fd, "<p><em>Failed to buy from factory<br>\n");
-        fprintf (fd, "Check your pod space and available energy</em></p>\n");
+        fprintf (fd, "<li>Failed to buy from factory<br>\n");
+        fprintf (fd, "Check your pod space and available energy</li>\n");
         }
       break;
     case homeworld:
       amount =
         (races[parameter].wealth * (100 - races[parameter].plague)) / 100;
-      fprintf (fd, "<P>Collected $%d from %s homeworld\n", amount,
+      fprintf (fd, "<li>Collected $%d from %s homeworld</li>\n", amount,
                races[parameter].name);
       player->energy += amount;
       races[parameter].wealth = 0;
@@ -3005,7 +3013,7 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
       skill = qualifier - 'A';
       if (skill_level (player->skills[skill]) <= player->crew[skill])
         {
-          fprintf (fd, "<P><EM>Can't hire any more %s crew</EM>\n",
+          fprintf (fd, "<li>Can't hire any more %s crew</li>\n",
                    skill_names[skill]);
           break;
         }
@@ -3019,13 +3027,13 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
               add_crew (player, skill, 1, s);
               if (number - 1)
                 add_crew (player, skill, number - 1, 0);
-              fprintf (fd, "<P>Hired %d (1 skilled) %s crew wanting to work for the Tribune\n",
+              fprintf (fd, "<li>Hired %d (1 skilled) %s crew wanting to work for the Tribune</li>\n",
                        number, skill_names[skill]);
             }
           else
             {
               add_crew (player, skill, number, 0);
-              fprintf (fd, "<P>Hired %d %s crew wanting to work for the Tribune\n",
+              fprintf (fd, "li>Hired %d %s crew wanting to work for the Tribune</li>\n",
                        number, skill_names[skill]);
             }
         }
@@ -3035,18 +3043,18 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
             add_crew (player, skill, 1, skill_level (player->skills[skill]));
           else
             add_crew (player, skill, 1, 0);
-          fprintf (fd, "<P>Hired %s crew\n", skill_names[skill]);
+          fprintf (fd, "<li>Hired %s crew</li>\n", skill_names[skill]);
         }
       break;
     case minefield:
       if (!loc_accessible (player, loc))
         {
           fprintf (fd,
-                   "<P><EM>Cloaks not good enough to enter minefield safely</EM>\n");
+                   "<li>Cloaks not good enough to enter minefield safely</li>\n");
           break;
         }
       count = player->crew[weaponry];
-      fprintf (fd, "<P>Tried to collect %d photon torpedoes, ", 5*count);
+      fprintf (fd, "<li>Tried to collect %d photon torpedoes, ", 5*count);
       found = damage = 0;
       while (count--)
         {
@@ -3056,7 +3064,7 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
               dice (100) + factor (life_support, player))
             damage++;
         }
-      fprintf (fd, "and found %d. Health damage is %d%%", found, damage);
+      fprintf (fd, "and found %d. Health damage is %d%%</li>\n", found, damage);
       player->torps += found;
       player->health -= damage;
       break;
@@ -3067,20 +3075,22 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
       if (factor (sick_bay, player) > value)
         {
           value += dice (32) * 1000;
-          fprintf (fd, "<P>Discovered new %s medicine of value $%d\n",
+          fprintf (fd, "<li>Discovered new %s medicine of value $%d\n",
                    races[value / 1000].name, (value % 1000) * 50);
           if (player->medicine)
-            fprintf (fd, "<BR>Had to discard old medicine to make room\n");
+            { fprintf (fd, "<br>Had to discard old medicine to make room</li>\n"); }
+          else
+            { fprintf (fd, "</li>"); }
           player->medicine = value;
         }
       else
-        fprintf (fd, "<P><EM>No new medicine found</EM>\n");
+        fprintf (fd, "<li>No new medicine found</li>\n");
       break;
     case prison:
       if (player->prisoner)
         {
           amount = fuzz(500 * (player->prisoner & 7) * (player->prisoner & 7));
-          fprintf (fd, "<P>Collected $%d reward for %s\n",
+          fprintf (fd, "<li>Collected $%d reward for %s</li>\n",
                    amount, criminal_string (player->prisoner));
           relocate_criminal (player->prisoner);
           player->prisoner = NO_CRIMINAL;
@@ -3088,29 +3098,29 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
         }
       else
         fprintf (fd,
-                 "<P><EM>You have no prisoner to cash in for reward</EM>\n");
+                 "<li>You have no prisoner to cash in for reward</li>\n");
 
       break;
     case school:
       if (player->energy < (qualifier - 'A') * 50)
         {
-          fprintf (fd, "<P><EM>Can't afford %s schooling</EM>\n",
+          fprintf (fd, "<li>Can't afford %s schooling</li>\n",
                    skill_names[parameter]);
           break;
         }
       if (player->
           skills[parameter] & skill_bit (school_skill, qualifier - 'A'))
         {
-          fprintf (fd, "<P><EM>Already been to %s school</EM>\n",
+          fprintf (fd, "<li>Already been to %s school</li>\n",
                    skill_names[parameter]);
           break;
         }
       player->energy -= (qualifier - 'A') * 50;
       player->skills[parameter] |= skill_bit (school_skill, qualifier - 'A');
-      fprintf (fd, "<P>Studied at %s school\n", skill_names[parameter]);
+      fprintf (fd, "<li>Studied at %s school</li>\n", skill_names[parameter]);
       break;
     case terminal:
-      fprintf (fd, "<P>Gained access to Starnet Terminal #%d\n", parameter);
+      fprintf (fd, "<li>Gained access to Starnet Terminal #%d</li>\n", parameter);
       player->experience[science] |= 1 << parameter;
       break;
     default:
@@ -3205,7 +3215,7 @@ train (FILE * fd, struct PLAYER *player, skill_sort skill)
       skill_level (player->skills[skill]))
     player->pools[skill] = player->crew[skill] *
       skill_level (player->skills[skill]);
-  fprintf (fd, "<P>%s crew trained up to average of %d\n",
+  fprintf (fd, "<li>%s crew trained up to average of %d</li>\n",
            skill_names[skill], player->pools[skill] / player->crew[skill]);
 }
 
@@ -3216,7 +3226,7 @@ open_results (FILE ** fd, struct PLAYER *player)
 
   if (*fd)
     {
-    fprintf (*fd, "<!-- Close section A -->\n");
+    fprintf (*fd, "</section>\n");
     fclose (*fd);
     }
   sprintf (buffer, "%s/results/%d/%s%d.a", webroot,
@@ -3231,7 +3241,7 @@ open_results (FILE ** fd, struct PLAYER *player)
       exit (1);
     }
   player->results = TRUE;
-  fprintf (*fd, "<!-- Open section A -->\n");
+  fprintf (*fd, "<section>\n");
 }
 
 

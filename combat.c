@@ -1346,7 +1346,7 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
   if (is_player (attacker) && is_player (defender))
     {
       fprintf (times,
-               "<hr>(Debug) Battle between players with total damage value: $%d\n",
+               "<hr>Battle between players with total damage value: $%d\n",
                cost);
       printf ("Battle: %s vs %s\n", attacker->name, defender->name);
     }

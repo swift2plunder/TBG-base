@@ -591,7 +591,7 @@ resolve_judgement ()
   do
     defendent = dice (MAX_RACE);
   while (accuser == defendent);
-  fprintf (times, "The next case will be %s vs %s</div>\n",
+  fprintf (times, "<br>The next case will be %s vs %s</div>\n",
            races[accuser].name, races[defendent].name);
 }
 

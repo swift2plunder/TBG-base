@@ -1195,7 +1195,7 @@ write_heretic_lists ()
 {
   int skill, p;
 
-  fprintf (times, "<font color=\"gray\">\n");
+  fprintf (times, "<div class=\"heretics\">\n");
   for (skill = 0; skill < 4; skill++)
     {
       fprintf (times, "<hr>%s turns away from the heretics: ~\n",
@@ -1204,7 +1204,7 @@ write_heretic_lists ()
         if (players[p].heretic & (1 << skill))
           fprintf (times, " %s ~", name_string (players[p].name));
     }
-  fprintf (times, "</font>\n");
+  fprintf (times, "</div>\n");
 }
 
 void
@@ -1212,7 +1212,7 @@ write_chosen_lists ()
 {
   int skill, p;
 
-  fprintf (times, "<font color=\"white\">\n");
+  fprintf (times, "<div class=\"chosen\">\n");
   for (skill = 0; skill < 4; skill++)
     {
       fprintf (times, "<hr>%s recognises the chosen ones: ~\n",
@@ -1221,7 +1221,7 @@ write_chosen_lists ()
         if (players[p].chosen & (1 << skill))
           fprintf (times, " %s ~", name_string (players[p].name));
     }
-  fprintf (times, "</font>\n");
+  fprintf (times, "</div>\n");
 }
 
 void

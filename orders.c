@@ -835,7 +835,7 @@ execute_orders ()
   if (high_fighter != -1)       /* contract taken */
     {
       players[high_fighter].energy += next_fee;
-      if (next_fee > 15)
+      if (next_fee > 60)
         next_fee /= 2;
       fprintf (times,
                "<hr><div class=\"mercs\">%s won the mercenary contract at %s - the fee is $%d for the next one</FONT>\n",
@@ -844,7 +844,7 @@ execute_orders ()
     }
   else
     {
-      if (next_fee < 480)
+      if (next_fee < 960)
         next_fee *= 2;
       fprintf (times,
                "<hr><div class=\"mercs\">No-one took the mercenary contract at %s - the fee is $%d for the next one</div>\n",

@@ -1082,6 +1082,7 @@ do_popcorn_auction ()
           int amount = players[i].popcorn_buy - players[i].popcorn_sales;
           struct PLAYER *player = players + i;
           open_results (&fd, player);
+          fprintf (fd, "<!-- dybuk.c:1085 >");
 
           if (amount == 0)
             fprintf (fd, "<p>Didn't trade any popcorn, going price was $%d</p>\n",

@@ -1997,7 +1997,7 @@ create_header (struct PLAYER *player)
       printf ("Can't create header file\n");
       exit (1);
     }
-  fprintf (fd, "<html><head><title>To Boldly Go - Starship %s, Turn %d</title>\n", name_string (player->name), turn);
+  fprintf (fd, "<!DOCTYPE html>\n<html><head><title>To Boldly Go - Starship %s, Turn %d</title>\n", name_string (player->name), turn);
   html_header (fd, player->web_source);
   fprintf (fd, "<h1>To Boldly Go - Starship %s, Turn %d</h1>\n",
            name_string (player->name), turn);
@@ -2007,12 +2007,12 @@ create_header (struct PLAYER *player)
     {
       if (player->star >= MAX_STAR)
         fprintf (fd,
-                 "(starting turn at star system %s Planet for %s with $%d of energy, playing since turn %d)<BR>\n",
+                 "(starting turn at star system %s Planet for %s with $%d of energy, playing since turn %d)<br>\n",
                  mothballed (player - players) ? "Mothball" : "Holiday",
                  name_string (player->name), player->energy, player->last_restart);
       else
         fprintf (fd,
-                 "(starting turn at star system %s with $%d of energy, playing since turn %d)<BR>\n",
+                 "(starting turn at star system %s with $%d of energy, playing since turn %d)<br>\n",
                  star_names[player->star], player->energy, player->last_restart);
       }
 

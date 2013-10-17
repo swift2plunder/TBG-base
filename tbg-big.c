@@ -1981,7 +1981,7 @@ show_player (FILE * fd, struct PLAYER *player)
            "<hr><a href=\"http://%s\"><img src=\"http://%s/counter.gif\"></a>\n",
            server, server);
 
-  fprintf (fd, "</div>\n");
+  fprintf (fd, "</div></body></html>\n");
 }
 
 
@@ -3962,9 +3962,9 @@ merge_results ()
                "touch %s %s %s %s %s", bufh, battle, bufa, bufb, bufc);
       SYSTEM (buffer);
       snprintf (buffer, 1000,
-               "cat %s %s %s %s %s %s/results/javascript.html > %s/results/%d/%s%d.html",
+               "cat %s %s %s %s %s > %s/results/%d/%s%d.html",
                bufh, battle, bufa, bufc, bufb, webroot,
-               webroot, game, players[player].name, turn);
+               game, players[player].name, turn);
       SYSTEM (buffer);
       snprintf (buffer, 1000,
                "%s/bin/sanitize %s/results/%d/%s%d.html %s/results/%d/share_%s%d.html",

@@ -4127,15 +4127,15 @@ generate_times (int code)
     {
     case 0:
       shop = dice (MAX_SHOP);
-      fprintf (times, "<HR><FONT COLOR=\"CYAN\">\n");
+      fprintf (times, "<hr><div class=\"shops\">\n");
       show_ship (times, shops + shop);
-      fprintf (times, "</FONT>\n");
+      fprintf (times, "</div>\n");
       break;
     case 1:
       race = dice (32);
       if (races[race].plague > 50)
         fprintf (times,
-                 "<HR><FONT COLOR=\"RED\">Help! %s Plague getting out of hand at <STRONG>%s</STRONG></FONT>\n",
+                 "<hr><div class=\"plague\">Help! %s Plague getting out of hand at %s</div>\n",
                  races[race].name, star_names[homeworlds[race]]);
       else
         generate_times (dice (5));
@@ -4143,18 +4143,18 @@ generate_times (int code)
     case 2:
       race = dice (32);
       fprintf (times,
-               "<HR><FONT COLOR=\"ORANGE\"><STRONG>The %s People denounce all their enemies ~ ",
+               "<hr><div class=\"enemies\">The %s People denounce all their enemies ~ ",
                races[race].name);
       for (player = 0; player < num_players; player++)
         if (players[player].enemies & (1 << race))
           fprintf (times, "%s ~ \n", name_string (players[player].name));
-      fprintf (times, "</STRONG></FONT>\n");
+      fprintf (times, "</div>\n");
       break;
     case 3:
       ad = dice (MAX_ADVENTURE);
       if (ADVENTURE_LEVEL (adventures[ad].parameter) < dice (10))
         fprintf (times,
-                 "<HR><FONT COLOR=\"GREY\">Rumours of adventures at <STRONG>%s</STRONG></FONT>\n",
+                 "<hr><div class=\"adventures\">Rumours of adventures at %s</div>\n",
                  star_names[adventures[ad].star]);
       else
         generate_times (dice (5));
@@ -4166,7 +4166,7 @@ generate_times (int code)
       criminal = locations[loc].criminal & 7;
       if (criminal && criminal < dice (8))
         fprintf (times,
-                 "<HR><FONT COLOR=\"GREY\">%s spotted at <STRONG>%s</STRONG></FONT>\n",
+                 "<hr><div class=\"criminals\">%s spotted at %s</div>\n",
                  criminal_string (criminal), star_names[locations[loc].star]);
       else
         generate_times (dice (5));

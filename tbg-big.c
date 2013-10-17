@@ -4078,7 +4078,7 @@ open_times ()
       printf ("Can't open times (%s)\n", buffer);
       exit (1);
     }
-  fprintf (times, "<html><head><title>Subspace Times</title>\n");
+  fprintf (times, "<!DOCTYPE html>\n<html><head><title>Subspace Times</title>\n");
   fprintf (times, "<link rel=\"shortcut icon\" href=\"/favicon.ico\">\n");
   fprintf (times, "<link type=\"text/css\" rel=\"stylesheet\" href=\"http://%s/includes/tbg.css\">\n", server);
   fprintf (times, "<link type=\"text/css\" rel=\"stylesheet\" href=\"http://%s/includes/jquery-ui-1.10.3.custom/css/smoothness/jquery-ui-1.10.3.custom.css\">\n", server);

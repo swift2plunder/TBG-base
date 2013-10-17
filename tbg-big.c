@@ -1851,12 +1851,14 @@ show_orders (FILE *fd, struct PLAYER *player)
            player->preferences & 1 ? "SELECTED" : "");
   fprintf (fd, "</SELECT>\n");
 
+/*
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Mail via server\n",
            player->preferences & 4 ? "" : "SELECTED");
   fprintf (fd, "<OPTION VALUE=4 %s>Mail directly\n",
            player->preferences & 4 ? "SELECTED" : "");
   fprintf (fd, "</SELECT>\n");
+Do not offer direct mail - Bug 8 */
 
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Restart on loss of ship\n",
@@ -1945,7 +1947,7 @@ show_orders (FILE *fd, struct PLAYER *player)
 
   if (!temp)
     {
-      fprintf (fd, "<Form method=POST action=\"mailto:tbg@%s\">\n", mail_server);
+/*    fprintf (fd, "<Form method=POST action=\"mailto:tbg@%s\">\n", mail_server);
       fprintf (fd, "<Input Name=\"z\" VALUE=0 TYPE=HIDDEN>\n");
       fprintf (fd, "<Input Name=\"Z\" VALUE=1 TYPE=HIDDEN>\n");
       fprintf (fd, "<Input Name=\"k\" VALUE=\"%d\" TYPE=HIDDEN>\n",
@@ -1953,11 +1955,11 @@ show_orders (FILE *fd, struct PLAYER *player)
       fprintf (fd, "<Input Name=\"n\" VALUE=\"%s\" TYPE=HIDDEN>\n",
                player->name);
       fprintf (fd, "<INPUT TYPE=submit VALUE=\"Direct Mail Test\">");
-      fprintf (fd, "</FORM>\n");
+      fprintf (fd, "</FORM>\n"); Kill direct mail test */
     }
   else
     fclose (temp);
-  fprintf(fd, "<!-- Order submission ends -->\n");
+    fprintf(fd, "<!-- Order submission ends -->\n");
 }
 
 void

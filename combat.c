@@ -412,7 +412,7 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
   num_items = isqrt (player->torps);
   fprintf (fd, "<TR ALIGN=CENTER><TD><SELECT NAME=\"df\">\n");
   for (i = 0; i <= num_items; i++)
-    fprintf (fd, "<OPTION VALUE=%d>%d per round\n", i, i * i);
+    fprintf (fd, "<OPTION VALUE=%d>%d per phase\n", i, i * i);
   fprintf (fd, "</SELECT>\n");
   fprintf (fd, "</TD>\n");
 

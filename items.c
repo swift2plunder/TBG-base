@@ -432,7 +432,8 @@ item_string (struct ITEM *item)
                item->flags & ITEM_BROKEN ? "(U)" : "");
     }
   else
-    sprintf (buffer, "%s-%d%c %s",
+    sprintf (buffer, "%s %s-%d%c %s",
+             tech_level_names[item->efficiency],
              item_names[item->sort],
              item - items,
              item->flags & ITEM_DEMO ? 'D' : ' ',

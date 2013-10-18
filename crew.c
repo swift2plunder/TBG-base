@@ -231,7 +231,7 @@ recruit_rogues (FILE * fd, struct PLAYER *player, int loc)
   number = min (number, current - player->crew[skill]);
   if (number == 0)
     {
-      fprintf (fd, "<P><EM>No rogues recruited.</EM>\n");
+      fprintf (fd, "<li>No rogues recruited.</li>\n");
       return;
     }
 
@@ -245,12 +245,12 @@ recruit_rogues (FILE * fd, struct PLAYER *player, int loc)
   while (level * number + player->pools[skill] > current * current)
     level--;
   fprintf (fd,
-           "<P>Recruited %d rogues of average %s skill %d, you are declared an enemy of the %s government",
+           "<li>Recruited %d rogues of average %s skill %d, you are declared an enemy of the %s government",
            number, skill_names[skill], level,
            races[locations[loc].rogues >> 3].name);
   if (ministers[MIN_JUST] == player - players)
     fprintf(fd, " and justice ministry files let you the pick the best of the rogues.");
-  fprintf(fd, "\n");
+  fprintf(fd, "</li>\n");
   add_crew (player, skill, number, level);
   player->enemies |= 1 << (locations[loc].rogues >> 3);
   locations[loc].rogues =

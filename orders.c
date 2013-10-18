@@ -614,10 +614,10 @@ execute_orders ()
           if ((loc == NO_LOCATION)
               || ((player->experience[science] & (1 << loc)) == 0))
             {
-              fprintf (fd, "<p><em>No access to starnet here</em>\n");
+              fprintf (fd, "<li>No access to starnet here</li>\n");
               break;
             }
-          fprintf (fd, "<P>Trying password %s:\n", password (order->param1));
+          fprintf (fd, "<li>Trying password %s:\n", password (order->param1));
           if (order->param1 == password_key)
             {
               if (player->skills[order->param1 / 4] & 0x80)
@@ -627,13 +627,13 @@ execute_orders ()
                 }
               else
                 player->skills[order->param1 / 4] |= 0x80;
-              fprintf (fd, "<BR>Password is Correct!\n");
+              fprintf (fd, "<br>Password is Correct!</li>\n");
             }
           else
-            fprintf (fd, "<BR>Password is Wrong!\n");
+            fprintf (fd, "<br>Password is Wrong!</li>\n");
           break;
         case 'W':               /* collect ring */
-          fprintf (fd, "<p>Collected %s!\n",
+          fprintf (fd, "<li>Collected %s!</li>\n",
                    ring_string (locations[order->param1].ring));
           printf ("%s collecting %s ring!\n",
                   player->name, ring_string (locations[order->param1].ring));
@@ -644,19 +644,19 @@ execute_orders ()
           if (prophets[order->param2] != player - players)
             {
               fprintf (fd,
-                       "<p><em>Prophet options no longer available</em>\n");
+                       "<li>Prophet options no longer available</li>\n");
               break;
             }
           if (players[order->param1].heretic & (1 << order->param2))
             {
-              fprintf (fd, "<p>Forgave %s\n",
+              fprintf (fd, "<li>Forgave %s</li>\n",
                        name_string (players[order->param1].name));
               players[order->param1].heretic &= ~(1 << order->param2);
             }
           else
             {
 
-              fprintf (fd, "<p>Excommunicated %s\n",
+              fprintf (fd, "<li>Excommunicated %s</li>\n",
                        name_string (players[order->param1].name));
               players[order->param1].heretic |= (1 << order->param2);
               fprintf (times,

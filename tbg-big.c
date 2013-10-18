@@ -2749,17 +2749,17 @@ disable (FILE * fd, struct PLAYER *player, int item)
     {
       if (want_verbose)
         printf ("%sis %d, which should be less than %d\n", item_string (items + item), items[item].sort, pod);
-      fprintf (fd, "<P>Can't shut down %s.\n",
+      fprintf (fd, "<li>Can't shut down %s.</li>\n",
                item_string (items + item));
     }
   else if (! owner (player, item))
     {
-      fprintf (fd, "<P>Do you even own %s?\n",
+      fprintf (fd, "<li>You do not own %s?</li>\n",
                item_string (items + item));
     }
   else
     {
-      fprintf (fd, "<P>Shut down %s\n",
+      fprintf (fd, "<li>Shut down %s</li>\n",
                item_string (items + item));
       (items + item)->flags |= ITEM_BROKEN;
     }
@@ -2770,7 +2770,7 @@ shop_at (FILE * fd, struct PLAYER *player, int item)
 {
   if (owner (player, item))     /* selling */
     {
-      fprintf (fd, "<P>Sold %s for $%d\n",
+      fprintf (fd, "<li>Sold %s for $%d</li>\n",
                item_string (items + item), sale_price (items + item));
       player->energy += sale_price (items + item);
       destroy_item (item);
@@ -2779,17 +2779,17 @@ shop_at (FILE * fd, struct PLAYER *player, int item)
     {
       if (player->energy < items[item].price)
         {
-          fprintf (fd, "<P><EM>Can't afford shopping</EM>\n");
+          fprintf (fd, "<li>Can't afford shopping</li>\n");
           return;
         }
       if (!shop_owns_item (item))
         {
-          fprintf (fd, "<P><EM>%s no longer available</EM>\n",
+          fprintf (fd, "<li>%s no longer available</li>\n",
                    item_string (items + item));
           return;
         }
       player->energy -= items[item].price;
-      fprintf (fd, "<P>Bought %s for $%d\n",
+      fprintf (fd, "<li>Bought %s for $%d</li>\n",
                item_string (items + item), items[item].price);
       player->ship = transfer_item (item, player);
     }
@@ -3460,13 +3460,13 @@ scrap (FILE * fd, struct PLAYER *player, int code)
       item = items - code;
       if (item->reliability < BASE_UNIT)        /* scrap goods */
         {
-          fprintf (fd, "<P>Scrapped %d units of %s\n",
+          fprintf (fd, "<li>Scrapped %d units of %s</li>\n",
                    item->collection, goods[item->reliability].name);
           item->reliability = SCRAP;
         }
       else                      /* demob unit */
         {
-          fprintf (fd, "<P>Demobbed %s\n",
+          fprintf (fd, "<li>Demobbed %s</li>\n",
                    units[item->reliability - BASE_UNIT].name);
           units[item->reliability - BASE_UNIT].pay = 0;
           item->reliability = 0;
@@ -3479,11 +3479,11 @@ scrap (FILE * fd, struct PLAYER *player, int code)
       item = items + code;
       if (load_pod (items + player->ship, SCRAP, 1))
         {
-          fprintf (fd, "<P>Scrapped %s\n", item_string (item));
+          fprintf (fd, "<li>Scrapped %s</li>\n", item_string (item));
           destroy_item (code);
         }
       else
-        fprintf (fd, "<P><EM>Can't scrap %s</EM>\n", item_string (item));
+        fprintf (fd, "<li>Can't scrap %s</li>\n", item_string (item));
     }
 }
 

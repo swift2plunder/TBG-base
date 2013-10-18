@@ -1752,8 +1752,11 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf (fd, "<TABLE BORDER=1>\n");
   for (sort = engineering; sort <= weaponry; sort++)
     {
-      fprintf (fd, "<TR><TH COLSPAN=4>%s (Skill %d)</TH></TR>\n",
-               skill_names[sort], effective_skill_level (player, sort));
+      fprintf (fd, "<TR><TH COLSPAN=4>%s skills (%d = %d+%d)</TH></TR>\n",
+               skill_names[sort], effective_skill_level (player, sort),
+               skill_level (player->skills[sort]),
+               effective_skill_level (player, sort) -
+               skill_level (player->skills[sort]));
       fprintf (fd, "<TR ALIGN=CENTER><TD COLSPAN=2><SELECT NAME=\"%c\">\n",
                skill_names[sort][0]);
       fprintf (fd, "<OPTION VALUE=.>Stand by\n");

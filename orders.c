@@ -454,7 +454,7 @@ execute_orders ()
       if (player != previous)
         {
           open_results (&fd, player);
-          fprintf (fd, "<!-- orders.c:457 >");
+          fprintf (fd, "<!-- orders.c:457 -->");
           previous = player;
         }
       if (order->command == 'x' && player->star < MAX_STAR)
@@ -480,7 +480,7 @@ execute_orders ()
   for (p = 1; p < MAX_PLAYER; p++)
     {
       open_results (&fd, players + p);
-      fprintf (fd, "<!-- orders.c:483 >");
+      fprintf (fd, "<!-- orders.c:483 -->");
       do_hiding_damage (fd, players + p);
       if (players[p].rank > last_rank)
         last_rank = players[p].rank;
@@ -517,7 +517,7 @@ execute_orders ()
       if (player != previous)
         {
           open_results (&fd, player);
-          fprintf (fd, "<!-- orders.c:519 >");
+          fprintf (fd, "<!-- orders.c:519 -->");
           previous = player;
           do_password_powers (fd, player);
         }
@@ -809,7 +809,7 @@ execute_orders ()
   for (p = 0; p < num_players; p++)
     {
       open_results (&fd, players + p);
-      fprintf (fd, "<!-- orders.c:810 >");
+      fprintf (fd, "<!-- orders.c:810 -->");
       jump (fd, players + p, players[p].star, resolve_movement (p));
       if (players[p].medicine)
         unload_medicine (fd, players + p);
@@ -873,7 +873,7 @@ execute_orders ()
     {
       update_adventures (players + p);
       open_results (&fd, players + p);
-      fprintf (fd, "<!-- orders.c:874 >");
+      fprintf (fd, "<!-- orders.c:874 -->");
       if (p == high_fighter)
         fprintf (fd, "<P>You won the mercenary contract and gained $%d\n",
                  old_fee);

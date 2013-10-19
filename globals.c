@@ -72,7 +72,7 @@ char *real_star_names[MAX_STAR + MAX_FAKE_STAR] = {
   "Oblivion",
   "Olympus",
   "Nowhere",
-  "Achernar",
+  "Magrathea",
   "Adhara",
   "Alcor",
   "Aldebaran",

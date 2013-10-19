@@ -842,7 +842,7 @@ execute_orders ()
       if (next_fee > 60)
         next_fee /= 2;
       fprintf (times,
-               "<hr><div class=\"mercs\">%s won the mercenary contract at %s - the fee is $%d for the next one</FONT>\n",
+               "<hr><div class=\"mercs\">%s won the mercenary contract at %s - the fee is $%d for the next one</div>\n",
                name_string (players[high_fighter].name),
                star_names[locations[current_contract].star], next_fee);
     }

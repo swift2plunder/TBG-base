@@ -614,12 +614,12 @@ big_ranking (FILE * output, int index, char *title)
       if (index == -1)
         players[p].ranking = i;
       // EEM
-      /* filter is reduncant
+      /* filter is redundant
       if ((strcmp (players[p].address, "nobody@localhost") == 0)
                  || (player->account_number == 0)) 
       */
       //if (player->account_number == 0) //Alternative to above
-        continue;
+      //  continue;
       if (n_selected++ >= 20)
         continue;
       if (rating_off)

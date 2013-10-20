@@ -89,9 +89,9 @@ generate_voting_options (FILE * fd, struct PLAYER *player)
 
   if (turn - player->last_restart < 100)
     {
-      fprintf (fd, "<div class=\"tribune\">Vote for Tribune of the People\n");
-      fprintf (fd, "<br>(Votes last turn shown in brackets)\n");
-      fprintf (fd, "<br><select name=\"P\">\n");
+      fprintf (fd, "<div class=\"tribune\"><table><tr><th>Vote for Tribune of the People</th></tr>\n");
+      fprintf (fd, "<tr><th>(Votes last turn shown in brackets)</th></tr>\n");
+      fprintf (fd, "<tr><td><select name=\"P\">\n");
       fprintf (fd, "<option value=T0>No-one\n");
       for (p = 1; p < MAX_PLAYER; p++)
         if ((turn - players[p].last_restart < 100)
@@ -103,7 +103,7 @@ generate_voting_options (FILE * fd, struct PLAYER *player)
                    p == player->trib ? "selected" : "",
                    name_string (players[p].name),
                    players[p].plebs);
-      fprintf (fd, "</select></div>\n");
+      fprintf (fd, "</select></td></tr></table></div>\n");
     }
   if (turn % 10 == 9)
     {

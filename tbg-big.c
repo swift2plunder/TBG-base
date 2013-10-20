@@ -254,7 +254,12 @@ show_ship (FILE * fd, struct PLAYER *ship)
              server, ship->account_number, name_string (ship->name), flag);
   else
     sprintf (buffer, "%s %s", name_string (ship->name), flag);
-  fprintf (fd, "<div class=\"ship\">\n");
+  if ((ship >= shops) && (ship <dybuk))
+    fprintf (fd, "<div class=\"shops\">\n");
+  if (ship < shops)
+    fprintf (fd, "<div class=\"ship\">\n");
+  if (ship = dybuk)
+    fprintf (fd, "<div class=\"dybuk\">\n");
   fprintf (fd, "<a name=\"%s\"></a>\n", ship->name);
   fprintf (fd, "<table>\n");
   fprintf (fd, "<tr><th colspan=\"4\">%s</th></tr>\n", buffer);

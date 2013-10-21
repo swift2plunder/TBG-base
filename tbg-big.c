@@ -1403,13 +1403,13 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
       if (repairers[item->sort] == sort && item->sort < pod)
         {
           if (item->flags & ITEM_BROKEN)        /* broken */
-            fprintf (fd, "<OPTION VALUE=R%d>Repair %s\n",
-                     item - items, item_string (item));
+            fprintf (fd, "<OPTION VALUE=R%d>Repair %s %s\n",
+                     item - items, tech_level_names[item->efficiency], item_string (item));
           if (effective_skill_level (player, sort) >
               item->efficiency * item->efficiency
               && !(item->flags & ITEM_DEMO) && item->reliability < 99)
-            fprintf (fd, "<OPTION VALUE=M%d>Maintain %s (%d%%)\n",
-                     item - items, item_string (item), item->reliability);
+            fprintf (fd, "<OPTION VALUE=M%d>Maintain %s %s (%d%%)\n",
+                     item - items, tech_level_names[item->efficiency], item_string (item), item->reliability);
         }
       item = items + item->link;
     }

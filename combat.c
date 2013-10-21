@@ -339,7 +339,9 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
   item = items + enemy->ship;
   while (item - items)
     {
-      fprintf (fd, "<OPTION VALUE=%d>%s\n", item - items, item_string (item));
+      fprintf (fd, "<OPTION VALUE=%d>%s %s (%d%%)\n", 
+        item - items, tech_level_names[item->efficiency], 
+        item_string (item), item->reliability);
       item = items + item->link;
     }
   fprintf (fd, "</SELECT></TD></TR>\n");
@@ -362,13 +364,15 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
   item = items + player->ship;
   while (item - items)
     {
-      fprintf (fd, "<OPTION VALUE=%d>%s\n", item - items, item_string (item));
+      fprintf (fd, "<OPTION VALUE=%d>%s %s (%d%%)\n",
+        item - items, tech_level_names[item->efficiency],
+        item_string (item), item->reliability);
       item = items + item->link;
     }
   fprintf (fd, "</SELECT></TD></TR>\n");
 
   fprintf (fd, "<TR ALIGN=CENTER><TH>Ideal Range</TH>\n");
-  fprintf (fd, "<TH>Targetted</TH></TR>\n");
+  fprintf (fd, "<TH>Targeted</TH></TR>\n");
 
   fprintf (fd, "<TR ALIGN=CENTER><TD><SELECT NAME=\"di\">\n");
   for (range = 0; range < 7; range++)
@@ -383,7 +387,9 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
   item = items + enemy->ship;
   while (item - items)
     {
-      fprintf (fd, "<OPTION VALUE=%d>%s\n", item - items, item_string (item));
+      fprintf (fd, "<OPTION VALUE=%d>%s %s (%d%%)\n",
+        item - items, tech_level_names[item->efficiency],
+        item_string (item), item->reliability);
       item = items + item->link;
     }
   fprintf (fd, "</SELECT></TD></TR>\n");
@@ -401,7 +407,9 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
   item = items + player->ship;
   while (item - items)
     {
-      fprintf (fd, "<OPTION VALUE=%d>%s\n", item - items, item_string (item));
+      fprintf (fd, "<OPTION VALUE=%d>%s %s (%d%%)\n",
+        item - items, tech_level_names[item->efficiency],
+        item_string (item), item->reliability);
       item = items + item->link;
     }
   fprintf (fd, "</SELECT></TD></TR>\n");

@@ -539,7 +539,7 @@ generate_board ()
 
   memset (board, 0xff, sizeof (board));
   memset (locations, 0, sizeof (locations));
-  for (star = 1; star < MAX_STAR; star++) // Do not initialize star 0
+  for (star = 0; star < MAX_STAR; star++)
     {
       stars[star].loc_mask = 0;
       do
@@ -1461,7 +1461,7 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
         continue;
 
       // Added test for "none".
-      if ((location_types[type].instability_skill == sort) && !strcmp(location_types[type].name, "none" ))
+      if ((location_types[type].instability_skill == sort) && !strcmp(location_types[type].name, "black hole" ))
       //if (location_types[type].instability_skill == sort)
         {
           switch(sort)

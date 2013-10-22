@@ -72,7 +72,7 @@ char *real_star_names[MAX_STAR + MAX_FAKE_STAR] = {
   "Oblivion",
   "Olympus",
   "Nowhere",
-  "Magrathea",
+  "Achernar",
   "Adhara",
   "Alcor",
   "Aldebaran",
@@ -165,7 +165,7 @@ struct LOCATION locations[MAX_LOCATION];
 
 const struct LOCATION_TYPE location_types[] =
   {
-    { "none", 0, 0, 0, LOC_NONE, 0, 0, 0 },
+    { "black hole", 0, 0, 0, LOC_NONE, 0, 0, 0 },
     { "academy", 4, 1, MAX_HAB_STAR, LOC_NONE, medical, 128, 3 },
     { "arsenal", 16, 2, MAX_STAR, LOC_NONE, weaponry, 112, 0 },
     { "belt", 32, 4, MAX_STAR, LOC_ADVENTURE | LOC_CRIMINAL, engineering, 96, 0 },

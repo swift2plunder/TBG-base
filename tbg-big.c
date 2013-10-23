@@ -1461,7 +1461,7 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
         continue;
 
       // Added test for "none".
-      if ((location_types[type].instability_skill == sort) && !strcmp(location_types[type].name, "black hole" ))
+      if ((location_types[type].instability_skill == sort) && strcmp(location_types[type].name, "black hole" )) // strcmp () returns 0 if true
       //if (location_types[type].instability_skill == sort)
         {
           switch(sort)

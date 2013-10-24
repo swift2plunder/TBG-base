@@ -129,7 +129,7 @@ effective_skill_level (struct PLAYER *player, skill_sort sort)
     {
       sk += 16;
     }
-  else if (player->magic_flags & (FLAG_SUPER_ENGINEERING << 1))
+  else if (player->magic_flags & (FLAG_SUPER_ENGINEERING << sort))
     {
       sk = rand_exp (32 + 3 * sk)/2;
     }

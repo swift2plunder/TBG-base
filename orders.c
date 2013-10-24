@@ -1016,8 +1016,8 @@ invent_order (struct PLAYER *player, skill_sort sort)
            item != items && item->sort < pod ;
            item = items + item->link)
         {
-          int max_gain = min (item->efficiency * item->efficiency -
-                              effective_skill_level (player, sort),
+          int max_gain = min (effective_skill_level (player, sort) -
+                              item->efficiency * item->efficiency,
                               99 - item->reliability);
           int weighted_gain = 0;
           if (repairers[item->sort] == sort

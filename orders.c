@@ -703,7 +703,7 @@ execute_orders ()
                     else if (item->flags & ITEM_BROKEN)
                       repair (fd, player, item);
                   }
-                break;
+                //break;
               }
           }
           break;

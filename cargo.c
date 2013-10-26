@@ -306,7 +306,7 @@ init_prices ()
 
   for (i = 0; i < 256; i++)
     {
-      good_prices[i] = goods[GOOD_NUMBER (i)].basic_value * 2;
+      good_prices[i] = goods[GOOD_NUMBER (i)].basic_value * 3;
     }
 }
 

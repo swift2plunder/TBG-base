@@ -258,7 +258,7 @@ show_ship (FILE * fd, struct PLAYER *ship)
     fprintf (fd, "<div class=\"shops\">\n");
   if (ship < shops)
     fprintf (fd, "<div class=\"ship\">\n");
-  if (ship = dybuk)
+  if (ship == dybuk)
     fprintf (fd, "<div class=\"dybuk\">\n");
   fprintf (fd, "<a name=\"%s\"></a>\n", ship->name);
   fprintf (fd, "<table>\n");

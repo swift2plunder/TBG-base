@@ -3043,7 +3043,7 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
           else
             {
               add_crew (player, skill, number, 0);
-              fprintf (fd, "li>Hired %d %s crew wanting to work for the Tribune</li>\n",
+              fprintf (fd, "<li>Hired %d %s crew wanting to work for the Tribune</li>\n",
                        number, skill_names[skill]);
             }
         }

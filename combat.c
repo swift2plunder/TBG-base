@@ -1384,7 +1384,7 @@ steal_skills (FILE * fd, int skill,
   extra_skills = defender->skills[skill] & ~attacker->skills[skill];
   attacker->skills[skill] |= extra_skills;
   defender->skills[skill] &= ~extra_skills;
-  fprintf (fd, "<BR>%s uses Evil %s ring to steal skills from ",
+  fprintf (fd, "<BR>%s uses %s Ring of Chaos to steal skills from ",
            name_string (attacker->name), skill_names[skill]);
   fprintf (fd, "%s: \n", name_string (defender->name));
   if (extra_skills == 0)

@@ -251,7 +251,7 @@ parse_order (char *buffer, int player)
           strncpy (players[player].banner, buffer, 100);
         }
       else
-        snprintf (dybuk->banner, sizeof (dybuk->banner), "Dybuk of Evil");
+        snprintf (dybuk->banner, sizeof (dybuk->banner), "Dybuk of Chaos");
       break;
     case 'g':                   /* excommunicate/forgive */
       order->param1 = atoi (buffer);
@@ -866,7 +866,7 @@ execute_orders ()
   if (turn > 1)
     end_turn ();
   if (dybuk && star < MAX_STAR)
-    fprintf (times, "<HR>Manifestations of Evil reported at %s!\n",
+    fprintf (times, "<HR>Manifestations of Chaos reported at %s!\n",
              star_names[dybuk->star]);
   consolidate_artifacts ();     /* allow for selling */
 

@@ -82,7 +82,7 @@ check_health (FILE * fd, struct PLAYER *p)
         if ((p->rings_held & (1 << sort)) &&
             p->crew[sort] < skill_level (p->skills[sort]))
           {
-            fprintf (fd, "<P>An evil servant joins your %s crew\n",
+            fprintf (fd, "<P>A servant of chaos joins your %s crew\n",
                      skill_names[sort]);
             add_crew (p, sort, 1, skill_level (p->skills[sort]));
           }

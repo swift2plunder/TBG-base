@@ -527,10 +527,10 @@ read_data ()
     {
       snprintf (dybuk->banner,
                 sizeof (dybuk->banner),
-                "Dybuk of Evil");
+                "Dybuk of Chaos");
       snprintf (dybuk->banner_source,
                 sizeof(dybuk->banner_source),
-                "Dybuk of Evil");
+                "Dybuk of Chaos");
     }
 
     

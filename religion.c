@@ -261,14 +261,14 @@ generate_magic_options (FILE * fd, struct PLAYER *player,
       if (enlightened (player, sort) && is_evil (enemy))
         {
           if (spell_valid (player, MAGIC_PROTECT_SHIP))
-            fprintf (fd, "<OPTION VALUE=%d>Protect Ship from Evil (%d)\n",
+            fprintf (fd, "<OPTION VALUE=%d>Protect Ship from Chaos (%d)\n",
                      MAGIC_PROTECT_SHIP, spells[MAGIC_PROTECT_SHIP].cost);
         }
       break;
     case science:
       if (player->star == popcorn.star && !dybuk)
         {
-          fprintf (fd, "<OPTION VALUE=%d>Release Evil! (?)\n",
+          fprintf (fd, "<OPTION VALUE=%d>Release Chaos! (?)\n",
                    MAGIC_RELEASE_EVIL);
         }
       if (player->star >= 0 && spell_valid (player, MAGIC_SET_PROBE))
@@ -309,11 +309,11 @@ generate_magic_options (FILE * fd, struct PLAYER *player,
       if (enlightened (player, sort))
         {
           if (spell_valid (player, MAGIC_CONCEAL_EVIL))
-            fprintf (fd, "<OPTION VALUE=%d>Conceal system from evil (%d)\n",
+            fprintf (fd, "<OPTION VALUE=%d>Conceal system from chaos (%d)\n",
                      MAGIC_CONCEAL_EVIL, spells[MAGIC_CONCEAL_EVIL].cost);
         }
       if (spell_valid (player, MAGIC_REVEAL_EVIL))
-        fprintf (fd, "<OPTION VALUE=%d>Reveal system to evil (%d)\n",
+        fprintf (fd, "<OPTION VALUE=%d>Reveal system to chaos (%d)\n",
                  MAGIC_REVEAL_EVIL, spells[MAGIC_REVEAL_EVIL].cost);
       for (p = 0; p < MAX_PLAYER; p++)
         {
@@ -352,7 +352,7 @@ generate_magic_options (FILE * fd, struct PLAYER *player,
       if (enlightened (player, sort) && is_evil (enemy))
         {
           if (spell_valid (player, MAGIC_PROTECT_CREW))
-            fprintf (fd, "<OPTION VALUE=%d>Protect Crew from Evil (%d)\n",
+            fprintf (fd, "<OPTION VALUE=%d>Protect Crew from Chaos (%d)\n",
                      MAGIC_PROTECT_CREW, spells[MAGIC_PROTECT_CREW].cost);
         }
       break;
@@ -372,7 +372,7 @@ generate_magic_options (FILE * fd, struct PLAYER *player,
       if (enlightened (player, sort) && is_evil (enemy))
         {
           if (spell_valid (player, MAGIC_BANISH_EVIL))
-            fprintf (fd, "<OPTION VALUE=%d>Banish Evil (%d)\n",
+            fprintf (fd, "<OPTION VALUE=%d>Banish Chaos (%d)\n",
                      MAGIC_BANISH_EVIL, spells[MAGIC_BANISH_EVIL].cost);
         }
       break;
@@ -447,7 +447,7 @@ cast_spell (FILE * fd, struct PLAYER *player, int spell, int qualifier)
     {
       if (player == dybuk)
         {
-          fprintf (fd, "<BR>The forces of evil make spell casting easier\n");
+          fprintf (fd, "<BR>The forces of chaos make spell casting easier\n");
         }
       else if (player->popcorn < spells[spell].popcorn)
         {
@@ -597,13 +597,13 @@ cast_spell (FILE * fd, struct PLAYER *player, int spell, int qualifier)
           break;
         case science:
           fprintf (fd,
-                   "I will provide a way to predict the actions of Evil\"\n");
+                   "I will provide a way to predict the actions of Chaos\"\n");
           break;
         case medical:
           fprintf (fd, "I will provide a way to protect your crew\"\n");
           break;
         case weaponry:
-          fprintf (fd, "I will provide a way to banish Evil\"\n");
+          fprintf (fd, "I will provide a way to banish Chaos\"\n");
           break;
         }
       break;
@@ -763,21 +763,21 @@ cast_spell (FILE * fd, struct PLAYER *player, int spell, int qualifier)
       player->blessings |= PROTECT_CREW_BIT;
       break;
     case MAGIC_BANISH_EVIL:
-      fprintf (fd, "<P>%s helps you banish Evil!\n", god_names[weaponry]);
+      fprintf (fd, "<P>%s helps you banish Chaos!\n", god_names[weaponry]);
       player->blessings |= BANISH_EVIL_BIT;
       break;
     case MAGIC_RELEASE_EVIL:
       {
         if (dybuk)
           {
-            fprintf (fd, "<EM>Evil is already free!</EM>\n");
+            fprintf (fd, "<EM>Chaos is already free!</EM>\n");
             break;
           }
-        printf ("Evil released!\n");
-        fprintf (times, "<HR>Evil is once again unchained!\n");
+        printf ("Chaos released!\n");
+        fprintf (times, "<HR>Chaos is once again unchained!\n");
         reward = popcorn.reward;
         fprintf (fd,
-                 "<P>You have released Evil, and are rewarded with %d popcorn!\n",
+                 "<P>You have released Chaos, and are rewarded with %d popcorn!\n",
                  reward);
         player->popcorn += reward;
         player->evil += 500;
@@ -1107,9 +1107,9 @@ check_favour (FILE * fd, struct PLAYER *player)
   if (player->star == popcorn.star && ! dybuk)
     {
       fprintf (fd,
-               "<P>Evil is chained here, and will richly reward the mortal who allows it to escape.\n");
+               "<P>Chaos is chained here, and will richly reward the mortal who allows it to escape.\n");
       fprintf (fd,
-               "<BR>%d popcorn goes to the first who releases Evil to roam the galaxy again.\n",
+               "<BR>%d popcorn goes to the first who releases Chaos to roam the galaxy again.\n",
                min (min (popcorn.impulse_limit, popcorn.sensor_limit),
                     popcorn.shield_limit));
     }

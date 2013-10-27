@@ -94,8 +94,8 @@ ring_string (int ring)
 
   while ((ring & (1 << index)) == 0)
     index++;
-  sprintf (buffer, "%s %s Ring",
-           index < 4 ? "Evil" : "Good", skill_names[index & 3]);
+  sprintf (buffer, "%s Ring of %s",
+           skill_names[index & 3], index < 4 ? "Chaos" : "Order");
   return (buffer);
 }
 
@@ -306,7 +306,7 @@ show_ship (FILE * fd, struct PLAYER *ship)
       if (item->sort == evil_artifact)
         {
           fprintf (fd,
-                   "<tr><th>Evil Zapper</th><th>Biopedos</th><th>Logipedos</th><th>Bangpedos</th></tr>\n");
+                   "<tr><th>Chaos Zapper</th><th>Biopedos</th><th>Logipedos</th><th>Bangpedos</th></tr>\n");
           do
             {
               show_item (fd, item - items);
@@ -4884,7 +4884,7 @@ jm_main ()
       do_election ();
       do_tribunal_election ();
       if (dybuk)
-        snprintf (dybuk->banner, sizeof (dybuk->banner), "Dybuk of Evil");
+        snprintf (dybuk->banner, sizeof (dybuk->banner), "Dybuk of Chaos");
 /*
       fprintf (times, "<hr>(Debug) Total combat pollution %d\n",
                battle_pollution / 100);

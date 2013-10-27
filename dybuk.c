@@ -22,7 +22,7 @@ static const char *evil_things[] =
     "bangpedo",
     "logipedo",
     "biopedo",
-    "evil zapper"
+    "chaos zapper"
   };
 
 
@@ -66,7 +66,7 @@ check_evil (FILE *fd, struct PLAYER *p)
       else
         {
           fprintf (fd,
-                   "<BR>Containment on your evil zapper failed due to insufficient energy!");
+                   "<BR>Containment on your chaos zapper failed due to insufficient energy!");
           for (sk = engineering ; sk <= medical; sk++)
             {
               int bombs = (items[it].magic & (0x03ff << (10 * sk))) >> (10*sk);
@@ -114,7 +114,7 @@ update_popcorn ()
     }
   if (dice (100) < (turn - popcorn.last_released)/25 && ! dybuk)
     {
-      fprintf (times, "<HR>Evil is once again unchained!\n");
+      fprintf (times, "<HR>Chaos is once again unchained!\n");
       assign_dybuk ();
       reset_popcorn ();
       return;
@@ -166,7 +166,7 @@ make_evilpedos (FILE *fd, struct PLAYER *player, int num, skill_sort officer)
     {
       if (zapper)
         {
-          fprintf (fd, "You already have an evil zapper<br>\n");
+          fprintf (fd, "You already have a chaos zapper<br>\n");
           return;
         }
       else
@@ -175,13 +175,13 @@ make_evilpedos (FILE *fd, struct PLAYER *player, int num, skill_sort officer)
           int m = dice (n);
           if (!n || player->popcorn < 5)
             {
-              fprintf (fd, "Your weaponry officer can't find what he needs to make an evil zapper\n<br>");
+              fprintf (fd, "Your weaponry officer can't find what he needs to make a chaos zapper\n<br>");
               return;
             }
           m = get_nth_module (items + player->ship, module_type(artifact), m);
           remove_item (m);
           fprintf (fd,
-                   "Your weaponry officer manages to convert %s into an evil zapper\n<br>",
+                   "Your weaponry officer manages to convert %s into a chaos zapper\n<br>",
                    item_string (items + m));
           player->popcorn -= 5;
           player->evil += 20;
@@ -217,7 +217,7 @@ make_evilpedos (FILE *fd, struct PLAYER *player, int num, skill_sort officer)
       if (! zapper)
         {
           int n = isqrt (num);
-          fprintf (fd, "You don't have an evil zapper to hold your %s%s<br>\n",
+          fprintf (fd, "You don't have a chaos zapper to hold your %s%s<br>\n",
                    evil_things[officer], (num > 1) ? "s" : "");
           switch (officer)
             {
@@ -408,7 +408,7 @@ void
 banish_evil (FILE *fd, struct PLAYER *evil)
 {
   int item;
-  fprintf (fd, "<BR>%s intervenes to banish the Evil from %s!\n",
+  fprintf (fd, "<BR>%s intervenes to banish the Chaos from %s!\n",
            god_names[weaponry], evil->name);
 
   item = evil->ship;
@@ -424,7 +424,7 @@ banish_evil (FILE *fd, struct PLAYER *evil)
       dybuk = 0;
       reset_popcorn ();
       fprintf (times,
-               "<HR><FONT COLOR=\"GREEN\">Evil has been banished!<BR>But beware the greed of mortals, lest it return</FONT>\n");
+               "<HR><div class=\"dybuk\">Chaos has been banished!<BR>But beware the greed of mortals, lest it return</div>\n");
       popcorn.reward = dice(10);
       evil->evil = 100;
     }
@@ -444,9 +444,9 @@ generate_evil_options (FILE * fd, struct PLAYER *player, skill_sort officer)
   if (officer == weaponry)
     {
       if (player->popcorn >= 5 && it)
-        fprintf (fd, "<OPTION VALUE=E1>Activate Evil Zapper\n");
+        fprintf (fd, "<OPTION VALUE=E1>Activate Chaos Zapper\n");
       if (! it && player->popcorn > 5)
-        fprintf (fd, "<OPTION VALUE=E-1>Make Evil Zapper\n");
+        fprintf (fd, "<OPTION VALUE=E-1>Make Chaos Zapper\n");
     }
   else
     {
@@ -667,7 +667,7 @@ assign_dybuk ()
     }
   popcorn.last_released = turn;
   popcorn.reward = 1 + dice(10);
-  snprintf (dybuk->banner, sizeof (dybuk->banner), "Dybuk of Evil");
+  snprintf (dybuk->banner, sizeof (dybuk->banner), "Dybuk of Chaos");
 }
 
   
@@ -770,7 +770,7 @@ resolve_interaction (struct PLAYER *p1, struct PLAYER *p2)
   if ((p1 == dybuk && p1->evilpedos[3])
       || (p2 == dybuk && p2->evilpedos[3]))
     {
-      fprintf (fd, "<P>%s uses EvilTech, conventional modules are useless!\n",
+      fprintf (fd, "<P>%s uses ChaosTech, conventional modules are useless!\n",
                dybuk->name);
       fprintf (fd, "<BR>%s withdraws from combat unhurt!\n", dybuk->name);
       fclose (fd);

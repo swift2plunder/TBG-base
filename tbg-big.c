@@ -4547,7 +4547,7 @@ make_web_pages ()
   //fprintf (fd, "<INPUT NAME=\"to\" VALUE=\"tbg@%s\" TYPE=HIDDEN>\n", mail_server);
   make_web_form (fd, "Resend Orders", -4);
 */
-  fprintf (fd, "</div><div id=\"resend_url\"\n");
+  fprintf (fd, "</div><div id=\"resend_url\">\n");
   fprintf (fd,
            "<form action=\"http://%s/cgi-bin/tbgmail.cgi\" method= \"post\">\n",
            server);

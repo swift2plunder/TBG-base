@@ -1845,7 +1845,7 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf (fd,
            "<LI>For wider discussions, you can also check out the TBG <A HREF=\"http://groups.yahoo.com/subscribe/TBG_OpenForum\">Open Forum</A>. Also provided by yahoo groups.\n");
   fprintf (fd,
-           "<LI>Here are just the <a href=\"http://%s/news/rank.cgi?%s\">ranking lists</a> which contain your ship\n",
+           "<LI>Here are just the <a href=\"http://%s/cgi-bin/rank.cgi?%s\">ranking lists</a> which contain your ship\n",
            server, url_shipname (player->name));
   fprintf (fd,
            "<P><HR><H2>Administrative Section (Not needed in normal turns)</H2>\n");

@@ -23,18 +23,18 @@ generate_rumour (FILE * fd, struct PLAYER *player, int sort)
     {
     case 0:
       fprintf (fd,
-               "<BR>You learn of an adventure in %s at %s. The treasure is: %s\n",
+               "<p>You learn of an adventure in %s at %s. The treasure is: %s</p>\n",
                loc_string (adventures[ad].loc),
                star_names[adventures[ad].star],
                item_string (items + adventures[ad].treasure));
       set_ad (player, ad);
       break;
     case 1:
-      fprintf (fd, "<BR>You learn of the situation at %s\n",
+      fprintf (fd, "<p>You learn of the situation at %s</p>\n",
                star_names[star]);
-      fprintf (fd, "<HR>\n");
+      fprintf (fd, "<hr>\n");
       show_starsystem (fd, player, star);
-      fprintf (fd, "<HR>\n");
+      fprintf (fd, "<hr>\n");
       break;
     }
 }
@@ -122,19 +122,19 @@ try_adventure (FILE * fd, struct PLAYER *player, int adventure)
   int level = ADVENTURE_LEVEL (parameter);
   int i, risk;
 
-  fprintf (fd, "<H2>%s officer attempts %s at %s</H2>\n",
+  fprintf (fd, "<aside><h2>%s officer attempts %s at %s</h2>\n",
            skill_names[skill], ad_types[ADVENTURE_TYPE (parameter)].ad_name,
            star_names[player->star]);
   fprintf (fd, "%s", ad_types[ADVENTURE_TYPE (parameter)].ad_desc);
   if (treasure == 0 || adventures[adventure].star != player->star)
     {
-      fprintf (fd, "<BR><EM>Adventure already done this turn</EM>\n");
+      fprintf (fd, "<p>Adventure already done this turn</p>\n");
       return (FALSE);
     }
   if (effective_skill_level (player, skill) < level)
     {
       fprintf (fd,
-               "<BR><EM>Adventure too difficult, %d needs to be %d</EM>\n",
+               "<p>Adventure too difficult, %d needs to be %d</p>\n",
                effective_skill_level (player, skill), level);
       return (FALSE);
     }
@@ -142,12 +142,12 @@ try_adventure (FILE * fd, struct PLAYER *player, int adventure)
     {
       if (player->crew[skill] < level / 2)
         {
-          fprintf (fd, "<BR><EM>Adventure needs at least %d crew</EM>\n",
+          fprintf (fd, "<p>Adventure needs at least %d crew</p>\n",
                    level / 2);
           return (FALSE);
         }
       risk = level * 3 + 1;
-      fprintf (fd, "<BR>Risk of fatal accident is %d%% for each of %d crew\n",
+      fprintf (fd, "<p>Risk of fatal accident is %d%% for each of %d crew</p>\n",
                risk, level / 2);
       if (player->away_team[medical] == parameter)
         {
@@ -157,41 +157,41 @@ try_adventure (FILE * fd, struct PLAYER *player, int adventure)
             risk -= effective_skill_level (player, medical);
           if (risk < 0)
             risk = 0;
-          fprintf (fd, "<BR>Risk reduced to %d%% by medical crew\n", risk);
+          fprintf (fd, "<p>Risk reduced to %d%% by medical crew</p>\n", risk);
         }
       for (i = 0; i < level / 2; i++)
         if (dice (100) < risk)
           {
-            fprintf (fd, "<BR><EM>Oops, lost one %s crew!</EM>\n",
+            fprintf (fd, "<p>Oops, lost one %s crew!</p>\n",
                      skill_names[skill]);
             kill_crew (player, skill);
           }
     }
   if (flags & BONUS_WEAPONARY)
     {
-      fprintf (fd, "<BR>Combat needed to resolve adventure\n");
+      fprintf (fd, "<p>Combat needed to resolve adventure</p>\n");
       if (!ground_combat
           (fd, player, 4 * level,
            player->away_team[weaponry] == parameter ? weaponry : skill,
            player->away_team[medical] == parameter))
         {
           fprintf (fd,
-                   "<BR><EM>Retreat from combat, adventure failed</EM>\n");
+                   "<p>Retreat from combat, adventure failed</p>\n");
           return (FALSE);
         }
     }
-  fprintf (fd, "<BR><STRONG>Succeeded at adventure!</STRONG>\n");
+  fprintf (fd, "<h3>Succeeded at adventure!</h3>\n");
   if ((flags & BONUS_ENGINEERING)
       && (player->away_team[engineering] == parameter)
       && items[treasure].sort != pod)
     {
-      fprintf (fd, "<BR>Engineering crew help salvage treasure module\n");
+      fprintf (fd, "<p>Engineering crew help salvage treasure module</p>\n");
       items[treasure].reliability +=
         effective_skill_level (player, engineering);
       if (items[treasure].reliability > 99)
         items[treasure].reliability = 99;
     }
-  fprintf (fd, "<BR>Treasure is %s %s\n",
+  fprintf (fd, "<p>Treasure is %s %s</p>\n",
            tech_level_names[items[treasure].efficiency],
            item_names[items[treasure].sort]);
   // FIXME
@@ -199,19 +199,20 @@ try_adventure (FILE * fd, struct PLAYER *player, int adventure)
   if (flags & BONUS_DIVINE)
     {
       fprintf (fd,
-               "<BR>%s smiles on this adventure and gives %d extra favour\n",
+               "<p>%s smiles on this adventure and gives %d extra favour</p>\n",
                god_names[skill], level * 5 + 3);
       player->favour[skill] += level * 5 + 3;
       add_favour (player, skill, level * 5 + 3);
     }
   if ((flags & BONUS_SCIENCE) && (player->away_team[science] == parameter))
     {
-      fprintf (fd, "<BR>Science crew spot clues:\n");
+      fprintf (fd, "<p>Science crew spot clues:</p>\n");
       generate_rumour (fd, player, 0);
       for (i = 0; i < 4; i++)
         if (dice (100) < effective_skill_level (player, science))
           generate_rumour (fd, player, 0);
     }
+  fprintf (fd, "</aside>\n");
   adventures[adventure].treasure = 0;   /* means regenerate */
   reset_adventure (adventure);
   player->skills[skill] |=

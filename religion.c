@@ -1171,20 +1171,20 @@ choose (FILE * fd, struct PLAYER *player, int target, skill_sort sort)
   if (player - players != prophets[sort])
     {
       fprintf (fd,
-               "<br><em>No choosing or unchoosing possible as you are not currently the Prophet of %s</em><br>\n",
+               "<li>No choosing or unchoosing possible as you are not currently the Prophet of %s</li>\n",
                god_names[sort]);
       return;
     }
   if (players[target].chosen & (1 << sort))
     {
       players[target].chosen &= ~(1 << sort);
-      fprintf (fd, "<P>%s struck off the list of %s's Chosen\n",
+      fprintf (fd, "<li>%s struck off the list of %s's Chosen</li>\n",
                name_string (players[target].name), god_names[sort]);
     }
   else
     {
       players[target].chosen |= (1 << sort);
-      fprintf (fd, "<P>%s added to the list of %s's Chosen\n",
+      fprintf (fd, "<li>%s added to the list of %s's Chosen</li>\n",
                name_string (players[target].name), god_names[sort]);
     }
 }

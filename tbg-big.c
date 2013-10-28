@@ -3167,33 +3167,33 @@ explore (FILE * fd, struct PLAYER *player, int loc)
     {
       if (adventures[ad].loc == loc)
         {
-          fprintf (fd, "<P>Found %s exploring %s (%d)!<BR>%s\n",
+          fprintf (fd, "<li>Found %s exploring %s (%d)!<br>%s\n",
                    ad_types[ADVENTURE_TYPE (ad)].ad_name,
                    loc_string (loc), loc,
                    ad_types[ADVENTURE_TYPE (ad)].ad_desc);
-          fprintf (fd, " (Needs %s skill level %d)\n",
+          fprintf (fd, " (Needs %s skill level %d)</li>\n",
                    skill_names[ADVENTURE_SKILL (ad)], ADVENTURE_LEVEL (ad));
           set_ad (player, ad);
           found++;
         }
     }
   if (!found)
-    fprintf (fd, "<P><EM>No new adventures found exploring %s (%d)</EM>\n",
+    fprintf (fd, "<li>No new adventures found exploring %s (%d)</li>\n",
              loc_string (loc), loc);
   if ((criminal & 7) == 1)
     {
       set_crim (player, criminal);
-      fprintf (fd, "<P>Detected %s at %s\n",
+      fprintf (fd, "<li>Detected %s at %s</li>\n",
                criminal_string (criminal), loc_string (loc));
     }
   else
-    fprintf (fd, "<P><EM>No new criminals detected at %s (%d)</EM>\n",
+    fprintf (fd, "<li>No new criminals detected at %s (%d)</li>\n",
              loc_string (loc), loc);
   if (ring)
     {
       printf ("%s saw a ring\n", player->name);
       player->rings_seen |= ring;
-      fprintf (fd, "<P>Discovered %s at %s\n",
+      fprintf (fd, "<li>Discovered %s at %s</li>\n",
                ring_string (ring), loc_string (loc));
     }
 }

@@ -166,7 +166,7 @@ make_evilpedos (FILE *fd, struct PLAYER *player, int num, skill_sort officer)
     {
       if (zapper)
         {
-          fprintf (fd, "You already have a chaos zapper<br>\n");
+          fprintf (fd, "<li>You already have a chaos zapper</li>\n");
           return;
         }
       else
@@ -175,13 +175,13 @@ make_evilpedos (FILE *fd, struct PLAYER *player, int num, skill_sort officer)
           int m = dice (n);
           if (!n || player->popcorn < 5)
             {
-              fprintf (fd, "Your weaponry officer can't find what he needs to make a chaos zapper\n<br>");
+              fprintf (fd, "<li>Your weaponry officer can't find what he needs to make a chaos zapper\n</li>");
               return;
             }
           m = get_nth_module (items + player->ship, module_type(artifact), m);
           remove_item (m);
           fprintf (fd,
-                   "Your weaponry officer manages to convert %s into a chaos zapper\n<br>",
+                   "<li>Your weaponry officer manages to convert %s into a chaos zapper\n</li>",
                    item_string (items + m));
           player->popcorn -= 5;
           player->evil += 20;
@@ -197,7 +197,7 @@ make_evilpedos (FILE *fd, struct PLAYER *player, int num, skill_sort officer)
       if (player->popcorn < num || player->torps < num)
         {
           fprintf (fd,
-                   "Your %s officer can't find enough stuff to make %d %s%s<br>\n",
+                   "<li>Your %s officer can't find enough stuff to make %d %s%s</li>\n",
                    skill_names[officer],
                    num,
                    evil_things[officer],
@@ -208,7 +208,7 @@ make_evilpedos (FILE *fd, struct PLAYER *player, int num, skill_sort officer)
       player->torps -= num;
       player->evil += 2*num;
       fprintf (fd,
-               "Your %s officer makes %d %s%s<br>\n",
+               "<li>Your %s officer makes %d %s%s</li>\n",
                skill_names[officer],
                num,
                evil_things[officer],
@@ -217,7 +217,7 @@ make_evilpedos (FILE *fd, struct PLAYER *player, int num, skill_sort officer)
       if (! zapper)
         {
           int n = isqrt (num);
-          fprintf (fd, "You don't have a chaos zapper to hold your %s%s<br>\n",
+          fprintf (fd, "<li>You don't have a chaos zapper to hold your %s%s<li>\n",
                    evil_things[officer], (num > 1) ? "s" : "");
           switch (officer)
             {

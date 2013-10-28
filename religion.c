@@ -237,7 +237,7 @@ generate_magic_options (FILE * fd, struct PLAYER *player,
       if (spell_valid (player, MAGIC_POWER_DOWN))
         fprintf (fd, "<OPTION VALUE=%d>Power-down (%d)\n",
                  MAGIC_POWER_DOWN, spells[MAGIC_POWER_DOWN].cost);
-      if (spell_valid (player, MAGIC_AVOID_COMBAT))
+      if (spell_valid (player, MAGIC_AVOID_COMBAT) && (pairing (player)))
         fprintf (fd, "<OPTION VALUE=%d>Micro-jump Flee (%d)\n",
                  MAGIC_AVOID_COMBAT, spells[MAGIC_AVOID_COMBAT].cost);
       if (spell_valid (player, MAGIC_BLESS_WARP))
@@ -357,7 +357,7 @@ generate_magic_options (FILE * fd, struct PLAYER *player,
         }
       break;
     case weaponry:
-      if (spell_valid (player, MAGIC_FORCE_COMBAT))
+      if (spell_valid (player, MAGIC_FORCE_COMBAT) && (pairing (player)))
         fprintf (fd, "<OPTION VALUE=%d>Counter Micro-jump (%d)\n",
                  MAGIC_FORCE_COMBAT, spells[MAGIC_FORCE_COMBAT].cost);
       if (spell_valid (player, MAGIC_BLESS_SHIELD))

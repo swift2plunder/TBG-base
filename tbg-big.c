@@ -254,13 +254,13 @@ show_ship (FILE * fd, struct PLAYER *ship)
              server, ship->account_number, name_string (ship->name), flag);
   else
     sprintf (buffer, "%s %s", name_string (ship->name), flag);
-  if ((ship >= shops) && (ship <dybuk))
+  if ((ship >= shops) && (ship < dybuk))
     fprintf (fd, "<div class=\"shops\">\n");
   if (ship < shops)
     fprintf (fd, "<div class=\"ship\">\n");
   if (ship == dybuk)
     fprintf (fd, "<div class=\"dybuk\">\n");
-  fprintf (fd, "<a name=\"%s\"></a>\n", ship->name);
+  //fprintf (fd, "<a name=\"%s\"></a>\n", ship->name);
   fprintf (fd, "<table>\n");
   fprintf (fd, "<tr><th colspan=\"4\">%s</th></tr>\n", buffer);
   if (ship->ship)
@@ -328,7 +328,7 @@ show_ship (FILE * fd, struct PLAYER *ship)
            total, collection);
   fprintf (fd, "Torpedo Stock = %d, ", ship->torps);
   fprintf (fd, "Cargo capacity: %d ", cargo);
-  fprintf (fd, "</p>\n");
+  fprintf (fd, "</p></div>\n");
 }
 
 
@@ -4137,9 +4137,9 @@ generate_times (int code)
     {
     case 0:
       shop = dice (MAX_SHOP);
-      fprintf (times, "<hr><div class=\"shops\">\n");
+      fprintf (times, "<hr>\n");
       show_ship (times, shops + shop);
-      fprintf (times, "</div>\n");
+      //fprintf (times, "</div>\n");
       break;
     case 1:
       race = dice (32);

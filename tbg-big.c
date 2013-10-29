@@ -324,11 +324,11 @@ show_ship (FILE * fd, struct PLAYER *ship)
     fprintf (fd, "<p>Holding %s Medicine Value $%d</p>\n",
              races[ship->medicine / 1000].name, 50*(ship->medicine % 1000));
   collection = total_collection (items + ship->ship);
-  fprintf (fd, "<p><div class=\"stats\">Mass = %d, Energy Cost = %d, ",
+  fprintf (fd, "<p class=\"stats\">Mass = %d, Energy Cost = %d, ",
            total, collection);
   fprintf (fd, "Torpedo Stock = %d, ", ship->torps);
   fprintf (fd, "Cargo capacity: %d ", cargo);
-  fprintf (fd, "</div></p></div>\n");
+  fprintf (fd, "</p>\n");
 }
 
 

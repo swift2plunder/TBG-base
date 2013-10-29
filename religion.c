@@ -1159,7 +1159,7 @@ check_favour (FILE * fd, struct PLAYER *player)
 void
 commune (FILE * fd, struct PLAYER *player, skill_sort sort)
 {
-  fprintf (fd, "<P>%s officer communes with %s and gains %d favour\n",
+  fprintf (fd, "<li>%s officer communes with %s and gains %d favour</li>\n",
            skill_names[sort], god_names[sort],
            effective_skill_level (player, sort));
   player->favour[sort] += effective_skill_level (player, sort);

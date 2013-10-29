@@ -3217,7 +3217,7 @@ train (FILE * fd, struct PLAYER *player, skill_sort skill)
 {
   if (player->crew[skill] == 0)
     {
-      fprintf (fd, "<P><EM>No %s crew to train</EM>\n", skill_names[skill]);
+      fprintf (fd, "<li>No %s crew to train</li>\n", skill_names[skill]);
       return;
     }
   player->pools[skill] += skill_level (player->skills[skill]);
@@ -3613,12 +3613,12 @@ mudd (FILE * fd, struct PLAYER *player)
   printf ("%s trying emergency warp drive\n", player->name);
   if (player->energy < 500)
     {
-      fprintf (fd, "<P><EM>Can't afford emergency warp drive</EM>\n");
+      fprintf (fd, "<li>Can't afford emergency warp drive</li>\n");
     }
   else
     {
       item = new_item (warp_drive, 1, 95, 1, TRUE);
-      fprintf (fd, "<P>Bought a %s for $500\n", item_string (items + item));
+      fprintf (fd, "<li>Bought a %s for $500</li>\n", item_string (items + item));
       player->ship = add_item (player, item);
       player->energy -= 500;
     }
@@ -3639,10 +3639,10 @@ long_range_scan (FILE * fd, struct PLAYER *player)
           && ! stars[s].hidden)
         {
           set_bit (player->stars, s);
-          fprintf (fd, "<P>Star detected at %d, %d\n", stars[s].x, stars[s].y);
+          fprintf (fd, "<li>Star detected at %d, %d\n", stars[s].x, stars[s].y);
           fprintf (fd, "<BR>It matches the spectral catalog for %s",
                    star_names[s]);
-          fprintf (fd, " and seems to have %s terrain\n",
+          fprintf (fd, " and seems to have %s terrain</li>\n",
                    terrain_names[stars[s].terrain]);
           seen_any = TRUE;
         }
@@ -3654,7 +3654,7 @@ long_range_scan (FILE * fd, struct PLAYER *player)
       && dice(100) < 200 - r
       && ! stars[s].hidden)
     {
-      fprintf (fd, "<P>Popcorn detected at %s\n", star_names[popcorn.star]);
+      fprintf (fd, "<li>Popcorn detected at %s</li>\n", star_names[popcorn.star]);
       seen_any = TRUE;
     }
 
@@ -3664,16 +3664,16 @@ long_range_scan (FILE * fd, struct PLAYER *player)
       && player->chosen
       && ! stars[s].hidden)
     {
-      fprintf (fd, "<P>Star detected at %d, %d\n",
+      fprintf (fd, "<li>Star detected at %d, %d\n",
                stars[OLYMPUS].x, stars[OLYMPUS].y);
       fprintf (fd, "<BR>It appears to be enclosed by a Dyson Sphere,\n");
-      fprintf (fd, "like Olympus, legendary home of the Great Old Ones\n");
+      fprintf (fd, "like Olympus, legendary home of the Great Old Ones</li>\n");
       player->chosen |= OLYMPUS_SEEN;
       seen_any = TRUE;
     }
 
   if (!seen_any)
-    fprintf (fd, "<P><EM>Nothing unusual in scanning range</EM>\n");
+    fprintf (fd, "<li>Nothing unusual in scanning range</li>\n");
 }
 
 void
@@ -3681,7 +3681,7 @@ change_companion (FILE * fd, struct PLAYER *player, int value)
 {
   if (value == BIG_NUMBER)
     {
-      fprintf (fd, "<P>Alliance with %s renounced\n",
+      fprintf (fd, "<li>Alliance with %s renounced</li>\n",
                name_string (players[player->companion].name));
       player->companion = 0;
     }
@@ -3690,7 +3690,7 @@ change_companion (FILE * fd, struct PLAYER *player, int value)
       value -= BIG_NUMBER;
       if (value > player->energy)
         value = player->energy;
-      fprintf (fd, "<P>$%d given to %s\n",
+      fprintf (fd, "<li>$%d given to %s</li>\n",
                value, name_string (players[player->companion].name));
       player->energy -= value;
       players[player->companion].energy += value;
@@ -3699,7 +3699,7 @@ change_companion (FILE * fd, struct PLAYER *player, int value)
   else
     {
       player->companion = value;
-      fprintf (fd, "<P>Alliance offered to %s\n",
+      fprintf (fd, "<li>Alliance offered to %s</li>\n",
                name_string (players[player->companion].name));
     }
 }

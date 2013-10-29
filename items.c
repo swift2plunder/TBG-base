@@ -298,20 +298,20 @@ repair (FILE * fd, struct PLAYER *player, struct ITEM *item)
     penalty = 0;
   if (!owner (player, item - items))
     {
-      fprintf (fd, "<P>Can't repair %s - it's gone\n", item_string (item));
+      fprintf (fd, "<li>Can't repair %s - it's gone</li>\n", item_string (item));
       return;
     }
   if (dice (100) <
       skill + item->reliability - penalty)
     {
       item->flags &= (~ITEM_BROKEN);
-      fprintf (fd, "<P>%s officer fixed %s\n",
+      fprintf (fd, "<li>%s officer fixed %s</li>\n",
                skill_names[repairers[item->sort]], item_string (item));
       player->skills[repairers[item->sort]] |=
         skill_bit (repair_skill, item->sort);
     }
   else
-    fprintf (fd, "<P><EM>%s officer failed to fix %s</EM>\n",
+    fprintf (fd, "<li>%s officer failed to fix %s</li>\n",
              skill_names[repairers[item->sort]], item_string (item));
 }
 
@@ -371,7 +371,7 @@ priority (FILE * fd, struct PLAYER *player, skill_sort officer)
               it->reliability = 99 - rand_exp(10);
             }
         }      
-      fprintf (fd, "Your %s crew goes crazy, tearing modules apart, and putting them back together, but they manage to \"fix\" them all.<BR>\n",
+      fprintf (fd, "<li>Your %s crew goes crazy, tearing modules apart, and putting them back together, but they manage to \"fix\" them all.</li>\n",
                skill_names[officer]);
       return;
     }
@@ -406,7 +406,7 @@ priority (FILE * fd, struct PLAYER *player, skill_sort officer)
           int gain = skill - it->efficiency * it->efficiency;
           it->reliability += max(0, min (gain, gain_max));
           fprintf (fd,
-                   "<P>%s crew's priority maintenance improves %s up to %d%%\n",
+                   "<li>%s crew's priority maintenance improves %s up to %d%%</li>\n",
                    skill_names[repairers[it->sort]], item_string (it),
                    it->reliability);
         }

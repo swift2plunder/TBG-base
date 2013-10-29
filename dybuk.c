@@ -1147,31 +1147,31 @@ destabilize (FILE *fd, struct PLAYER *player, int loc)
       switch(sort)
         {
         case engineering:
-          fprintf (fd, "<BR>Your engineering crew destabilizes the orbit of %s%d%s\n",
+          fprintf (fd, "<li>Your engineering crew destabilizes the orbit of %s%d%s\n",
                    location_types[type].name, loc,
-                   (kaboom)? " and it falls into the star." :
-                   ", but it still hasn't fallen into the sun.");
+                   (kaboom)? " and it falls into the star.</li>" :
+                   ", but it still hasn't fallen into the sun.</li>");
           break;
         case science:
-          fprintf (fd, "<BR>Your science crew dephases the polarity of %s%d%s\n",
+          fprintf (fd, "<li>Your science crew dephases the polarity of %s%d%s\n",
                    location_types[type].name, loc,
-                   (kaboom)? " and it collapses into a subspace vacuole."
-                   : ", but it hasn't collapsed yet.");
+                   (kaboom)? " and it collapses into a subspace vacuole.</li>"
+                   : ", but it hasn't collapsed yet.</li>");
           break;
         case medical:
-          fprintf (fd, "<BR>Your medical crew poisons %s%d%s\n",
+          fprintf (fd, "<li>Your medical crew poisons %s%d%s\n",
                    location_types[type].name, loc,
-                   (kaboom)? " and everyone dies." :
-                   ", killing many, but many are still living.");
+                   (kaboom)? " and everyone dies.</li>" :
+                   ", killing many, but many are still living.</li>");
           break;
         case weaponry:
-          fprintf (fd, "<BR>Your weaponry crew attacks %s%d%s\n",
+          fprintf (fd, "<li>Your weaponry crew attacks %s%d%s\n",
                    location_types[type].name, loc,
-                   (kaboom)? " wiping it out completely."
-                   : ", killing many, but many are still living.");
+                   (kaboom)? " wiping it out completely.</li>"
+                   : ", killing many, but many are still living.</li>");
           break;
         }
-      fprintf (fd, " and you collect %d popcorn in the process.\n", pop);
+      fprintf (fd, "<li>You collect %d popcorn in the process.</li>\n", pop);
       player->popcorn += pop;
     }
   else
@@ -1215,23 +1215,23 @@ destabilize (FILE *fd, struct PLAYER *player, int loc)
       switch(sort)
         {
         case engineering:
-          fprintf (fd, "<BR>Your engineering crew induces sunspots in the star%s",
-                   (kaboom)? " and it goes supernova" : "");
+          fprintf (fd, "<li>Your engineering crew induces sunspots in the star%s",
+                   (kaboom)? " and it goes supernova.</li>" : ".</li>");
           break;
         case science:
-          fprintf (fd, "<BR>Your science crew induces solar flares in the star%s",
-                   (kaboom)? " and it goes supernova" : "");
+          fprintf (fd, "<li>Your science crew induces solar flares in the star%s",
+                   (kaboom)? " and it goes supernova.</li>" : ".</li>");
           break;
         case medical:
-          fprintf (fd, "<BR>Your medical crew feeds the stellar amoebae%s",
-                   (kaboom)? " and the star goes supernova" : "");
+          fprintf (fd, "<li>Your medical crew feeds the stellar amoebae%s",
+                   (kaboom)? " and the star goes supernova.</li>" : ".</li>");
           break;
         case weaponry:
-          fprintf (fd, "<BR>Your weaponry crew fires into the star%s",
-                   (kaboom)? " and it goes supernova" : "");
+          fprintf (fd, "<li>Your weaponry crew fires into the star%s",
+                   (kaboom)? " and it goes supernova.</li>" : ".</li>");
           break;
         }
-      fprintf (fd, ", and collects %d popcorn doing so.\n", pop);
+      fprintf (fd, "<li>They collect %d popcorn doing so.</li>\n", pop);
       player->popcorn += pop;
     }
 }

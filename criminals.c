@@ -124,7 +124,7 @@ bounty (FILE * fd, struct PLAYER *player, int loc)
 
   if (criminal == NO_CRIMINAL)
     {
-      fprintf (fd, "<P><EM>No criminals detected at %s</EM>\n",
+      fprintf (fd, "<li>No criminals detected at %s</li>\n",
                loc_string (loc));
       return;
     }
@@ -132,12 +132,12 @@ bounty (FILE * fd, struct PLAYER *player, int loc)
     {
       if (ground_combat (fd, player, (criminal & 7) * 15, weaponry, FALSE))
         {
-          fprintf (fd, "<P>Captured %s at %s\n",
+          fprintf (fd, "<li>Captured %s at %s\n</li>",
                    criminal_string (criminal), loc_string (loc));
           if (player->prisoner)
             {
               fprintf (fd,
-                       "<BR><EM>Had to release previous prisoner: %s to make room</EM>\n",
+                       "<li>Release previous prisoner: %s to make room</li>\n",
                        criminal_string (player->prisoner));
               relocate_criminal (player->prisoner);
             }

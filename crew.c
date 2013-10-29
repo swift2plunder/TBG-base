@@ -265,9 +265,9 @@ heal (FILE * fd, struct PLAYER *player)
     * factor (sick_bay, player);
   /*  if (player->health > 999)
       player->health = 999;*/
-  fprintf (fd, "<P>%s officer healed crew's illness and injuries\n",
+  fprintf (fd, "<li>%s officer healed crew's illness and injuries\n",
            skill_names[medical]);
-  fprintf (fd, "Average health up to %d.%d%%\n",
+  fprintf (fd, "Average health up to %d.%d%%</li>\n",
            player->health / 10, player->health % 10);
 }
 

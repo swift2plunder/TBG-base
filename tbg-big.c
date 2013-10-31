@@ -254,7 +254,7 @@ show_ship (FILE * fd, struct PLAYER *ship)
              server, ship->account_number, name_string (ship->name), flag);
   else
     sprintf (buffer, "%s %s", name_string (ship->name), flag);
-  if ((ship >= shops) && (ship < dybuk))
+  if ((ship >= shops) && (ship != dybuk))
     fprintf (fd, "<div class=\"shops\">\n");
   if (ship < shops)
     fprintf (fd, "<div class=\"ship\">\n");

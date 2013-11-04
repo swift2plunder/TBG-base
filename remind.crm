@@ -69,7 +69,15 @@ isolate (:payload:) /:*:main_headers::*:body:/
 
 # Send SMTP messages
 call /:smtp:/ [:*:payload:]
-#output /To: ":*:ship_name:" <:*:address:>\n/
+
+{
+isolate (:date:) /Date Error/
+syscall (::) (:date:) /date/
+match <nomultiline> [:date:] (:date:) /.+/
+trap //
+}
+
+output <append> [\/home\/tbg\/work\/maillog] /:*:date: :*:ship_name: "TBG Reminder - :*:ship_name:" :*:address:\n/
 
 liaf
 }

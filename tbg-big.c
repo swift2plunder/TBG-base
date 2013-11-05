@@ -328,7 +328,7 @@ show_ship (FILE * fd, struct PLAYER *ship)
            total, collection);
   fprintf (fd, "Torpedo Stock = %d, ", ship->torps);
   fprintf (fd, "Cargo capacity: %d ", cargo);
-  fprintf (fd, "</p></div>\n");
+  fprintf (fd, "</p>\n");
 }
 
 

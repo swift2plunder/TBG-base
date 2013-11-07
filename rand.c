@@ -48,7 +48,7 @@ rand_exp (double scale)
   if (scale <= 0)
     return 0;
   x = gsl_ran_exponential (random_generator, scale/2);
-  return x * 2 + 0.5;
+  return x + 0.5;
 }
 
 

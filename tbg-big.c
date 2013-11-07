@@ -882,7 +882,7 @@ show_location_option (FILE * fd, struct PLAYER *player, int site)
       if (player->prisoner)
         {
           fprintf (fd, "<OPTION VALUE=%d>", site);
-          fprintf (fd, "Cash in prisoner %s for $%d\n",
+          fprintf (fd, "Cash in prisoner %s for about $%d\n",
                    criminal_string (player->prisoner),
                    500 * (player->prisoner & 7) * (player->prisoner & 7));
         }

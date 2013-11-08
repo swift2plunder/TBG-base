@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Registration</title>
+
+</head>
+<body>
+<div id="all">
+<h2>Registration</h2>
+
+<div id="registration">
+<form name="register" method="post" action="/cgi-bin/nonfb-register.crm">
+<ul>
+<li>
+<div class="form_row">
+<label for="name">Name:</label>
+<input name="name" value="" placeholder="Your real name" onfocus="select();">
+</div>
+</li>
+<li>
+<div class="form_row">
+<label for="ship">Ship:</label>
+<input name="ship" value="" placeholder="Your ship name" onfocus="select();">
+</div>
+</li>
+<li>
+<div class="form_row">
+<label for="email">E-mail:</label>
+<input name="email" value="" onfocus="select();" type="text">
+</div>
+</li>
+<li>
+<div class="form_row">
+<label for="phone">Phone: </label> 
+<input name="phone" placeholder="Not Supplied" onfocus="select();" type="text">
+</div>
+</li>
+<li>
+<div class="form_row">
+<label for="address">Location:</label>
+<input name="address" onfocus="select();" type="text">
+</div>
+</li>
+<li>
+<div class="form_row">
+<label for="timezone">Timezone: </label>
+<input name="timezone" onfocus="select();" type="text">
+</div>
+</li>
+<li>
+<div class="form_row">
+<input value="Submit registration" type="submit">
+</div>
+</li>
+</ul>
+</form>
+</div>
+</div>
+</body>
+</html>

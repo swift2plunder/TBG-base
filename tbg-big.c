@@ -1981,7 +1981,7 @@ show_player (FILE * fd, struct PLAYER *player)
              player->health % 10);
   else
     fprintf (fd,
-           "<P>(ending turn at star system %s with $%d of energy and crew health of %d.%d%%\n",
+           "<p>(ending turn at star system %s with $%d of energy and crew health of %d.%d%%)</p>\n",
            star_names[player->star], player->energy, player->health / 10,
            player->health % 10);
   show_orders(fd,player);
@@ -1989,7 +1989,7 @@ show_player (FILE * fd, struct PLAYER *player)
            "<hr><a href=\"http://%s\"><img src=\"http://%s/counter.gif\"></a>\n",
            server, server);
 
-  fprintf (fd, "</div></body></html>\n");
+  fprintf (fd, "</body></html>\n");
 }
 
 
@@ -4106,7 +4106,7 @@ open_times ()
   timer = time (NULL);
   stardate = localtime (&timer);
   fprintf (times, "</head>\n");
-  fprintf (times, "<body>\n<div id=\"times\">\n");
+  fprintf (times, "<body id=\"times\">\n");
   fprintf (times, "<h1>Subspace Times</h1>\n");
   timer = (timer + 386380800) / 86400;
   fprintf (times, "<h1>Issue %d - Stardate %ld.%ld</h1>\n",
@@ -4250,7 +4250,7 @@ close_times ()
            "<hr><a href=\"http://%s\"><img src=\"http://%s/counter.gif\"></a>\n",
            server, server);
 
-  fprintf (times, "</div></body></html>\n");
+  fprintf (times, "</body></html>\n");
   fclose (times);
 }
 
@@ -4653,14 +4653,14 @@ make_ship_files ()
           printf ("Can't open ship file\n");
           exit (1);
         }
-      fprintf (fd, "<html><head><title>%s, Turn %d</title>\n",
+      fprintf (fd, "<!DOCTYPE html>\n<html>\n<head>\n<title>%s, Turn %d</title>\n",
                name_string (players[p].name), turn);
       fprintf (fd,"<link rel=\"shortcut icon\" href=\"/favicon.ico\">\n");
       fprintf (fd,"<link type=\"text/css\" rel=\"stylesheet\" href=\"/includes/tbg.css\">\n");
-      fprintf (fd,"</head>\n<body><div id=\"results\"\n");
+      fprintf (fd,"</head>\n<body id=\"results\">\n");
       show_ship (fd, players + p);
       show_factors (fd, players + p);
-      fprintf (fd, "</div></body></html>\n");
+      fprintf (fd, "</body></html>\n");
       fclose (fd);
     }
 }

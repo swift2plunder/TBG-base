@@ -89,7 +89,9 @@ generate_voting_options (FILE * fd, struct PLAYER *player)
 
   if (turn - player->last_restart < 100)
     {
-      fprintf (fd, "<div class=\"tribune\"><table><tr><th>Vote for Tribune of the People</th></tr>\n");
+      fprintf (fd, "<div class=\"tribune\"><table><tr><th>Vote for ");
+      print_rules_link (fd, "Tribune", "Tribune");
+      fprintf (fd, " of the People</th></tr>\n");
       fprintf (fd, "<tr><th>(Votes last turn shown in brackets)</th></tr>\n");
       fprintf (fd, "<tr><td><select name=\"P\">\n");
       fprintf (fd, "<option value=T0>No-one\n");
@@ -414,7 +416,10 @@ check_votes (FILE * fd, struct PLAYER *player)
   int votes = 0;
   int i;
 
-  fprintf (fd, "<div class=\"politics\"><h3>Politics</h3>\n");
+  fprintf (fd, "<div class=\"politics\"><h3>");
+
+  print_rules_link (fd, "Politics", "The_Galactic_Council");
+  fprintf (fd, "</h3>\n");
 
   for (i = 0 ; i < 9 ; i++)
     {

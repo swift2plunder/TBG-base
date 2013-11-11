@@ -323,8 +323,9 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
       item = items + item->link;
     }
 
-  fprintf (fd, "<TR ALIGN=CENTER><TH>Diplomatic Option</TH>\n");
-  fprintf (fd, "<TH>Demands</TH></TR>\n");
+  fprintf (fd, "<TR ALIGN=CENTER><TH>");
+  print_rules_link (fd, "Ship_Interactions", "Diplomatic Option");
+  fprintf (fd, "</TH>\n<TH>Demands</TH></TR>\n");
 
   fprintf (fd, "<TR ALIGN=CENTER><TD><SELECT NAME=\"do\">\n");
   fprintf (fd, "<OPTION VALUE=0>Flee\n");
@@ -346,8 +347,9 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
     }
   fprintf (fd, "</SELECT></TD></TR>\n");
 
-  fprintf (fd, "<TR ALIGN=CENTER><TH>Combat Strategy</TH>\n");
-  fprintf (fd, "<TH>Gifts</TH></TR>\n");
+  fprintf (fd, "<TR ALIGN=CENTER><TH>");
+  print_rules_link (fd, "Combat", "Combat Strategy");
+  fprintf (fd, "</TH>\n<TH>Gifts</TH></TR>\n");
 
   fprintf (fd, "<TR ALIGN=CENTER><TD><SELECT NAME=\"dc\">\n");
   fprintf (fd, "<OPTION VALUE=0>Favour Fleeing\n");

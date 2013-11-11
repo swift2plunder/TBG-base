@@ -1089,7 +1089,8 @@ show_general_options (FILE * fd, struct PLAYER *player)
     }
 
   fprintf (fd, "</TR><TR><TD>Buy <INPUT TYPE=TEXT SIZE=6 NAME=\"N\">");
-  fprintf (fd, "popcorn spending up to $<INPUT TYPE=TEXT SIZE=6 NAME=\"O\">");
+  print_rules_link (fd, "Popcorn", "popcorn");
+  fprintf (fd, " spending up to $<INPUT TYPE=TEXT SIZE=6 NAME=\"O\">");
   fprintf (fd, " each</TD>\n");
   
   if (player->star >= MAX_STAR)
@@ -1193,7 +1194,9 @@ show_starsystem (FILE * fd, struct PLAYER *player, int star)
     fprintf (fd, " Plague at %d%%:</H1>\n", races[who_home (star)].plague);
   else
     fprintf (fd, ":</H1>\n");
-  fprintf (fd, "<H2>Locations in this system</H2>\n");
+  fprintf (fd, "<H2>");
+  print_rules_link (fd, "Locations", "Locations");
+  fprintf (fd, " in this system</H2>\n");
   fprintf (fd, "<TABLE BORDER=1><TR><TH>Id</TH><TH>Description</TH></TR>\n");
   for (i = 0; i < MAX_LOCATION; i++)
     if (locations[i].star == star)
@@ -1772,7 +1775,9 @@ show_orders (FILE *fd, struct PLAYER *player)
       generate_magic_options (fd, player, sort, enemy);
       fprintf (fd, "</SELECT></TD></TR>\n");
     }
-  fprintf (fd, "<TR><TH COLSPAN=4>Jump To (use one menu only):</TH></TR>\n");
+  fprintf (fd, "<TR><TH COLSPAN=4>");
+  print_rules_link (fd, "Movement", "Jump To");
+  fprintf (fd, " (use one menu only):</TH></TR>\n");
   fprintf (fd, "<TR ALIGN=CENTER><TH>Short</TH><TH>Medium</TH><TH>Long</TH><TH>Impossible</TH></TR>\n");
   fprintf (fd, "<TR ALIGN=CENTER><TD>\n");
   r1 = 0;
@@ -3385,7 +3390,9 @@ end_turn ()
         
       if (p->star != HOLIDAY && p->star < MAX_STAR)
         {
-          fprintf (fd, "<h3>Finances</h3>\n");
+          fprintf (fd, "<h3>");
+          print_rules_link (fd, "How_can_I_tell_whether_Im_rich", "Finances");
+          fprintf (fd, "</h3>\n");
           if (p->popcorn > 0)
             {
               fprintf (fd, "<P>You have %d popcorn\n", p->popcorn);

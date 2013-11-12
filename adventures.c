@@ -128,13 +128,13 @@ try_adventure (FILE * fd, struct PLAYER *player, int adventure)
   fprintf (fd, "%s", ad_types[ADVENTURE_TYPE (parameter)].ad_desc);
   if (treasure == 0 || adventures[adventure].star != player->star)
     {
-      fprintf (fd, "<p>Adventure already done this turn</p>\n");
+      fprintf (fd, "<p>Adventure already done this turn</p></aside>\n");
       return (FALSE);
     }
   if (effective_skill_level (player, skill) < level)
     {
       fprintf (fd,
-               "<p>Adventure too difficult, %d needs to be %d</p>\n",
+               "<p>Adventure too difficult, %d needs to be %d</p></aside>\n",
                effective_skill_level (player, skill), level);
       return (FALSE);
     }
@@ -142,7 +142,7 @@ try_adventure (FILE * fd, struct PLAYER *player, int adventure)
     {
       if (player->crew[skill] < level / 2)
         {
-          fprintf (fd, "<p>Adventure needs at least %d crew</p>\n",
+          fprintf (fd, "<p>Adventure needs at least %d crew</p></aside>\n",
                    level / 2);
           return (FALSE);
         }
@@ -176,7 +176,7 @@ try_adventure (FILE * fd, struct PLAYER *player, int adventure)
            player->away_team[medical] == parameter))
         {
           fprintf (fd,
-                   "<p>Retreat from combat, adventure failed</p>\n");
+                   "<p>Retreat from combat, adventure failed</p></aside>\n");
           return (FALSE);
         }
     }

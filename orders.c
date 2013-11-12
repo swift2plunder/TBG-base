@@ -518,7 +518,7 @@ execute_orders ()
         {
           open_results (&fd, player);
           fprintf (fd, "<!-- orders.c:519 -->");
-          fprintf (fd, "<h2>Actions</h2>");
+          fprintf (fd, "<h2>Actions</h2>\n<ul>\n");
           previous = player;
           do_password_powers (fd, player);
         }
@@ -717,7 +717,7 @@ execute_orders ()
       order++;
     }
   while (rank <= last_rank);
-
+  fprintf (fd, "</ul>\n");
   write_chosen_lists ();
   write_heretic_lists ();
   resolve_judgement ();

@@ -3245,7 +3245,7 @@ open_results (FILE ** fd, struct PLAYER *player)
 
   if (*fd)
     {
-    fprintf (*fd, "</section>\n");
+    //fprintf (*fd, "</section>\n");
     fclose (*fd);
     }
   sprintf (buffer, "%s/results/%d/%s%d.a", webroot,
@@ -3260,7 +3260,7 @@ open_results (FILE ** fd, struct PLAYER *player)
       exit (1);
     }
   player->results = TRUE;
-  fprintf (*fd, "<section>\n");
+  //fprintf (*fd, "<section>\n");
 }
 
 

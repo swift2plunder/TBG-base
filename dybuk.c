@@ -753,8 +753,8 @@ resolve_interaction (struct PLAYER *p1, struct PLAYER *p2)
       printf ("Can't create battle file %s (%d)\n", battlefile, errno);
       exit (1);
     }
-  fprintf (fd, "<H2>%s meets \n", name_string (p1->name));
-  fprintf (fd, "%s at %s</H2>\n",
+  fprintf (fd, "<h2>%s meets ", name_string (p1->name));
+  fprintf (fd, "%s at %s</h2>\n",
            name_string (p2->name), star_names[p1->star]);
 
   if (is_evil (p1) && p1->evilpedos[3] && p2 != dybuk) 
@@ -770,9 +770,9 @@ resolve_interaction (struct PLAYER *p1, struct PLAYER *p2)
   if ((p1 == dybuk && p1->evilpedos[3])
       || (p2 == dybuk && p2->evilpedos[3]))
     {
-      fprintf (fd, "<P>%s uses ChaosTech, conventional modules are useless!\n",
+      fprintf (fd, "<p>%s uses ChaosTech, conventional modules are useless!</p>\n",
                dybuk->name);
-      fprintf (fd, "<BR>%s withdraws from combat unhurt!\n", dybuk->name);
+      fprintf (fd, "<p>%s withdraws from combat unhurt!</p>\n", dybuk->name);
       fclose (fd);
       link (battlefile, buf2);
       return;
@@ -839,7 +839,7 @@ resolve_interaction (struct PLAYER *p1, struct PLAYER *p2)
   if (p1->strategy.dip_option == make_demands ||
       p1->strategy.dip_option == attack_if_defied)
     {
-      fprintf (fd, "<BR>%s demands %s\n",
+      fprintf (fd, "<p>%s demands %s",
                name_string (p1->name),
                item_string (items + p1->strategy.demand));
       if (items[p1->strategy.demand].flags & ITEM_OFFERED)
@@ -848,7 +848,7 @@ resolve_interaction (struct PLAYER *p1, struct PLAYER *p2)
           /* OK, victim hands over tribute */
           p1->ship = transfer_item (p1->strategy.demand, p1);
           p1->strategy.dip_option = no_attack;
-          fprintf (fd, " and %s offers it\n", name_string (p2->name));
+          fprintf (fd, " and %s offers it</p>\n", name_string (p2->name));
         }
       else
         {
@@ -856,7 +856,7 @@ resolve_interaction (struct PLAYER *p1, struct PLAYER *p2)
             p1->strategy.dip_option = no_attack;
           else
             p1->strategy.dip_option = always_attack;
-          fprintf (fd, " but %s refuses to give it\n",
+          fprintf (fd, " but %s refuses to give it</p>\n",
                    name_string (p2->name));
         }
     }
@@ -864,7 +864,7 @@ resolve_interaction (struct PLAYER *p1, struct PLAYER *p2)
   if (p2->strategy.dip_option == make_demands ||
       p2->strategy.dip_option == attack_if_defied)
     {
-      fprintf (fd, "<BR>%s demands %s\n",
+      fprintf (fd, "<p>%s demands %s",
                name_string (p2->name),
                item_string (items + p2->strategy.demand));
       if (items[p2->strategy.demand].flags & ITEM_OFFERED)
@@ -873,7 +873,7 @@ resolve_interaction (struct PLAYER *p1, struct PLAYER *p2)
           /* OK, victim hands over tribute */
           p2->ship = transfer_item (p2->strategy.demand, p2);
           p2->strategy.dip_option = no_attack;
-          fprintf (fd, " and %s offers it\n", name_string (p1->name));
+          fprintf (fd, " and %s offers it</p>\n", name_string (p1->name));
         }
       else
         {
@@ -881,7 +881,7 @@ resolve_interaction (struct PLAYER *p1, struct PLAYER *p2)
             p2->strategy.dip_option = no_attack;
           else
             p2->strategy.dip_option = always_attack;
-          fprintf (fd, " but %s refuses to give it\n",
+          fprintf (fd, " but %s refuses to give it</p>\n",
                    name_string (p1->name));
         }
     }

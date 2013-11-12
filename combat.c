@@ -200,12 +200,12 @@ split_loot (FILE *fd, struct PLAYER *winner, struct PLAYER *loser)
       looter->damage -= tech;
       total_damage -= tech;
       if (items[item].sort < pod)
-        fprintf (fd , "%s gains %s %s (%d\%) as loot.<BR>\n",
+        fprintf (fd , "<p class=\"loot\">%s gains %s %s (%d\%) as loot.</p>\n",
                  name_string(looter->name),
                  tech_level_names[tech],
                  item_string(items+item), r);
       else
-        fprintf (fd , "%s gains %s as loot.<BR>\n",
+        fprintf (fd , "<p class=\"loot\">%s gains %s as loot.</p>\n",
                  name_string(looter->name),
                  item_string(items+item));
     }
@@ -809,12 +809,12 @@ resolve_strike (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender,
   hits += resolve_kamikaze (fd, attacker, defender, range);
   hits += salvo;
   fprintf (fd,
-           "<BR><STRONG>%s does %d damage (including %d with torpedoes)</STRONG>\n",
+           "<p class=\"damage\">%s does %d damage (including %d with torpedoes)</p>\n",
            name_string (attacker->name), hits, salvo);
   defender->shields -= hits;
   while (defender->shields <= 0)
     {
-      fprintf (fd, "<BR>%s is hit, %s is lost\n",
+      fprintf (fd, "<p class=\"mod_lost\">%s is hit, %s is lost</p>\n",
                name_string (defender->name),
                item_string (items + attacker->strategy.target));
       attacker->favour[weaponry] +=
@@ -839,7 +839,7 @@ resolve_strike (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender,
 
           loss = it->efficiency * defender->reserve_per_item;
           fprintf (fd,
-                   "<BR>Reserve shields reduced by %d points per protected module\n",
+                   "<p class=\"shield_lost\">Reserve shields reduced by %d points per protected module</p>\n",
                    loss);
           defender->reserve -= loss;
         }
@@ -849,7 +849,7 @@ resolve_strike (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender,
         consolidate_artifacts ();
       if (defender->ship == 0)      /* dead */
         {
-          fprintf (fd, "<BR><STRONG>%s's ship destroyed!</STRONG>\n",
+          fprintf (fd, "<p class=\"ship_destroyed\">%s's ship destroyed!</p>\n",
                    name_string (defender->name));
           if (defender < aliens && !(defender->preferences & 8))
             parse_order ("y=2", defender - players);
@@ -857,7 +857,7 @@ resolve_strike (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender,
         }
       attacker->strategy.target = choose_target (items + defender->ship);
       defender->shields /= 2;
-      fprintf (fd, "<BR>%s selects new target: %s\n",
+      fprintf (fd, "<p class=\"new_target\">%s selects new target: %s</p>\n",
                name_string (attacker->name),
                item_string (items + attacker->strategy.target));
 
@@ -882,11 +882,11 @@ resolve_strike (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender,
                              shield_rating (items +
                                             attacker->strategy.target));
   if (shields)
-    fprintf (fd, "<BR>%s's shields at %d%% (%d points)\n",
+    fprintf (fd, "<p class=\"shield_strength\">%s's shields at %d%% (%d points)</p>\n",
              name_string (defender->name),
              (defender->shields * 100) / shields, defender->shields);
   else
-    fprintf (fd, "<BR>%s's shields down\n", name_string (defender->name));
+    fprintf (fd, "<p class=\"shield_strength\">%s's shields down\n</p>", name_string (defender->name));
 
   if (attacker->ship == 0)      /* destroyed */
     {
@@ -910,7 +910,7 @@ resolve_range (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender,
       do
         attacker->strategy.ideal_range--;
       while (!damage_scored (attacker, attacker->strategy.ideal_range, 6));
-      fprintf (fd, "<BR>%s changes to shorter range strategy\n",
+      fprintf (fd, "<p class=\"range_change\">%s changes to shorter range strategy</p>\n",
                name_string (attacker->name));
     }
   if (attacker->movement - defender->movement > 30 + range * 4 &&
@@ -919,13 +919,13 @@ resolve_range (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender,
       attacker->movement -= 30 + range * 4;
       if (attacker->strategy.ideal_range > range)
         {
-          fprintf (fd, "<BR><EM>%s widens range</EM>\n",
+          fprintf (fd, "<p class=\"range_change\">%s widens range</p>\n",
                    name_string (attacker->name));
           range++;
         }
       else
         {
-          fprintf (fd, "<BR><EM>%s narrows range</EM>\n",
+          fprintf (fd, "<p class=\"range_change\">%s narrows range</p>\n",
                    name_string (attacker->name));
           range--;
         }
@@ -943,7 +943,7 @@ resolve_retreats (FILE * fd, struct PLAYER *attacker,
       if (attacker->losses >= attacker->strategy.retreat)
         {
           fprintf (fd,
-                   "<BR><EM>%s has too much damage so tries to break off</EM>\n",
+                   "<p class=\"retreat\">%s has too much damage so tries to break off</p>\n",
                    name_string (attacker->name));
           attacker->strategy.dip_option = flee;
         }
@@ -952,13 +952,13 @@ resolve_retreats (FILE * fd, struct PLAYER *attacker,
            attacker->star != homeworlds[attacker->alliance]))
         {
           fprintf (fd,
-                   "<BR><EM>%s has no weapons so tries to break off</EM>\n",
+                   "<p class=\"retreat\">%s has no weapons so tries to break off</p>\n",
                    name_string (attacker->name));
           attacker->strategy.dip_option = flee;
         }
     }
   else
-    fprintf (fd, "<BR><EM>%s attempts to flee</EM>\n",
+    fprintf (fd, "<p class=\"retreat\">%s attempts to flee</p>\n",
              name_string (attacker->name));
   am = mass(attacker);
   dm = mass(defender);
@@ -966,7 +966,7 @@ resolve_retreats (FILE * fd, struct PLAYER *attacker,
 
   if (attacker->fleeing >= threshold)
     {
-      fprintf (fd, "<H3>%s succeeds in fleeing from the battle!</H3><BR>\n",
+      fprintf (fd, "<h4>%s succeeds in fleeing from the battle!</h4>\n",
                name_string (attacker->name));
       return (TRUE);
     }
@@ -1078,12 +1078,12 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
   /* check for hiding/hunting */
   if (attacker->hide_hunt > 0 && defender->hide_hunt > 0)
     {
-      fprintf (fd, "<P>Combat attempted but both ships hiding\n");
+      fprintf (fd, "<p>Combat attempted but both ships hiding</p>\n");
       return (TRUE);
     }
   if (attacker->hide_hunt > 0)
     {
-      fprintf (fd, "<P>%s hides in %s\n",
+      fprintf (fd, "<p>%s hides in %s\n",
                name_string (attacker->name),
                attacker->hide_hunt > 1 ?
                loc_string (attacker->hide_hunt) : "Space");
@@ -1091,15 +1091,15 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
         risk_level (defender, abs (defender->hide_hunt)) : 0;
       if (risk < risk_level (defender, abs (attacker->hide_hunt)))
         {
-          fprintf (fd, " and avoids combat\n");
+          fprintf (fd, " and avoids combat</p>\n");
           return (TRUE);
         }
       else
-        fprintf (fd, " but %s hunts there\n", name_string (defender->name));
+        fprintf (fd, " but %s hunts there</p>\n", name_string (defender->name));
     }
   if (defender->hide_hunt > 0)
     {
-      fprintf (fd, "<P>%s hides in %s\n",
+      fprintf (fd, "<p>%s hides in %s\n",
                name_string (defender->name),
                defender->hide_hunt > 1 ?
                loc_string (defender->hide_hunt) : "Space");
@@ -1107,15 +1107,15 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
         risk_level (attacker, abs (attacker->hide_hunt)) : 0;
       if (risk < risk_level (attacker, abs (defender->hide_hunt)))
         {
-          fprintf (fd, " and avoids combat\n");
+          fprintf (fd, " and avoids combat</p>\n");
           return (TRUE);
         }
       else
-        fprintf (fd, " but %s hunts there\n", name_string (attacker->name));
+        fprintf (fd, " but %s hunts there</p>\n", name_string (attacker->name));
     }
   if (attacker->hide_hunt < 0 && defender->hide_hunt < 0)
     {
-      fprintf (fd, "<P>Combat attempted and both ships hunting\n");
+      fprintf (fd, "<p>Combat attempted and both ships hunting</p>\n");
     }
   /* check for making a new enemy, neutrals bear grudges,
      friendlies and chaotics don't */
@@ -1129,7 +1129,7 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
     if (attacker->alliance != PLAYER_ALLIANCE &&
         attacker->star == homeworlds[attacker->alliance])
       {
-        fprintf (fd, "<P>%s defending homeworld heroically\n", attacker->name);
+        fprintf (fd, "<p>%s defending homeworld heroically</p>\n", attacker->name);
         attacker->strategy.dip_option = always_attack;
         attacker->strategy.ideal_range = 0;
         /* smarter aliens */
@@ -1150,7 +1150,7 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
     if (defender->alliance != PLAYER_ALLIANCE &&
         defender->star == homeworlds[defender->alliance])
       {
-        fprintf (fd, "<P>%s defending homeworld heroically\n", defender->name);
+        fprintf (fd, "<p>%s defending homeworld heroically</p>\n", defender->name);
         defender->strategy.dip_option = always_attack;
         defender->strategy.ideal_range = 0;
         /* smarter aliens */
@@ -1179,10 +1179,10 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
 
   if (attacker->magic_flags & FLAG_AVOID_COMBAT)
     {
-      fprintf (fd, "<BR>%s uses micro-jump to avoid combat\n",
+      fprintf (fd, "<p>%s uses micro-jump to avoid combat \n",
                name_string (attacker->name));
       if (defender->magic_flags & FLAG_FORCE_COMBAT)
-        fprintf (fd, "<BR>but %s anticipates and engages\n",
+        fprintf (fd, "but %s anticipates and engages</p>\n",
                  name_string (defender->name));
       else
         return (TRUE);
@@ -1190,10 +1190,10 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
 
   if (defender->magic_flags & FLAG_AVOID_COMBAT)
     {
-      fprintf (fd, "<BR>%s uses micro-jump to avoid combat\n",
+      fprintf (fd, "<p>%s uses micro-jump to avoid combat \n",
                name_string (defender->name));
       if (attacker->magic_flags & FLAG_FORCE_COMBAT)
-        fprintf (fd, "<BR>but %s anticipates and engages\n",
+        fprintf (fd, "but %s anticipates and engages</p>\n",
                  name_string (attacker->name));
       else
         return (TRUE);
@@ -1210,14 +1210,14 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
                         detection_range (defender, attacker));
   range = max (attacker_range, defender_range);
 
-  fprintf (fd, "<H2>%s attacks \n", name_string (attacker->name));
-  fprintf (fd, "%s in %s terrain, opening fire at %s range</H2>\n",
+  fprintf (fd, "<article id=\"battle\"><h3>%s attacks \n", name_string (attacker->name));
+  fprintf (fd, "%s in %s terrain, opening fire at %s range</h3>\n",
            name_string (defender->name),
            terrain_names[stars[attacker->star].terrain], range_names[range]);
-  fprintf (fd, "<P><EM>%s's strategy favours %s,\n",
+  fprintf (fd, "<p class=\"strategy\">%s's strategy favours %s,\n",
            name_string (attacker->name),
            favour_names[attacker->strategy.cbt_option]);
-  fprintf (fd, "%s's strategy favours %s</EM>\n",
+  fprintf (fd, "%s's strategy favours %s</p>\n",
            name_string (defender->name),
            favour_names[defender->strategy.cbt_option]);
 
@@ -1246,10 +1246,10 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
     protected_items (defender->ship);
   defender->reserve_per_item =
     shield_strength (defender,SHIELD_POWER) / protected_items (defender->ship);
-  fprintf (fd, "<BR>%s targets: %s\n", name_string (attacker->name),
+  fprintf (fd, "<p class=\"target\">%s targets: %s</p>\n", name_string (attacker->name),
            item_string (items + attacker->strategy.target));
   resolve_reserve_shields (fd, defender, attacker->strategy.target);
-  fprintf (fd, "<BR>%s targets: %s\n",
+  fprintf (fd, "<p class=\"target\">%s targets: %s</p>\n",
            name_string (defender->name),
            item_string (items + defender->strategy.target));
   resolve_reserve_shields (fd, attacker, defender->strategy.target);
@@ -1263,12 +1263,12 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
   while (!winner)
     {
       int i;
-      fprintf (fd, "<H3>Round %d, range is %s</H3>\n",
+      fprintf (fd, "<h4 class=\"round\">Round %d, range is %s</h4>\n",
                round, range_names[range]);
 
       for (i = range ; i < 7 ; i++)
         {
-          fprintf (fd, "<H4>Phase %d</H4>", i + 1);
+          fprintf (fd, "<h5 class=\"phase\">Phase %d</h5>", i + 1);
 
           winner = resolve_strike (fd, attacker, defender, range, i);
           if (winner)
@@ -1278,7 +1278,7 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
               winner = attacker;
               break;
             }
-          fprintf (fd, "<P>");     /* tidy output */
+          fprintf (fd, "<div class=\"tidy\"></div>");     /* tidy output */
           winner = resolve_strike (fd, defender, attacker, range, i);
           if (winner)
             break;
@@ -1288,7 +1288,7 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
               break;
             }
         }
-      fprintf (fd, "<BR>");     /* tidy output */
+      fprintf (fd, "<div class=\"tidy\"></div>");     /* tidy output */
       if (winner)
         break;
       if (attacker->strategy.dip_option == flee)
@@ -1327,30 +1327,30 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
       if (stalemate (attacker, defender, range) || round > 500)
         {
           fprintf (fd,
-                   "<H2>Neither ship able to make progress after %d rounds, combat ends\n",
+                   "<h3 class=\"battle_outcome\">Neither ship able to make progress after %d rounds, combat ends\n",
                    --round);
           if (attacker->fleeing > defender->fleeing)
             {
-              fprintf (fd, " with %s fleeing</H2>\n",
+              fprintf (fd, " with %s fleeing</h3>\n",
                        name_string (attacker->name));
               winner = defender;
             }
           else if (defender->fleeing > attacker->fleeing)
             {
-              fprintf (fd, " with %s fleeing</H2>\n",
+              fprintf (fd, " with %s fleeing</h3>\n",
                        name_string (defender->name));
               winner = attacker;
             }
           else
             {
-              fprintf (fd, " with any loot lost to both</H2>\n");
+              fprintf (fd, " with any loot lost to both</h3>\n");
               destroy_loot ();
               free (loot_array);
               return (TRUE);
             }
         }
     }
-  fprintf (fd, "<H2>%s wins</H2>\n",
+  fprintf (fd, "<h3 class=\"battle_outcome\">%s wins</h3>\n",
            name_string (winner->name));
   cost = split_loot (fd, winner, (winner == attacker) ? defender : attacker);
   if (is_player (attacker) && is_player (defender))
@@ -1361,6 +1361,7 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
       printf ("Battle: %s vs %s\n", attacker->name, defender->name);
     }
   free (loot_array);
+  fprintf (fd, "</article>\n");
   return (TRUE);
 }
 

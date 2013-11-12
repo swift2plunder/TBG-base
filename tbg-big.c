@@ -771,21 +771,22 @@ show_other_ships (FILE * fd, struct PLAYER *player, int star)
 {
   struct PLAYER *base;
 
-  fprintf (fd, "<H2>Other ships here:</H2>\n");
+  fprintf (fd, "<h2>Other ships here:</h2>\n<ul id=\"pairings\">\n");
   base = sort_ships (star);
   while (base && base->next)
     {
-      fprintf (fd, "%s meets \n", pair_string (base));
+      fprintf (fd, "  <li>%s meets ", pair_string (base));
 
-      fprintf (fd, "%s<BR>\n", pair_string (base->next));
+      fprintf (fd, "%s</li>\n", pair_string (base->next));
       base = base->next->next;
     }
   if (base)
     {
-      fprintf (fd, "%s leftover<BR>\n", pair_string (base));
+      fprintf (fd, "  <li>%s leftover</li>\n", pair_string (base));
     }
-  //fprintf (fd, "<H3>Details</H3>\n");
+  fprintf (fd, "</ul>\n");
   base = sort_ships (star);
+  fprintf (fd, "<div id=\"ships_in_system\">\n");
   while (base)
     {
       if ((player->preferences & 256)
@@ -803,9 +804,12 @@ show_other_ships (FILE * fd, struct PLAYER *player, int star)
         }
       base = base->next;
     }
+  fprintf (fd, "</div>\n");
+  fprintf (fd, "<div id=\"shops_in_system\">\n");
   for (base = shops; base < shops + MAX_SHOP; base++)
     if (base->star == star)
       show_ship (fd, base);
+  fprintf (fd, "</div>\n");
 }
 
 void
@@ -2022,12 +2026,12 @@ create_header (struct PLAYER *player)
     {
       if (player->star >= MAX_STAR)
         fprintf (fd,
-                 "(starting turn at star system %s Planet for %s with $%d of energy, playing since turn %d)<br>\n",
+                 "<p>(starting turn at %s Planet for %s with $%d of energy, playing since turn %d)</p>\n",
                  mothballed (player - players) ? "Mothball" : "Holiday",
                  name_string (player->name), player->energy, player->last_restart);
       else
         fprintf (fd,
-                 "(starting turn at star system %s with $%d of energy, playing since turn %d)<br>\n",
+                 "<p>(starting turn at star system %s with $%d of energy, playing since turn %d)</p>\n",
                  star_names[player->star], player->energy, player->last_restart);
       }
 
@@ -4101,9 +4105,6 @@ open_times ()
   fprintf (times, "<link type=\"text/css\" rel=\"stylesheet\" href=\"http://%s/includes/jquery-ui-1.10.3.custom/css/smoothness/jquery-ui-1.10.3.custom.css\">\n", server);
   fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery-1.10.2.min.js\"></script>\n", server);
   fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery-ui.js\"></script>\n", server);
-//  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery.tablesorter.min.js\"></script>\n", server);
-//  fprintf (times, "<script type=\"text/javascript\" src=\"http://%s/includes/jquery.iframe-auto-height.plugin.1.9.3.min.js\"></script>\n", server);
-//  fprintf (times, "<script language=JavaScript>$(document).ready(function () {$('iframe').iframeAutoHeight({debug: true});});</script>\n");
   fprintf (times, "<script>\n");
   fprintf (times, "$(function() {\n");
   fprintf (times, "$( \".resizable\" ).resizable();\n");
@@ -4540,7 +4541,7 @@ make_web_pages ()
   fprintf (fd, "</div><div style=\"margin:1em\">\n");
 
   fprintf (fd, "<h1>Resending Results and Orders</h1>\n");
-  fprintf (fd, "<div id=\"results\">\n");
+  fprintf (fd, "<div id=\"send_results\">\n");
   fprintf (fd,
            "<form action=\"http://%s/cgi-bin/tbgmail.cgi\" method= \"post\">\n",
            server);

@@ -130,10 +130,9 @@ html_header (FILE * fd, char *web_source)
   fprintf (fd, "<base href=\"%s\">\n", web_source);
   fprintf (fd, "<link rel=\"shortcut icon\" href=\"/favicon.ico\">");
   fprintf (fd, "<link type=\"text/css\" rel=\"stylesheet\" href=\"/includes/tbg.css\">");
-  fprintf (fd, "<script type=\"text/javascript\" src=\"/includes/jquery-1.8.0.min.js\"></script>");
+  fprintf (fd, "<script type=\"text/javascript\" src=\"/includes/jquery-1.10.2.min.js\"></script>");
   fprintf (fd, "<script type=\"text/javascript\" src=\"/includes/jquery.tablesorter.min.js\"></script>");
-  fprintf (fd, "<script language=JavaScript>");
-  fprintf (fd, "$(document).ready(function()\n{\n$(\".adventures\").tablesorter();\n}\n);");
-  fprintf (fd, "</script>\n</head>\n<body>\n<div id=\"results\">\n");
+  fprintf (fd, "<script type=\"text/javascript\" src=\"/includes/jquery.turnulator.js\"></script>");
+  fprintf (fd, "</head>\n<body id=\"results\">\n");
 }
 

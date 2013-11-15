@@ -75,7 +75,7 @@ trap //
 
 {
 # Do not send mail to nobody.
-match [:_pos4:] /^nobody@/
+match [:address:] /^nobody@/
 goto /:egress:/
 }
 

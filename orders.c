@@ -518,7 +518,7 @@ execute_orders ()
         {
           open_results (&fd, player);
           fprintf (fd, "<!-- orders.c:519 -->");
-          fprintf (fd, "<h2>Actions</h2>\n<ul>\n");
+          fprintf (fd, "<h2>Actions</h2>\n<ul class=\"actions\">\n");
           previous = player;
           do_password_powers (fd, player);
         }

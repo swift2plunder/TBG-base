@@ -1225,7 +1225,7 @@ show_gif_map (FILE * fd, struct PLAYER *player)
   int skipping;
   int jump;
 
-  fprintf (fd, "<hr><div class=\"starmap\"><h2>Starmap</h2>\n");
+  fprintf (fd, "<hr><div id=\"starmap\"><h2>Starmap</h2>\n");
 /*if ((player->star >= 0 && player->star < MAX_STAR)
       || player->star == OLYMPUS)
     {

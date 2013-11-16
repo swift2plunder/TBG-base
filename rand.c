@@ -37,7 +37,6 @@ fuzz (int in)
   int result;
   double x = in + ((in < 0) ? -0.5 : 0.5);
   double r = 1.0 + gsl_ran_gaussian(random_generator, 0.05);
-  printf ("Using gsl fuzz");
   result = (int) x * r;
   return result;
 }
@@ -97,9 +96,7 @@ int
 fuzz (int in)
 {
   int x = in/10;
-  int d = 2*x;
-  printf ("Using non-gsl fuzz");
-  return in - d + dice(1+x);
+  return in - x + dice(1+x) + dice(1+x);
 }
 
 int

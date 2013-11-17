@@ -418,7 +418,7 @@ check_votes (FILE * fd, struct PLAYER *player)
 
   fprintf (fd, "<div class=\"politics\"><h3>");
 
-  print_rules_link (fd, "Politics", "The_Galactic_Council");
+  print_rules_link (fd, "The_Galactic_Council", "Politics");
   fprintf (fd, "</h3>\n");
 
   for (i = 0 ; i < 9 ; i++)

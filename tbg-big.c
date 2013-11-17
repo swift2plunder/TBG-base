@@ -4595,13 +4595,15 @@ make_secrets ()
       fprintf (fd, "%s,\nYour TBG secret URL is:\n", players[p].name);
       fprintf (fd, "\thttp://%s/%s.htm\n",
                server, uint32_name (players[p].password));
-      if (players[p].account_number >= 200)
+      /*if (players[p].account_number >= 200)
         fprintf (fd,
                  "Your player web page is:\n\thttp://%s/players/%s_%d.htm\n",
                  server, passwords[players[p].account_number],
-                 players[p].account_number);
+                 players[p].account_number);  */
       fprintf (fd, "Your ranking is %d of %d\n", players[p].ranking,
                MAX_PLAYER);
+      fprintf (fd, "\nRead the Subspace Times at:\n");
+      fprintf (fd, "\thttp://%s/times.html\n", server);
       fclose (fd);
     }
   fclose (list_file);

@@ -23,9 +23,10 @@ generate_rumour (FILE * fd, struct PLAYER *player, int sort)
     {
     case 0:
       fprintf (fd,
-               "<p>You learn of an adventure in %s at %s. The treasure is: %s</p>\n",
+               "<p>You learn of an adventure in %s at %s. The treasure is: %s %s</p>\n",
                loc_string (adventures[ad].loc),
                star_names[adventures[ad].star],
+               tech_level_names[(items + adventures[ad].treasure)->efficiency],
                item_string (items + adventures[ad].treasure));
       set_ad (player, ad);
       break;

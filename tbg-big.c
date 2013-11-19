@@ -2017,6 +2017,7 @@ create_header (struct PLAYER *player)
       exit (1);
     }
   fprintf (fd, "<!DOCTYPE html>\n<html><head><title>To Boldly Go - Starship %s, Turn %d</title>\n", name_string (player->name), turn);
+  fprintf (fd, "<META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\">\n");
   html_header (fd, player->web_source);
   fprintf (fd, "<h1>To Boldly Go - Starship %s, Turn %d</h1>\n",
            name_string (player->name), turn);

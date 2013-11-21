@@ -111,7 +111,7 @@ split_loot (FILE *fd, struct PLAYER *winner, struct PLAYER *loser)
       int r;
       if (items[item].sort < pod)
         {
-          factor *= 1000 - (rand_exp (50) % 350);
+          factor *= 1000 - (rand_exp (40) % 350);
           factor /= 1000;
           r = factor * items[item].reliability;
           r /= 1000;

@@ -1165,8 +1165,8 @@ read_orders (int player, int turn)
       players[player].got_some_orders = TRUE;
     }
 
-
-  players[player].preferences = 0;      /* override old with new */
+  // We're moving preferences out of the turn sheet
+  //players[player].preferences = 0;      /* override old with new */
   if (players[player].star > MAX_STAR)
     {
       printf ("%s put in orders while on holiday, returning to star %d\n",

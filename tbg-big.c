@@ -1860,6 +1860,7 @@ show_orders (FILE *fd, struct PLAYER *player)
            "<P><HR><H2>Administrative Section (Not needed in normal turns)</H2>\n");
   if (player->x_from[0])
     fprintf (fd, "Your orders this turn came from %s.\n", player->x_from);
+/* Bug 192.4 - Drop admin section of turns
   fprintf (fd, "<H2>Preferences</H2>\n");
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Separate Times Mailing\n",
@@ -1868,14 +1869,14 @@ show_orders (FILE *fd, struct PLAYER *player)
            player->preferences & 1 ? "SELECTED" : "");
   fprintf (fd, "</SELECT>\n");
 
-/*
+
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Mail via server\n",
            player->preferences & 4 ? "" : "SELECTED");
   fprintf (fd, "<OPTION VALUE=4 %s>Mail directly\n",
            player->preferences & 4 ? "SELECTED" : "");
   fprintf (fd, "</SELECT>\n");
-Do not offer direct mail - Bug 8 */
+// Bug 8 - Do not offer direct mail
 
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Restart on loss of ship\n",
@@ -1890,13 +1891,14 @@ Do not offer direct mail - Bug 8 */
   fprintf (fd, "<OPTION VALUE=16 %s>Acknowledge Orders\n",
            player->preferences & 16 ? "SELECTED" : "");
   fprintf (fd, "</SELECT>\n");
-
+*/
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Keep secret URL %s\n",
            "SELECTED", uint32_name (player->password));
   fprintf (fd, "<OPTION VALUE=64>Change to new secret URL\n");
   fprintf (fd, "</SELECT>\n");
 
+/* Bug 192.4 - Drop admin section of turns
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Mail Full Results\n",
            player->preferences & 128 ? "" : "SELECTED");
@@ -1915,7 +1917,7 @@ Do not offer direct mail - Bug 8 */
   fprintf (fd, "<INPUT TYPE=TEXT SIZE=70 NAME=\"w\" VALUE=\"%s\">",
            player->web_source);
   fprintf (fd, "</FORM>\n");
-
+*/
   if (player->preferences & 4)
     {
       fprintf (fd, "<FORM ACTION=\"mailto:tbg@%s\" METHOD=\"POST\">\n",

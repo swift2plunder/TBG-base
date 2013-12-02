@@ -20,7 +20,7 @@ ground_combat (FILE * fd, struct PLAYER *player, int level, skill_sort sort,
 
   if (player->crew[sort] == 0)
     {
-      fprintf (fd, "<BR><EM>Landing party has no crew for combat</EM>\n");
+      fprintf (fd, "<p>Landing party has no crew for combat</p>\n");
       return (FALSE);
     }
   while (player->crew[sort])
@@ -28,11 +28,11 @@ ground_combat (FILE * fd, struct PLAYER *player, int level, skill_sort sort,
       risk = level - skill;
       if (risk < 0)
         risk = 0;
-      fprintf (fd, "<BR>%s crew engage in ground combat at risk level %d%%\n",
+      fprintf (fd, "<p>%s crew engage in ground combat at risk level %d%%</p>\n",
                skill_names[sort], risk);
       if (dice (100) < risk)
         {
-          fprintf (fd, "<BR><EM>One %s crew down - ", skill_names[sort]);
+          fprintf (fd, "<p>One %s crew down - ", skill_names[sort]);
           if (medical_backup)
             {
               fprintf (fd, "Medical support team move in - ");
@@ -49,11 +49,11 @@ ground_combat (FILE * fd, struct PLAYER *player, int level, skill_sort sort,
               fprintf (fd, "No Medical support on hand - injury is fatal");
               kill_crew (player, sort);
             }
-          fprintf (fd, "</EM>\n");
+          fprintf (fd, "</p>\n");
           if (sort != weaponry)
             {
               fprintf (fd,
-                       "<BR><EM>Non-weaponry crew retreat at first setback</EM>\n");
+                       "<p>Non-weaponry crew retreat at first setback</p>\n");
               return (FALSE);
             }
         }
@@ -62,7 +62,7 @@ ground_combat (FILE * fd, struct PLAYER *player, int level, skill_sort sort,
           return (TRUE);
         }
     }
-  fprintf (fd, "<BR><EM>All landing party crew dead</EM>\n");
+  fprintf (fd, "<p>All landing party crew dead</p>\n");
   return (FALSE);
 }
 
@@ -82,7 +82,7 @@ check_health (FILE * fd, struct PLAYER *p)
         if ((p->rings_held & (1 << sort)) &&
             p->crew[sort] < skill_level (p->skills[sort]))
           {
-            fprintf (fd, "<P>A servant of chaos joins your %s crew\n",
+            fprintf (fd, "<p>A servant of chaos joins your %s crew</p>\n",
                      skill_names[sort]);
             add_crew (p, sort, 1, skill_level (p->skills[sort]));
           }
@@ -97,7 +97,7 @@ check_health (FILE * fd, struct PLAYER *p)
         {
           if (dice (1000) >= p->health)
             {
-              fprintf (fd, "<BR><EM>One %s crew died</EM>\n",
+              fprintf (fd, "<p>One %s crew died</p>\n",
                        skill_names[sort]);
               kill_crew (p, sort);
             }
@@ -107,7 +107,7 @@ check_health (FILE * fd, struct PLAYER *p)
   if (p->popcorn > 0)
     {
       p->health -= p->popcorn * 5;
-      fprintf (fd, "<P>Popcorn cargo reduces health by %d%%\n", p->popcorn);
+      fprintf (fd, "<p>Popcorn cargo reduces health by %d%%</p>\n", p->popcorn);
     }
   p->health += factor (life_support, p)/2;
   if (p->health > 999)
@@ -172,11 +172,11 @@ show_characters (FILE * fd, struct PLAYER *player)
   skill_sort skill;
   int next[4];
 
-  fprintf (fd, "<P><TABLE BORDER=1>\n");
-  fprintf (fd, "<TR>");
+  fprintf (fd, "<table class=\"skills\">\n");
+  fprintf (fd, "<tr>");
   for (skill = engineering; skill <= weaponry; skill++)
     {
-      fprintf (fd, "<TH>%s skills (%d = %d+%d)</TH>\n",
+      fprintf (fd, "<th>%s skills (%d = %d+%d)</th>\n",
                skill_names[skill],
                effective_skill_level (player, skill),
                skill_level (player->skills[skill]),
@@ -184,19 +184,19 @@ show_characters (FILE * fd, struct PLAYER *player)
                skill_level (player->skills[skill]));
       next[skill] = 0;
     }
-  fprintf (fd, "</TR>");
-  fprintf (fd, "<TR ALIGN=CENTER>");
+  fprintf (fd, "</tr>");
+  fprintf (fd, "<tr>");
   for (skill = engineering; skill <= weaponry; skill++)
     {
-      fprintf (fd, "<TD>%d crew, average skill: %d</TD>\n",
+      fprintf (fd, "<td>%d crew, average skill: %d</td>\n",
                player->crew[skill],
                player->crew[skill] ?
                player->pools[skill] / player->crew[skill] : 0);
     }
-  fprintf (fd, "</TR>");
+  fprintf (fd, "</tr>");
   for (i = 0; i < 32; i++)
     {
-      fprintf (fd, "<TR ALIGN=CENTER>");
+      fprintf (fd, "<tr>");
       for (skill = engineering; skill <= weaponry; skill++)
         {
           while (!(player->skills[skill] & (1 << next[skill])) &&
@@ -207,14 +207,14 @@ show_characters (FILE * fd, struct PLAYER *player)
               show_skill (fd, skill, next[skill]++);
             }
           else
-            fprintf (fd, "<TD></TD>\n");
+            fprintf (fd, "<td></td>\n");
         }
-      fprintf (fd, "</TR>");
+      fprintf (fd, "</tr>");
       if ((next[engineering] & next[science] & next[medical] & next[weaponry])
           == 32)
         i = 32;
     }
-  fprintf (fd, "</TABLE>\n");
+  fprintf (fd, "</table>\n");
 }
 
 

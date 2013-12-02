@@ -39,15 +39,15 @@ show_destinations (FILE * fd, int self, int current,
   double max2 = max*max;
   struct PLAYER *p = players + self;
 
-  fprintf (fd, "<SELECT NAME=\"j\">\n");
-  fprintf (fd, "<OPTION VALUE=\" \">No Jump\n");
+  fprintf (fd, "<select name=\"j\">\n");
+  fprintf (fd, "<option value=\" \">No Jump</option>\n");
 
   if (p->star == HOLIDAY || p->star >= MAX_STAR)
     {
-      fprintf (fd, "<OPTION VALUE=%2d>%s %c ($0)\n",
+      fprintf (fd, "<option value=\"%2d\">%s %c ($0)</option>\n",
                p->old_star, star_names[p->old_star],
                terrain_names[stars[p->old_star].terrain][0]);
-      fprintf (fd, "</SELECT>\n");
+      fprintf (fd, "</select>\n");
       return;
     }
 
@@ -56,12 +56,12 @@ show_destinations (FILE * fd, int self, int current,
       /* holiday options */
       
       if (p != dybuk)
-        fprintf (fd, "<OPTION VALUE=%d>Start Holiday ($0)\n", MAX_STAR + self);
+        fprintf (fd, "<option value=\"%d\">Start Holiday ($0)</option>\n", MAX_STAR + self);
       
       /* chasings */
       for (player = 0; player < MAX_PLAYER; player++)
         if (player != self && players[player].star == current)
-          fprintf (fd, "<OPTION VALUE=%d>Chase %s\n",
+          fprintf (fd, "<option value=\"%d\">Chase %s</option>\n",
                    player + BIG_NUMBER, name_string (players[player].name));
     }
   if (factor (warp_drive, p) > 0  || !showcost)
@@ -83,14 +83,14 @@ show_destinations (FILE * fd, int self, int current,
             {
               if (showcost)
                 {
-                  fprintf (fd, "<OPTION VALUE=%d>%s %c ($%d)\n",
+                  fprintf (fd, "<option value=\"%d\">%s %c ($%d)</option>\n",
                            star, star_names[star],
                            terrain_names[stars[star].terrain][0],
                            jump_cost(self, current, star));
                 }
               else
                 {
-                  fprintf (fd, "<OPTION VALUE=%d>%s %c\n",
+                  fprintf (fd, "<option value=\"%d\">%s %c</option>\n",
                            star, star_names[star],
                            terrain_names[stars[star].terrain][0]);
                 }
@@ -102,10 +102,10 @@ show_destinations (FILE * fd, int self, int current,
     {
       for (loc = 0; loc < MAX_LOCATION; loc++)
         if ((locations[loc].star == current) && (locations[loc].sort == stargate))
-          fprintf (fd, "<OPTION VALUE=%d>%s (Gate)\n",
+          fprintf (fd, "<option value=\"%d\">%s (Gate)</option>\n",
                    loc, star_names[locations[loc].parameter]);
     }
-  fprintf (fd, "</SELECT>\n");
+  fprintf (fd, "</select>\n");
 }
 
 int
@@ -182,7 +182,7 @@ jump (FILE * fd, struct PLAYER *player, int from, int to)
       if (to > MAX_STAR)
         {
           fprintf (fd,
-                   "<P>Missed several turns, automatically jumped to %s Planet\n",
+                   "<p>Missed several turns, automatically jumped to %s Planet</p>\n",
                    (mothballed (player - players)) ? "Mothball" : "Holiday");
           if (from < MAX_STAR)
             player->old_star = from;
@@ -201,7 +201,7 @@ jump (FILE * fd, struct PLAYER *player, int from, int to)
     return;
   if (to == HOLIDAY || (to >= MAX_STAR && to < MAX_STAR + MAX_PLAYER))  /* going on holiday */
     {
-      fprintf (fd, "<P>Jumped to Holiday Planet\n");
+      fprintf (fd, "<p>Jumped to Holiday Planet</p>\n");
       player->old_star = from;
       player->star = MAX_STAR + player - players;
       printf ("%s went on holiday\n", player->name);
@@ -212,12 +212,12 @@ jump (FILE * fd, struct PLAYER *player, int from, int to)
       if (! star_seen (player, player->old_star))
         {
           player->old_star = get_random_star (player);
-          fprintf (fd, "<P>Massive energy wave sends you to %s\n",
+          fprintf (fd, "<p>Massive energy wave sends you to %s</p>\n",
                    star_names[player->old_star]);
         }
       else
         {
-          fprintf (fd, "<P>Jumped to %s for $0\n", star_names[player->old_star]);
+          fprintf (fd, "<p>Jumped to %s for $0</p>\n", star_names[player->old_star]);
         }
       if (player->star >= 0 && player->star < MAX_STAR)
           set_bit(player->stars, player->star);
@@ -228,7 +228,7 @@ jump (FILE * fd, struct PLAYER *player, int from, int to)
     }
   if (from == NOWHERE)
     {
-      fprintf (fd, "<P>Massive energy wave sends you to %s\n",
+      fprintf (fd, "<p>Massive energy wave sends you to %s</p>\n",
                star_names[to]);
       player->star = to;
       player->old_star = to;
@@ -245,18 +245,18 @@ jump (FILE * fd, struct PLAYER *player, int from, int to)
       if (to > MAX_STAR + MAX_PLAYER)
         {
           printf ("%s tries to move to %d\n", player->name, to);
-          fprintf (fd, "<P><EM>No key to use that stargate</EM>\n");
+          fprintf (fd, "<p>No key to use that stargate</p>\n");
           return;
         }
       if (factor (warp_drive, player) == 0)
         {
-          fprintf (fd, "<P><EM>No warp engines, No jump</EM>\n");
+          fprintf (fd, "<p>No warp engines, No jump</p>\n");
           return;
         }
       cost = jump_cost (player - players, from, to);
       if (player->energy < cost)
         {
-          fprintf (fd, "<P><EM>Not enough energy to jump, need $%d</EM>\n",
+          fprintf (fd, "<p>Not enough energy to jump, need $%d</p>\n",
                    cost);
           return;
         }
@@ -270,11 +270,11 @@ jump (FILE * fd, struct PLAYER *player, int from, int to)
     set_bit(player->stars, player->star);  
   if (to < MAX_STAR)
     {
-      fprintf (fd, "<P>Jumped to %s for $%d\n", star_names[to], cost);
+      fprintf (fd, "<p>Jumped to %s for $%d</p>\n", star_names[to], cost);
     }
   else
     {
-      fprintf (fd, "<P>Jumped to Holiday Planet for %s for $%d\n",
+      fprintf (fd, "<p>Jumped to Holiday Planet for %s for $%d</p>\n",
                name_string (player->name), cost);
     }
 }

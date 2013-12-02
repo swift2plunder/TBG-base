@@ -264,23 +264,23 @@ check_reliability (FILE * fd, struct PLAYER *player)
           if ((dice (100) >= item->reliability) &&
               !(item->flags & ITEM_BROKEN))
             {
-              fprintf (fd, "<P><EM>%s broke</EM>\n", item_string (item));
+              fprintf (fd, "<p>%s broke</p>\n", item_string (item));
               item->flags |= ITEM_BROKEN;
               item->reliability--;
             }
           if (item->reliability == 0 || item->reliability > 200)
             {
               printf ("Item %d destroyed\n", item - items);
-              fprintf (fd, "<P><EM>%s lost</EM>\n", item_string (item));
+              fprintf (fd, "<p>%s lost</p>\n", item_string (item));
               destroy_item (item - items);
             }
           else if (item->flags & ITEM_DEMO && item->reliability < 60)
             {
               fprintf (fd,
-                       "<P>You have a severely unreliable demo module (%s), you should probably discard it.\n",
+                       "<p>You have a severely unreliable demo module (%s), you should probably discard it.</p>\n",
                        item_string (item));
               fprintf (fd,
-                       "<BR>If your ship is mainly like this, you should probably restart.\n");
+                       "<p>If your ship is mainly like this, you should probably restart.</p>\n");
             }
         }
       item = items + item->link;

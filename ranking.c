@@ -489,10 +489,10 @@ do_rankings (FILE * fd)
   int best, high_score, second_best, second_score;
   int i, player, score, total, num_players;
 
-  fprintf (fd, "<HR><TABLE BORDER=1>\n");
-  fprintf (fd, "<TR><TH COLSPAN=4>Rankings</TH></TR>\n");
-  fprintf (fd, "<TR><TH>Category</TH><TH>First</TH><TH>Second</TH>");
-  fprintf (fd, "<TH>Average</TH></TR>\n");
+  fprintf (fd, "<hr><table class=\"rankings\">\n");
+  fprintf (fd, "<tr><th colspan=\"4\">Rankings</th></tr>\n");
+  fprintf (fd, "<tr><th>Category</th><th>First</th><th>Second</th>");
+  fprintf (fd, "<th>Average</th></tr>\n");
   for (i = 0; i < MAX_RANKING; i++)
     {
       num_players = 0;
@@ -532,19 +532,19 @@ do_rankings (FILE * fd)
         }
       if (really_send)
         fprintf (fd,
-                 "<TR ALIGN=CENTER><TD><A HREF=\"http://%s/rank%d.html\">%s</A></TD><TD>%s</TD>\n",
+                 "<tr><td><a href=\"http://%s/rank%d.html\">%s</a></td><td>%s</td>\n",
                  server, i, rankings[i].string,
                  name_string (players[best].name));
       else
         fprintf (fd,
-                 "<TR ALIGN=CENTER><TD><A HREF=\"http://%s/tbg/fullrank%d.html\">%s</A></TD><TD>%s</TD>\n",
+                 "<tr><td><a href=\"http://%s/tbg/fullrank%d.html\">%s</a></td><td>%s</td>\n",
                  server, i, rankings[i].string,
                  name_string (players[best].name));
-      fprintf (fd, "<TD>%s</TD><TD>%d</TD></TR>\n",
+      fprintf (fd, "<td>%s</td><td>%d</td></tr>\n",
                name_string (players[second_best].name),
                total / (num_players ? num_players : 1));
     }
-  fprintf (fd, "</TABLE>\n");
+  fprintf (fd, "</table>\n");
 }
 
 
@@ -601,12 +601,12 @@ big_ranking (FILE * output, int index, char *title)
       exit (1);
     }
   fprintf (output,
-           "<CENTER><TABLE BORDER=1><TR><TH COLSPAN=%d>\n%s\n</TH></TR>\n",
+           "<table class=\"rankings\"><tr><th colspan=\"%d\">\n%s\n</th></tr>\n",
            rating_off ? 3 : 4, title);
-  fprintf (output, "<TR><TH>Rank</TH><TH>Ship</TH>\n");
+  fprintf (output, "<tr><th>Rank</th><th>Ship</th>\n");
   if (!rating_off)
-    fprintf (output, "<TH>Rating</TH>\n");
-  fprintf (output, "<TH>Started</TH></TR>\n");
+    fprintf (output, "<th>Rating</th>\n");
+  fprintf (output, "<th>Started</th></tr>\n");
   n_selected = 0;
   for (i = 1; i < MAX_PLAYER; i++)
     {
@@ -624,16 +624,16 @@ big_ranking (FILE * output, int index, char *title)
         continue;
       if (rating_off)
         fprintf (output,
-                 "<TR ALIGN=CENTER><TD>%d</TD><TD>%s</TD><TD>%d</TD></TR>\n",
+                 "<tr><td>%d</td><td>%s</td><td>%d</td></tr>\n",
                  n_selected, name_string (players[p].name),
                  players[p].last_restart);
       else
         fprintf (output,
-                 "<TR ALIGN=CENTER><TD>%d</TD><TD>%s</TD><TD>%d</TD><TD>%d</TD></TR>\n",
+                 "<tr><td>%d</td><td>%s</td><td>%d</td><td>%d</td></tr>\n",
                  n_selected, name_string (players[p].name), rating,
                  players[p].last_restart);
     }
-  fprintf (output, "</TABLE></CENTER>\n");
+  fprintf (output, "</table>\n");
   fclose (fd);
 }
 

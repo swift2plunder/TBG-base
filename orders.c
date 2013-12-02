@@ -865,7 +865,7 @@ execute_orders ()
   if (turn > 1)
     end_turn ();
   if (dybuk && star < MAX_STAR)
-    fprintf (times, "<HR>Manifestations of Chaos reported at %s!\n",
+    fprintf (times, "<hr>Manifestations of Chaos reported at %s!\n",
              star_names[dybuk->star]);
   consolidate_artifacts ();     /* allow for selling */
 
@@ -880,17 +880,18 @@ execute_orders ()
       fprintf (fd, "</ul>\n"); //Terminate actions list
       show_characters (fd, players + p);
       show_experience (fd, players + p);
-      fprintf (fd, "<H2>Your ");
+      fprintf (fd, "<h2>Your ");
       print_rules_link(fd, "Aliens", "Enemies");
-      fprintf (fd, " are:</H2>\n");
+      fprintf (fd, " are:</h2><ul class=\"enemies\"\n");
       if (players[p].enemies)
         {
           for (enemy = 0; enemy < 32; enemy++)
             if (players[p].enemies & (1 << enemy))
-              fprintf (fd, "%s \n", races[enemy].name);
+              fprintf (fd, "<li>%s</li>\n", races[enemy].name);
         }
       else
-        fprintf (fd, "None<P>\n");
+        fprintf (fd, "<li>None</li>\n");
+      fprintf (fd, "</ul>\n");
       show_gif_map (fd, players + p);
 
       show_starsystem (fd, players + p, players[p].star);

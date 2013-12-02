@@ -41,7 +41,7 @@ unload_pod (FILE * fd, struct PLAYER *player, int good)
   if (item->flags & ITEM_DEMO)
     if (power (player) > dice (100))
       {
-        fprintf (fd, "<P><EM>%s wore out while unloading</EM>\n",
+        fprintf (fd, "<li>%s wore out while unloading</li>\n",
                  item_string (item));
         destroy_item (item - items);
       }
@@ -66,11 +66,11 @@ sell (FILE * fd, struct PLAYER *player, byte colony)
   if (GOOD_NUMBER (colony) >= 28)       /* magic number for contraband */
     {
       if (factor (cloak, player) > dice (100))
-        fprintf (fd, "<P>Sold contraband without detection!\n");
+        fprintf (fd, "<li>Sold contraband without detection!</li>\n");
       else
         {
           player->enemies |= 1 << RACE_NUMBER (colony);
-          fprintf (fd, "<P><EM>Caught selling contraband!</EM>\n");
+          fprintf (fd, "<li>Caught selling contraband!</li>\n");
         }
     }
   return (price);

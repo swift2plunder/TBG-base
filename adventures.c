@@ -23,7 +23,7 @@ generate_rumour (FILE * fd, struct PLAYER *player, int sort)
     {
     case 0:
       fprintf (fd,
-               "<p>You learn of an adventure in %s at %s. The treasure is: %s %s</p>\n",
+               "<li>You learn of an adventure in %s at %s. The treasure is: %s %s</li>\n",
                loc_string (adventures[ad].loc),
                star_names[adventures[ad].star],
                tech_level_names[(items + adventures[ad].treasure)->efficiency],
@@ -31,7 +31,7 @@ generate_rumour (FILE * fd, struct PLAYER *player, int sort)
       set_ad (player, ad);
       break;
     case 1:
-      fprintf (fd, "<p>You learn of the situation at %s</p>\n",
+      fprintf (fd, "<li>You learn of the situation at %s</li>\n",
                star_names[star]);
       fprintf (fd, "<hr>\n");
       show_starsystem (fd, player, star);
@@ -60,7 +60,7 @@ show_adventures (FILE *fd, struct PLAYER *player)
   for (i = 0; i < MAX_ADVENTURE; i++)
     if (adventures[i].star == star && get_ad (player, i))
       {
-        fprintf (fd, "<TR><TD>%d</TD><TD>", i);
+        fprintf (fd, "<tr><td>%d</td><td>", i);
         show_adventure (fd, i);
       }
 }
@@ -250,7 +250,7 @@ find_adventure (FILE * fd, struct PLAYER *player)
          skill_level (player->skills[ADVENTURE_SKILL (ad)]))
          || get_ad (player, ad));
   set_ad (player, ad);
-  fprintf (fd, "<P>The Wise One reveals an adventure at %s:<br>\n",
+  fprintf (fd, "<li>The Wise One reveals an adventure at %s:</li>\n",
            star_names[adventures[ad].star]);
   show_adventure (fd, ad);
 }

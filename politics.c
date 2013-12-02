@@ -63,9 +63,9 @@ alien_reports ()
           printf ("Can't open report file\n");
           exit (1);
         }
-      fprintf (fd, "<HTML><HEAD><TITLE>Alien Report, Turn %d</TITLE>\n", turn);
+      fprintf (fd, "<html><head><title>Alien Report, Turn %d</title>\n", turn);
       html_header (fd, players[ministers[minister]].web_source);
-      fprintf (fd, "<H1>Alien Report, Turn %d</H1>\n", turn);
+      fprintf (fd, "<h1>Alien Report, Turn %d</h1>\n", turn);
       for (star = 0; star < MAX_STAR; star++)
         {
           if (aliens_report (star, minister, turn)
@@ -76,8 +76,8 @@ alien_reports ()
             }
         }
       if (! reported)
-        fprintf(fd, "Sorry, no reports this turn<p>\n");
-      fprintf(fd, "</center></body></html>\n");
+        fprintf(fd, "<p>Sorry, no reports this turn</p>\n");
+      fprintf(fd, "</body></html>\n");
       fclose (fd);
     }
 }

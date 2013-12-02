@@ -311,9 +311,9 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
   else
     strcpy (buffer, name_string (enemy->name));
 
-  fprintf (fd, "<TABLE BORDER=1>\n");
+  fprintf (fd, "<table class=\"show_combat_options\">\n");
   fprintf (fd,
-           "<TR><TH COLSPAN=2 ALIGN=CENTER>Interaction with %s</TH></TR>\n",
+           "<tr><th colspan=\"2\">Interaction with %s</th></tr>\n",
            buffer);
 
   item = items + player->ship;
@@ -323,123 +323,123 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
       item = items + item->link;
     }
 
-  fprintf (fd, "<TR ALIGN=CENTER><TH>");
+  fprintf (fd, "<tr><th>");
   print_rules_link (fd, "Ship_Interactions", "Diplomatic Option");
-  fprintf (fd, "</TH>\n<TH>Demands</TH></TR>\n");
+  fprintf (fd, "</th>\n<th>Demands</th></tr>\n");
 
-  fprintf (fd, "<TR ALIGN=CENTER><TD><SELECT NAME=\"do\">\n");
-  fprintf (fd, "<OPTION VALUE=0>Flee\n");
-  fprintf (fd, "<OPTION VALUE=1>Fight if Attacked\n");
-  fprintf (fd, "<OPTION VALUE=2>Make Demands\n");
-  fprintf (fd, "<OPTION VALUE=3>Attack If Defied\n");
-  fprintf (fd, "<OPTION VALUE=4>Attack Regardless\n");
-  fprintf (fd, "</SELECT></TD>\n");
+  fprintf (fd, "<tr><td><select name=\"do\">\n");
+  fprintf (fd, "<option value=\"0\">Flee</option>\n");
+  fprintf (fd, "<option value=\"1\">Fight if Attacked</option>\n");
+  fprintf (fd, "<option value=\"2\">Make Demands</option>\n");
+  fprintf (fd, "<option value=\"3\">Attack If Defied</option>\n");
+  fprintf (fd, "<option value=\"4\">Attack Regardless</option>\n");
+  fprintf (fd, "</select></td>\n");
 
-  fprintf (fd, "<TD><SELECT NAME=\"dd\" SIZE=5>\n");
-  fprintf (fd, "<OPTION VALUE=\"\">None\n");
+  fprintf (fd, "<td><select name=\"dd\" size=\"5\">\n");
+  fprintf (fd, "<option value=\"\">None</option>\n");
   item = items + enemy->ship;
   while (item - items)
     {
-      fprintf (fd, "<OPTION VALUE=%d>%s %s (%d%%)\n", 
+      fprintf (fd, "<option value=%d>%s %s (%d%%)</option>\n", 
         item - items, tech_level_names[item->efficiency], 
         item_string (item), item->reliability);
       item = items + item->link;
     }
-  fprintf (fd, "</SELECT></TD></TR>\n");
+  fprintf (fd, "</select></td></tr>\n");
 
-  fprintf (fd, "<TR ALIGN=CENTER><TH>");
+  fprintf (fd, "<tr><th>");
   print_rules_link (fd, "Combat", "Combat Strategy");
-  fprintf (fd, "</TH>\n<TH>Gifts</TH></TR>\n");
+  fprintf (fd, "</th>\n<th>Gifts</th></tr>\n");
 
-  fprintf (fd, "<TR ALIGN=CENTER><TD><SELECT NAME=\"dc\">\n");
-  fprintf (fd, "<OPTION VALUE=0>Favour Fleeing\n");
-  fprintf (fd, "<OPTION VALUE=1>Favour Engines\n");
-  fprintf (fd, "<OPTION VALUE=2>Favour Weapons\n");
-  fprintf (fd, "<OPTION VALUE=3>Favour Shields\n");
-  fprintf (fd, "<OPTION VALUE=4>Favour Sensors\n");
-  fprintf (fd, "<OPTION VALUE=5>Favour Cloaks\n");
-  fprintf (fd, "</SELECT></TD>\n");
+  fprintf (fd, "<tr><td><select name=\"dc\">\n");
+  fprintf (fd, "<option value=\"0\">Favor Fleeing</option>\n");
+  fprintf (fd, "<option value=\"1\">Favor Engines</option>\n");
+  fprintf (fd, "<option value=\"2\">Favor Weapons</option>\n");
+  fprintf (fd, "<option value=\"3\">Favor Shields</option>\n");
+  fprintf (fd, "<option value=\"4\">Favor Sensors</option>\n");
+  fprintf (fd, "<option value=\"5\">Favor Cloaks</option>\n");
+  fprintf (fd, "</select></td>\n");
 
-  fprintf (fd, "<TD><SELECT NAME=\"dg\" SIZE=5 MULTIPLE>\n");
-  fprintf (fd, "<OPTION VALUE=\"\">None\n");
-  fprintf (fd, "<OPTION VALUE=-1>Any one module\n");
+  fprintf (fd, "<td><select name=\"dg\" size=\"5\" multiple>\n");
+  fprintf (fd, "<option value=\"\">None</option>\n");
+  fprintf (fd, "<option value=-1>Any one module</option>\n");
   item = items + player->ship;
   while (item - items)
     {
-      fprintf (fd, "<OPTION VALUE=%d>%s %s (%d%%)\n",
+      fprintf (fd, "<option value=%d>%s %s (%d%%)\n</option>",
         item - items, tech_level_names[item->efficiency],
         item_string (item), item->reliability);
       item = items + item->link;
     }
-  fprintf (fd, "</SELECT></TD></TR>\n");
+  fprintf (fd, "</select></td></tr>\n");
 
-  fprintf (fd, "<TR ALIGN=CENTER><TH>Ideal Range</TH>\n");
-  fprintf (fd, "<TH>Targeted</TH></TR>\n");
+  fprintf (fd, "<tr><th>Ideal Range</th>\n");
+  fprintf (fd, "<th>Targeted</th></tr>\n");
 
-  fprintf (fd, "<TR ALIGN=CENTER><TD><SELECT NAME=\"di\">\n");
+  fprintf (fd, "<tr><td><select name=\"di\">\n");
   for (range = 0; range < 7; range++)
-    fprintf (fd, "<OPTION VALUE=%d %s>%s\n",
+    fprintf (fd, "<option value=%d %s>%s</option>\n",
              range,
-             range == find_longest_weapon (items + player->ship) ? "SELECTED" : "",
+             range == find_longest_weapon (items + player->ship) ? "selected" : "",
              range_names[range]);
-  fprintf (fd, "</SELECT></TD>\n");
+  fprintf (fd, "</select></td>\n");
 
-  fprintf (fd, "<TD><SELECT NAME=\"dt\" SIZE=5 MULTIPLE>\n");
-  fprintf (fd, "<OPTION VALUE=\"\">None\n");
+  fprintf (fd, "<td><select name=\"dt\" size=\"5\" multiple>\n");
+  fprintf (fd, "<option value=\"\">None</option>\n");
   item = items + enemy->ship;
   while (item - items)
     {
-      fprintf (fd, "<OPTION VALUE=%d>%s %s (%d%%)\n",
+      fprintf (fd, "<option value=%d>%s %s (%d%%)</option>\n",
         item - items, tech_level_names[item->efficiency],
         item_string (item), item->reliability);
       item = items + item->link;
     }
-  fprintf (fd, "</SELECT></TD></TR>\n");
+  fprintf (fd, "</select></td></tr>\n");
 
-  fprintf (fd, "<TR ALIGN=CENTER><TH>Retreat Threshold</TH>\n");
-  fprintf (fd, "<TH>Protected</TH></TR>\n");
+  fprintf (fd, "<tr><th>Retreat Threshold</th>\n");
+  fprintf (fd, "<th>Protected</th></tr>\n");
 
-  fprintf (fd, "<TR ALIGN=CENTER><TD><SELECT NAME=\"dr\">\n");
+  fprintf (fd, "<tr><td><select name=\"dr\">\n");
   for (i = 0; i < num_items; i++)
-    fprintf (fd, "<OPTION VALUE=%d %s>%d\n", i, i == 1 ? "selected" : "", i);
-  fprintf (fd, "</SELECT></TD>\n");
+    fprintf (fd, "<option value=%d %s>%d</option>\n", i, i == 1 ? "selected" : "", i);
+  fprintf (fd, "</select></td>\n");
 
-  fprintf (fd, "<TD><SELECT NAME=\"dp\" SIZE=5 MULTIPLE>\n");
-  fprintf (fd, "<OPTION VALUE=\"\">None\n");
+  fprintf (fd, "<td><select name=\"dp\" size=\"5\" multiple>\n");
+  fprintf (fd, "<option value=\"\">None</option>\n");
   item = items + player->ship;
   while (item - items)
     {
-      fprintf (fd, "<OPTION VALUE=%d>%s %s (%d%%)\n",
+      fprintf (fd, "<option value=%d>%s %s (%d%%)</option>\n",
         item - items, tech_level_names[item->efficiency],
         item_string (item), item->reliability);
       item = items + item->link;
     }
-  fprintf (fd, "</SELECT></TD></TR>\n");
+  fprintf (fd, "</select></td></tr>\n");
 
-  fprintf (fd, "<TR ALIGN=CENTER><TH>Torpedo Fire Rate</TH>\n");
-  fprintf (fd, "<TH>Hunt/Hide Tactics</TH></TR>\n");
+  fprintf (fd, "<tr><th>Torpedo Fire Rate</th>\n");
+  fprintf (fd, "<th>Hunt/Hide Tactics</th></tr>\n");
 
   num_items = isqrt (player->torps);
-  fprintf (fd, "<TR ALIGN=CENTER><TD><SELECT NAME=\"df\">\n");
+  fprintf (fd, "<tr><td><select name=\"df\">\n");
   for (i = 0; i <= num_items; i++)
-    fprintf (fd, "<OPTION VALUE=%d>%d per phase\n", i, i * i);
-  fprintf (fd, "</SELECT>\n");
-  fprintf (fd, "</TD>\n");
+    fprintf (fd, "<option value=%d>%d per phase</option>\n", i, i * i);
+  fprintf (fd, "</select>\n");
+  fprintf (fd, "</td>\n");
 
-  fprintf (fd, "<TD><SELECT NAME=\"dh\" SIZE=5>\n");
-  fprintf (fd, "<OPTION VALUE=\"\">None\n");
-  fprintf (fd, "<OPTION VALUE=1>Hide in Space\n");
-  fprintf (fd, "<OPTION VALUE=-1>Hunt in Space\n");
+  fprintf (fd, "<td><select name=\"dh\" size=\"5\">\n");
+  fprintf (fd, "<OPTION VALUE=\"\">None</option>\n");
+  fprintf (fd, "<OPTION VALUE=1>Hide in Space</option>\n");
+  fprintf (fd, "<OPTION VALUE=-1>Hunt in Space</option>\n");
   for (loc = 0; loc < MAX_LOCATION; loc++)
     if (locations[loc].star == player->star && loc_type (loc, LOC_HIDE))
       {
-        fprintf (fd, "<OPTION VALUE=%d>Hide in %s (%d%%)\n",
+        fprintf (fd, "<option value=%d>Hide in %s (%d%%)</option>\n",
                  loc, loc_string (loc), risk_level (player, loc));
-        fprintf (fd, "<OPTION VALUE=-%d>Hunt in %s (%d%%)\n",
+        fprintf (fd, "<option value=-%d>Hunt in %s (%d%%)</option>\n",
                  loc, loc_string (loc), risk_level (player, loc));
       }
-  fprintf (fd, "</SELECT></TD></TR>\n");
-  fprintf (fd, "</TABLE>");
+  fprintf (fd, "</select></td></tr>\n");
+  fprintf (fd, "</table>");
 }
 
 double
@@ -738,7 +738,7 @@ resolve_reserve_shields (FILE * fd, struct PLAYER *defender, int target)
   if (items[target].flags & ITEM_PROTECTED)
     {
       defender->shields += defender->reserve;
-      fprintf (fd, "<BR>%s's reserve shields engaged\n",
+      fprintf (fd, "<p>%s's reserve shields engaged</p>\n",
                name_string (defender->name));
     }
 }
@@ -777,7 +777,7 @@ resolve_kamikaze (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender,
   if (range > 0 &&
       attacker_impulse > defender_impulse)
     return (0);                 /* getting closer for bigger bang */
-  fprintf (fd, "<BR>%s self destructs in kamikaze attack!",
+  fprintf (fd, "<p>%s self destructs in kamikaze attack!</p>",
            attacker->name);
   result = ship_boom (attacker) * (7 - range) * 10;
   destroy_ship (attacker);
@@ -1387,7 +1387,7 @@ steal_skills (FILE * fd, int skill,
   extra_skills = defender->skills[skill] & ~attacker->skills[skill];
   attacker->skills[skill] |= extra_skills;
   defender->skills[skill] &= ~extra_skills;
-  fprintf (fd, "<BR>%s uses %s Ring of Chaos to steal skills from ",
+  fprintf (fd, "<p>%s uses %s Ring of Chaos to steal skills from ",
            name_string (attacker->name), skill_names[skill]);
   fprintf (fd, "%s: \n", name_string (defender->name));
   if (extra_skills == 0)

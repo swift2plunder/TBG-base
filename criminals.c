@@ -52,7 +52,7 @@ interrogate (FILE * fd, struct PLAYER *player, int code)
   if (code == 1)                /* release for bribe */
     {
       fprintf (fd,
-               "<P>Released %s for bribe of $%d, becoming enemy of %s government\n",
+               "<p>Released %s for bribe of $%d, becoming enemy of %s government</p>\n",
                criminal_string (criminal),
                500 * level * level,
                races[criminal >> 3].name);
@@ -62,7 +62,7 @@ interrogate (FILE * fd, struct PLAYER *player, int code)
       player->enemies |= 1 << (criminal >> 3);
       return;
     }
-  fprintf (fd, "<P>Interrogated prisoner %s and learned:\n",
+  fprintf (fd, "<p>Interrogated prisoner %s and learned:</p>\n",
            criminal_string (criminal));
 
   if (dice(2 * level * level) < effective_skill_level (player, weaponry)
@@ -86,7 +86,7 @@ interrogate (FILE * fd, struct PLAYER *player, int code)
     }
   else
     {
-      fprintf (fd, "<BR><EM>Nothing</EM>");
+      fprintf (fd, "<p>Nothing</p>");
       return;
     }
   star = -1;
@@ -104,13 +104,13 @@ interrogate (FILE * fd, struct PLAYER *player, int code)
       sort = locations[loc].sort;
       star = locations[loc].star;
     }
-  fprintf (fd, "<BR>Location of %s, currently in %s at %s\n",
+  fprintf (fd, "<p>Location of %s, currently in %s at %s</p>\n",
            criminal_string (other_one),
            location_types[sort].name, star_names[star]);
   set_crim (player, other_one);
   if (code == 2)                /* release for information */
     {
-      fprintf (fd, "<BR>Released %s for information\n",
+      fprintf (fd, "<p>Released %s for information</p>\n",
                criminal_string (criminal));
       player->prisoner = 0;
       relocate_criminal (criminal);

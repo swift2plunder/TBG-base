@@ -1173,44 +1173,40 @@ show_starsystem (FILE * fd, struct PLAYER *player, int star)
                mothballed (player - players) ? "Mothball" : "Holiday",
                name_string(player->name));
       fprintf (fd,
-               "<A NAME=\"%s\"></A><H1>Sector 0/0, Star system %s (Empty terrain):</H1>",
+               "<a name=\"%s\"></a><h1>Sector 0/0, Star system %s (Empty terrain):</h1>",
                starname, starname);
-      fprintf (fd, "<H2>Locations in this system</H2>\n");
-      fprintf (fd, "<TABLE BORDER=1><TR><TH>Id</TH><TH>Description</TH></TR>\n");
-      fprintf (fd, "</TABLE>");
+      fprintf (fd, "<table class=\"starsystem\"><tr><th>Id</th><th>Description</th></tr>\n");
+      fprintf (fd, "</table>");
       show_other_ships(fd, player, star);
       return;
     }
 
   fprintf (fd,
-           "<A NAME=\"%s\"></A><H1>Sector %02d/%02d, Star system %s (%s terrain; default range %s)",
+           "<a name=\"%s\"></a><h1>Sector %02d/%02d, Star system %s (%s terrain; default range %s)",
            star_names[star], stars[star].x, stars[star].y, star_names[star],
            terrain_names[stars[star].terrain],
            range_names[stars[star].terrain]);
 
   if (stars[star].hidden && player->star != star)
     {
-      fprintf (fd, " </H1>starsystem hidden from remote sensing this turn\n");
+      fprintf (fd, "</h1><p>Starsystem hidden from remote sensing this turn</p>\n");
       return;
     }
 
   if (who_home (star) != NOT_HOMEWORLD)
-    fprintf (fd, " Plague at %d%%:</H1>\n", races[who_home (star)].plague);
+    fprintf (fd, " Plague at %d%%:</h1>\n", races[who_home (star)].plague);
   else
-    fprintf (fd, ":</H1>\n");
-  fprintf (fd, "<H2>");
-  print_rules_link (fd, "Locations", "Locations");
-  fprintf (fd, " in this system</H2>\n");
-  fprintf (fd, "<TABLE BORDER=1><TR><TH>Id</TH><TH>Description</TH></TR>\n");
+    fprintf (fd, ":</h1>\n");
+  fprintf (fd, "<table class=\"starsystem\"><tr><th>Id</th><th>Description</th></tr>\n");
   for (i = 0; i < MAX_LOCATION; i++)
     if (locations[i].star == star)
       show_location (fd, player, i);
   show_adventures(fd,player);
-  fprintf (fd, "</TABLE>\n");
+  fprintf (fd, "</table>\n");
   if (star == popcorn.star)
     {
       fprintf (fd,
-               "<TABLE BORDER=1><TR><TH>Popcorn Source: Impulse %d%%, Sensor %d%%, Shield %d%%</TH></TR></TABLE>",
+               "<table class=\"popcorn_source\"><tr><th>Popcorn Source: Impulse %d%%, Sensor %d%%, Shield %d%%</th></tr></table>",
                popcorn.impulse_limit, popcorn.sensor_limit,
                popcorn.shield_limit);
     }

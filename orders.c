@@ -519,7 +519,7 @@ execute_orders ()
           open_results (&fd, player);
           fprintf (fd, "<!-- orders.c:519 -->");
           fprintf (fd, "<h2>Actions</h2>\n<ul class=\"actions\">\n");
-          fprintf (fd, "</ul>\n");
+          // fprintf (fd, "</ul>\n");
           previous = player;
           do_password_powers (fd, player);
         }
@@ -875,8 +875,9 @@ execute_orders ()
       open_results (&fd, players + p);
       fprintf (fd, "<!-- orders.c:874 -->");
       if (p == high_fighter)
-        fprintf (fd, "<P>You won the mercenary contract and gained $%d\n",
+        fprintf (fd, "<li>You won the mercenary contract and gained $%d</li>\n",
                  old_fee);
+      fprintf (fd, "</ul>\n"); //Terminate actions list
       show_characters (fd, players + p);
       show_experience (fd, players + p);
       fprintf (fd, "<H2>Your ");

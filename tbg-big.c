@@ -494,7 +494,7 @@ supernova (int star)
   if (star < 0 || star > MAX_STAR)
     return;
   
-  fprintf (times, "<HR>Supernova at %s!!!", star_names[star]);
+  fprintf (times, "<hr>Supernova at %s!!!", star_names[star]);
 
   reset_bit (public_stars, star);
   for (p = 0 ; p < MAX_PLAYER ; p++)
@@ -730,7 +730,7 @@ pair_string (struct PLAYER *player)
                 webroot, uint32_name (unique_url), turn);
       force_symlink (buf1,buf2);
 
-      sprintf (buffer, "<A HREF=\"http://%s/Ship_%s%d.htm\">%s</A>",
+      sprintf (buffer, "<a href=\"http://%s/Ship_%s%d.htm\">%s</a>",
                server,
                uint32_name (unique_url), turn, name_string (player->name));
       strcat (buffer, " (guarding ");
@@ -743,7 +743,7 @@ pair_string (struct PLAYER *player)
                 webroot, uint32_name (unique_url), turn);
       force_symlink (buf1,buf2);
 
-      sprintf (command, "<A HREF=\"http://%s/Ship_%s%d.htm\">%s</A>)",
+      sprintf (command, "<a href=\"http://%s/Ship_%s%d.htm\">%s</a>)",
                server,
                uint32_name (unique_url), turn, name_string (freighter->name));
 
@@ -759,7 +759,7 @@ pair_string (struct PLAYER *player)
                 webroot, uint32_name (unique_url), turn);
       force_symlink (buf1,buf2);
 
-      sprintf (buffer, "<A HREF=\"http://%s/Ship_%s%d.htm\">%s</A>",
+      sprintf (buffer, "<a href=\"http://%s/Ship_%s%d.htm\">%s</a>",
                server,
                uint32_name (unique_url), turn, name_string (player->name));
     }
@@ -819,8 +819,8 @@ show_shop_options (FILE * fd, int shop)
 
   while (link)
     {
-      fprintf (fd, "<OPTION VALUE=-%d>", link);
-      fprintf (fd, "Buy %s %s (%d%%) for $%d\n",
+      fprintf (fd, "<option value=\"-%d\">", link);
+      fprintf (fd, "Buy %s %s (%d%%) for $%d</option>\n",
                tech_level_names[items[link].efficiency],
                item_string (items + link),
                items[link].reliability, items[link].price);
@@ -842,8 +842,8 @@ show_location_option (FILE * fd, struct PLAYER *player, int site)
     case arsenal:
       for (level = 0; level < 6; level++)
         {
-          fprintf (fd, "<OPTION VALUE=%d%c>", site, 'A' + (1 << level));
-          fprintf (fd, "Buy %d Photon Torpedoes for $%d\n",
+          fprintf (fd, "<option value=\"%d%c\">", site, 'A' + (1 << level));
+          fprintf (fd, "Buy %d Photon Torpedoes for $%d</option>\n",
                    1 << level, 10 * (1 << level));
         }
       break;
@@ -853,22 +853,22 @@ show_location_option (FILE * fd, struct PLAYER *player, int site)
         break;
       if (good_prices[parameter] < goods[GOOD_NUMBER (parameter)].basic_value)
         break;
-      fprintf (fd, "<OPTION VALUE=%d>", site);
-      fprintf (fd, "Sell 1 %s to %s Colony for $%d\n",
+      fprintf (fd, "<option value=\"%d\">", site);
+      fprintf (fd, "Sell 1 %s to %s Colony for $%d</option>\n",
                goods[GOOD_NUMBER (parameter)].name,
                races[RACE_NUMBER (parameter)].name, good_prices[parameter]);
       break;
     case factory:
       for (level = 0; level < 4; level++)
         {
-          fprintf (fd, "<OPTION VALUE=%d%c>", site, 'a' + (1 << level) - 1);
-          fprintf (fd, "Sell %d Scrap for $%d\n",
+          fprintf (fd, "<option value=\"%d%c\">", site, 'a' + (1 << level) - 1);
+          fprintf (fd, "Sell %d Scrap for $%d</option>\n",
                    1 << level, 25 * (1 << level));
         }
       for (level = 0; level < 3; level++)
         {
-          fprintf (fd, "<OPTION VALUE=%d%c>", site, 'A' + (1 << level));
-          fprintf (fd, "Buy %d %s for $%d\n",
+          fprintf (fd, "<option value=\"%d%c\">", site, 'A' + (1 << level));
+          fprintf (fd, "Buy %d %s for $%d</option>\n",
                    1 << level,
                    goods[GOOD_NUMBER (parameter)].name,
                    goods[GOOD_NUMBER (parameter)].basic_value * (1 << level));
@@ -878,15 +878,15 @@ show_location_option (FILE * fd, struct PLAYER *player, int site)
       for (skill = engineering; skill <= weaponry; skill++)
         {
           if (skill_level (player->skills[skill]) > player->crew[skill])
-            fprintf (fd, "<OPTION VALUE=%d%c>Recruit %s crew\n",
+            fprintf (fd, "<option value=\"%d%c\">Recruit %s crew</option>\n",
                      site, skill + 'A', skill_names[skill]);
         }
       break;
     case prison:
       if (player->prisoner)
         {
-          fprintf (fd, "<OPTION VALUE=%d>", site);
-          fprintf (fd, "Cash in prisoner %s for about $%d\n",
+          fprintf (fd, "<option value=\"%d\">", site);
+          fprintf (fd, "Cash in prisoner %s for about $%d</option>\n",
                    criminal_string (player->prisoner),
                    500 * (player->prisoner & 7) * (player->prisoner & 7));
         }
@@ -905,7 +905,7 @@ show_location (FILE * fd, struct PLAYER *player, int site)
   int owner = locations[site].voter;
 
   if (sort != none)
-    fprintf (fd, "<TR><TD>%d</TD><TD>", site);
+    fprintf (fd, "<tr><td>%d</td><td>", site);
 
   switch (sort)
     {
@@ -1011,7 +1011,7 @@ void
 starname_input (FILE * fd)
 {
   fprintf (fd,
-           "or by name from starmap, eg S#48 <INPUT NAME=\"j\" SIZE=15>\n");
+           "or by name from starmap, eg S#48 <input name=\"j\" size=\"15\">\n");
 }
 
 
@@ -1040,8 +1040,8 @@ show_selling_options (FILE * fd, struct PLAYER *player)
 
   while (item != items)
     {
-      fprintf (fd, "<OPTION VALUE=-%d>", item - items);
-      fprintf (fd, "Sell %s %s (%d%%) for $%d\n",
+      fprintf (fd, "<option value=\"-%d\">", item - items);
+      fprintf (fd, "Sell %s %s (%d%%) for $%d</option>\n",
                tech_level_names[item->efficiency],
                item_string (item), item->reliability, sale_price (item));
       item = items + item->link;
@@ -1053,8 +1053,8 @@ show_system_options (FILE * fd, struct PLAYER *player, int star)
 {
   int i;
 
-  fprintf (fd, "<TD><SELECT NAME=\"c\" SIZE=6 MULTIPLE>\n");
-  fprintf (fd, "<OPTION VALUE=\"\">Do Nothing\n");
+  fprintf (fd, "<td><select name=\"c\" size=\"6\" multiple>\n");
+  fprintf (fd, "<option value=\"\">Do Nothing</option>\n");
   show_selling_options (fd, player);
   for (i = 0; i < MAX_LOCATION; i++)
     if (locations[i].star == star)
@@ -1062,7 +1062,7 @@ show_system_options (FILE * fd, struct PLAYER *player, int star)
   for (i = 0; i < MAX_SHOP; i++)
     if (shops[i].star == star)
       show_shop_options (fd, i);
-  fprintf (fd, "</SELECT></TD>\n");
+  fprintf (fd, "</select></td>\n");
 }
 
 void
@@ -1070,39 +1070,39 @@ show_general_options (FILE * fd, struct PLAYER *player)
 {
   int i, p;
 
-  fprintf (fd, "<Input Name=\"n\" TYPE=HIDDEN VALUE=\"%s\">\n", player->name);
-  fprintf (fd, "<Input Name=\"z\" VALUE=\"%d\" TYPE=HIDDEN>\n", turn + 1);
-  fprintf (fd, "<Input Name=\"k\" VALUE=\"%d\" TYPE=HIDDEN>\n",
+  fprintf (fd, "<input name=\"n\" type=\"hidden\" value=\"%s\">\n", player->name);
+  fprintf (fd, "<input name=\"z\" value=\"%d\" type=\"hidden\">\n", turn + 1);
+  fprintf (fd, "<input name=\"k\" value=\"%d\" type=\"hidden\">\n",
            make_key (player->name, turn + 1));
-  fprintf (fd, "<Input Name=\"Z\" VALUE=\"%d\" TYPE=HIDDEN>\n", game);
+  fprintf (fd, "<input name=\"Z\" VALUE=\"%d\" type=\"hidden\">\n", game);
 
   if (player->popcorn)
     {
-      fprintf (fd, "</TR><TR ALIGN=CENTER>\n");
-      fprintf (fd, "<TD><SELECT NAME=\"s\" SIZE=6 MULTIPLE>\n");
+      fprintf (fd, "</tr><tr>\n");
+      fprintf (fd, "<td><select name=\"s\" size=\"6\" multiple>\n");
       i = 0;
       while (i <= player->popcorn)
         {
-          fprintf (fd, "<OPTION VALUE=%d>Sell %d Popcorn\n", i, i);
+          fprintf (fd, "<option value=\"%d\">Sell %d Popcorn</option>\n", i, i);
           if (i)
             i *= 2;
           else
             i = 1;
         }
-      fprintf (fd, "</SELECT></TD>\n");
+      fprintf (fd, "</select></td>\n");
     }
 
-  fprintf (fd, "</TR><TR><TD>Buy <INPUT TYPE=TEXT SIZE=6 NAME=\"N\">");
+  fprintf (fd, "</tr><tr><td>Buy <input type=\"text\" size=\"6\" name=\"N\">");
   print_rules_link (fd, "Popcorn", "popcorn");
-  fprintf (fd, " spending up to $<INPUT TYPE=TEXT SIZE=6 NAME=\"O\">");
+  fprintf (fd, " spending up to $<input type=\"text\" size=\"6\" name=\"O\">");
   fprintf (fd, " each</TD>\n");
   
   if (player->star >= MAX_STAR)
     {
       fprintf (fd,
-               "</TR><TR ALIGN=CENTER><TD COLSPAN=3>WARNING - You are on holiday: submitting any orders will automatically return you to normal space!  And most orders won't run anyway.</TD>\n");
+               "</tr><tr><td colspan=\"3\">WARNING - You are on holiday: submitting any orders will automatically return you to normal space!  And most orders won't run anyway.</td>\n");
     }
-  fprintf (fd, "</TR><TR ALIGN=CENTER>\n");
+  fprintf (fd, "</tr><tr>\n");
 
   fprintf (fd, "<td><span class=\"submit\"><input type=\"submit\" value=\"Make It So\" title=\"Submit\"></input></span>\n");
   fprintf (fd, "<span class=\"reset\"><input type=\"reset\"></span>\n");
@@ -1121,34 +1121,34 @@ show_general_options (FILE * fd, struct PLAYER *player)
 
   fprintf (fd, "</tr><tr>\n");
 
-  fprintf (fd, "<TD><SELECT NAME=\"l\" SIZE=6>\n");
-  fprintf (fd, "<OPTION VALUE=\"\">No Change\n");
+  fprintf (fd, "<td><select name=\"l\" size=\"6\">\n");
+  fprintf (fd, "<option value=\"\">No Change</option>\n");
   if (player->companion != 0 && player->star != HOLIDAY
       && player->star < MAX_STAR)
     {
-      fprintf (fd, "<OPTION VALUE=%d>Un-ally with %s\n",
+      fprintf (fd, "<option value=\"%d\">Un-ally with %s</option>\n",
                BIG_NUMBER, name_string (players[player->companion].name));
       if (player->energy / 10 > 0 &&
           players[player->companion].star == player->star)
-        fprintf (fd, "<OPTION VALUE=%d>Give %s $%d\n",
+        fprintf (fd, "<option value=\"%d\">Give %s $%d</option>\n",
                  BIG_NUMBER + player->energy / 10,
                  name_string (players[player->companion].name),
                  player->energy / 10);
       if (player->energy / 20 > 0 &&
           players[player->companion].star == player->star)
-        fprintf (fd, "<OPTION VALUE=%d>Give %s $%d\n",
+        fprintf (fd, "<option value=\"%d\">Give %s $%d</option>\n",
                  BIG_NUMBER + player->energy / 20,
                  name_string (players[player->companion].name),
                  player->energy / 20);
       if (player->energy / 50 > 0 &&
           players[player->companion].star == player->star)
-        fprintf (fd, "<OPTION VALUE=%d>Give %s $%d\n",
+        fprintf (fd, "<option value=\"%d\">Give %s $%d</option>\n",
                  BIG_NUMBER + player->energy / 50,
                  name_string (players[player->companion].name),
                  player->energy / 50);
       if (player->energy / 100 > 0 &&
           players[player->companion].star == player->star)
-        fprintf (fd, "<OPTION VALUE=%d>Give %s $%d\n",
+        fprintf (fd, "<OPTION VALUE=\"%d\">Give %s $%d</option>\n",
                  BIG_NUMBER + player->energy / 100,
                  name_string (players[player->companion].name),
                  player->energy / 100);
@@ -1156,9 +1156,9 @@ show_general_options (FILE * fd, struct PLAYER *player)
   for (p = 0; p < MAX_PLAYER; p++)
     if (p != (player - players) &&
         p != player->companion && player->star == players[p].star)
-      fprintf (fd, "<OPTION VALUE=%d>Ally with %s\n",
+      fprintf (fd, "<option value=\"%d\">Ally with %s</option>\n",
                p, name_string (players[p].name));
-  fprintf (fd, "</SELECT></TD></TR>\n");
+  fprintf (fd, "</select></td></tr>\n");
 }
 
 void
@@ -1315,9 +1315,9 @@ starnet_report (struct PLAYER *player)
       printf ("Can't open report file\n");
       exit (1);
     }
-  fprintf (fd, "<HTML><HEAD><TITLE>Starnet Report, Turn %d</TITLE>\n", turn);
+  fprintf (fd, "<!DOCTYPE html>\n<html><head><title>Starnet Report, Turn %d</title>\n", turn);
   html_header (fd, player->web_source);
-  fprintf (fd, "<H1>Starnet Report, Turn %d</H1>\n", turn);
+  fprintf (fd, "<h1>Starnet Report, Turn %d</h1>\n", turn);
   for (loc = 0; loc < MAX_LOCATION; loc++)
     {
       if (locations[loc].sort == terminal
@@ -1325,7 +1325,7 @@ starnet_report (struct PLAYER *player)
           && (star_seen (player, locations[loc].star)))
         show_starsystem (fd, player, locations[loc].star);
     }
-  fprintf(fd, "</center></body></html>\n");
+  fprintf(fd, "</body></html>\n");
   fclose (fd);
 }
 
@@ -1352,26 +1352,26 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
       player->energy >= 500)
     {
       fprintf (fd,
-               "<OPTION VALUE=H1>Buy a primitive demo warp drive for $500\n");
+               "<option value=\"H1\">Buy a primitive demo warp drive for $500</option>\n");
     }
 
   if (player->chosen & (1 << sort))
     {
-      fprintf (fd, "<OPTION VALUE=L%d>Commune with %s\n",
+      fprintf (fd, "<option value=\"L%d\">Commune with %s</option>\n",
                -(sort + 1), god_names[sort]);
     }
 
   if (sort == medical)
     {
-      fprintf (fd, "<OPTION VALUE=H0>Heal Crew\n");
+      fprintf (fd, "<option value=\"H0\">Heal Crew</option>\n");
       if (who_home (player->star) != NOT_HOMEWORLD
           && effective_skill_level (player, medical) > 0
           && factor (sick_bay, player) > 0)
-        fprintf (fd, "<OPTION VALUE=K>Cure %s Plague\n",
+        fprintf (fd, "<option value=\"K\">Cure %s Plague</option>\n",
                  races[who_home (player->star)].name);
     }
   if (sort == science)
-    fprintf (fd, "<OPTION VALUE=L-5>Long Range Scan\n");
+    fprintf (fd, "<option value=\"L-5\">Long Range Scan</option>\n");
   if (sort == weaponry)
     {
       if (player->crew[weaponry])
@@ -1383,35 +1383,35 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
               criminal = locations[loc].criminal;
               if (criminal && get_crim (player, criminal))
                 /* spotted crook */
-                fprintf (fd, "<OPTION VALUE=G%d>Capture %s\n",
+                fprintf (fd, "<option value=\"G%d\">Capture %s</option>\n",
                          loc, criminal_string (criminal));
             }
         }
       if (player->prisoner)
         {
-          fprintf (fd, "<OPTION VALUE=I0>Interrogate %s\n",
+          fprintf (fd, "<option value=\"I0\">Interrogate %s</option>\n",
                    criminal_string (player->prisoner));
-          fprintf (fd, "<OPTION VALUE=I1>Release %s for bribe ($%d)\n",
+          fprintf (fd, "<option value=\"I1\">Release %s for bribe ($%d)</option>\n",
                    criminal_string (player->prisoner),
                    500 * (player->prisoner & 7) * (player->prisoner & 7));
-          fprintf (fd, "<OPTION VALUE=I2>Release %s for information\n",
+          fprintf (fd, "<option value=\"I2\">Release %s for information</option>\n",
                    criminal_string (player->prisoner));
         }
     }
   if (player->crew[sort])
-    fprintf (fd, "<OPTION VALUE=T%d>Train Crew\n", sort);
-  fprintf (fd, "<OPTION VALUE=m>Priority Maintenance\n");
+    fprintf (fd, "<option value=\"T%d\">Train Crew</option>\n", sort);
+  fprintf (fd, "<option value=\"m\">Priority Maintenance</option>\n");
   while (item - items)
     {
       if (repairers[item->sort] == sort && item->sort < pod)
         {
           if (item->flags & ITEM_BROKEN)        /* broken */
-            fprintf (fd, "<OPTION VALUE=R%d>Repair %s %s\n",
+            fprintf (fd, "<option value=\"R%d\">Repair %s %s</option>\n",
                      item - items, tech_level_names[item->efficiency], item_string (item));
           if (effective_skill_level (player, sort) >
               item->efficiency * item->efficiency
               && !(item->flags & ITEM_DEMO) && item->reliability < 99)
-            fprintf (fd, "<OPTION VALUE=M%d>Maintain %s %s (%d%%)\n",
+            fprintf (fd, "<option value=\"M%d\">Maintain %s %s (%d%%)</option>\n",
                      item - items, tech_level_names[item->efficiency], item_string (item), item->reliability);
         }
       item = items + item->link;
@@ -1426,12 +1426,12 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
           ADVENTURE_LEVEL (parameter))
         {
           if (ADVENTURE_SKILL (parameter) == sort)
-            fprintf (fd, "<OPTION VALUE=A%d>Lead %s (%s%d)\n", loc,
+            fprintf (fd, "<option value=\"A%d\">Lead %s (%s%d)</option>\n", loc,
                      ad_types[ADVENTURE_TYPE (parameter)].ad_name,
                      skill_names[ADVENTURE_SKILL (parameter)],
                      ADVENTURE_LEVEL (parameter));
           else                  /* helper officers */
-            fprintf (fd, "<OPTION VALUE=A%d>Help %s (%s%d)\n", loc,
+            fprintf (fd, "<option value=\"A%d\">Help %s (%s%d)</option>\n", loc,
                      ad_types[ADVENTURE_TYPE (parameter)].ad_name,
                      skill_names[ADVENTURE_SKILL (parameter)],
                      ADVENTURE_LEVEL (parameter));
@@ -1441,19 +1441,19 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
     {
     case engineering:
       if (effective_skill_level (player, engineering) > 0)
-        fprintf (fd, "<OPTION VALUE=U-1>Induce sunspots\n");
+        fprintf (fd, "<option value=\"U-1\">Induce sunspots</option>\n");
       break;
     case science:
       if (effective_skill_level (player, science) > 0)
-        fprintf (fd, "<OPTION VALUE=U-2>Induce stellar flares\n");
+        fprintf (fd, "<option value=\"U-2\">Induce stellar flares</option>\n");
       break;
     case medical:
       if (effective_skill_level (player, medical) > 0)
-        fprintf (fd, "<OPTION VALUE=U-3>Feed stellar amoebae\n");
+        fprintf (fd, "<option value=\"U-3\">Feed stellar amoebae</option>\n");
       break;
     case weaponry:
       if (effective_skill_level (player, weaponry) > 0)
-        fprintf (fd, "<OPTION VALUE=U-4>Shoot star\n");
+        fprintf (fd, "<option value=\"U-4\">Shoot star</option>\n");
       break;
     }
   for (loc = 0; loc < MAX_LOCATION; loc++)
@@ -1471,22 +1471,22 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
             {
             case engineering:
               if (effective_skill_level (player, engineering) > 0)
-                 fprintf (fd, "<OPTION VALUE=U%d>Destabilize orbit of %s %d\n",
+                 fprintf (fd, "<option value \"U%d\">Destabilize orbit of %s %d</option>\n",
                           loc, location_types[type].name, loc);
               break;
             case science:
               if (effective_skill_level (player, science) > 0)
-                fprintf (fd, "<OPTION VALUE=U%d>Dephase %s %d\n",
+                fprintf (fd, "<option value=\"U%d\">Dephase %s %d</option>\n",
                          loc, location_types[type].name, loc);
               break;
             case medical:
               if (effective_skill_level (player, medical) > 0)
-                fprintf (fd, "<OPTION VALUE=U%d>Poison %s %d\n",
+                fprintf (fd, "<option value=\"U%d\">Poison %s %d</option>\n",
                          loc, location_types[type].name, loc);
               break;
             case weaponry:
               if (effective_skill_level (player, weaponry) > 0)
-                 fprintf (fd, "<OPTION VALUE=U%d>Sabotage %s %d\n",
+                 fprintf (fd, "<option value=\"U%d\">Sabotage %s %d</option>\n",
                           loc, location_types[type].name, loc);
               break;
             }
@@ -1494,7 +1494,7 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
 
       if (player->rings_seen & locations[loc].ring & (1 << sort))
         {
-          fprintf (fd, "<OPTION VALUE=W%d>Collect %s\n",
+          fprintf (fd, "<option value=\"W%d\">Collect %s</option>\n",
                    loc, ring_string (locations[loc].ring));
         }
 
@@ -1507,27 +1507,27 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
                  level <= skill_level (player->skills[sort]) / 4 + 1; level++)
               if ((player->
                    skills[parameter] & skill_bit (academy_skill, level)) == 0)
-                fprintf (fd, "<OPTION VALUE=%d%c>Academy Level %d ($%d)\n",
+                fprintf (fd, "<option value=\"%d%c\">Academy Level %d ($%d)</option>\n",
                          loc, 'A' + level, level, level * level * 100);
           break;
         case badland:
         case gas_giant:
           if (sort == ((locations[loc].rogues >> 1) & 3)
               && locations[loc].rogues)
-            fprintf (fd, "<OPTION VALUE=%d>Recruit rogue band (%d%%)\n", loc,
+            fprintf (fd, "<option value=\"%d\">Recruit rogue band (%d%%)</option>\n", loc,
                      locations[loc].risk);
           break;
         case belt:
           if (sort == engineering)
-            fprintf (fd, "<OPTION VALUE=%d>Mine asteroids\n", loc);
+            fprintf (fd, "<option value=\"%d\">Mine asteroids</option>\n", loc);
           break;
         case comet:
           if (sort == engineering)
-            fprintf (fd, "<OPTION VALUE=%d>Harvest Chocolate\n", loc);
+            fprintf (fd, "<option value=\"%d\">Harvest Chocolate</option>\n", loc);
           break;
         case corona:
           if (sort == engineering)
-            fprintf (fd, "<OPTION VALUE=%d>Skim Star for energy\n", loc);
+            fprintf (fd, "<option value=\"%d\">Skim Star for energy</option>\n", loc);
           break;
         case deep_space:
         case near_space:
@@ -1535,41 +1535,41 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
               && !done_popcorn)
             {
               done_popcorn++;
-              fprintf (fd, "<OPTION VALUE=%d>Collect Popcorn\n", loc);
+              fprintf (fd, "<option value=\"%d\">Collect Popcorn</option>\n", loc);
             }
           break;
         case colony:
           if (races[RACE_NUMBER (parameter)].religion == sort)
-            fprintf (fd, "<OPTION VALUE=%d>Influence %s Colony\n",
+            fprintf (fd, "<option value=\"%d\">Influence %s Colony</option>\n",
                      loc + BIG_NUMBER, races[RACE_NUMBER (parameter)].name);
           break;
         case homeworld:
           if (races[parameter].religion == sort)
-            fprintf (fd, "<OPTION VALUE=%d>Influence %s Homeworld\n",
+            fprintf (fd, "<option value=\"%d\">Influence %s Homeworld</option>\n",
                      loc + BIG_NUMBER, races[parameter].name);
           if (sort == weaponry && player->rank == 1)
-            fprintf (fd, "<OPTION VALUE=%d>Intimidate %s Government\n", loc,
+            fprintf (fd, "<option value=\"%d\">Intimidate %s Government</option>\n", loc,
                      races[parameter].name);
           break;
         case minefield:
           if (sort == weaponry)
-            fprintf (fd, "<OPTION VALUE=%d>Salvage photon torpedoes\n", loc);
+            fprintf (fd, "<option value=\"%d\">Salvage photon torpedoes</option>\n", loc);
           break;
         case ocean:
           if (done_medicine++)
             break;
           if (sort == medical)
-            fprintf (fd, "<OPTION VALUE=%d>Research Medicine\n", loc);
+            fprintf (fd, "<option value=\"%d\">Research Medicine</option>\n", loc);
           break;
         case school:
           if (parameter == sort)
             {
               if ((player->skills[parameter] & skill_bit (school_skill, 1)) ==
                   0)
-                fprintf (fd, "<OPTION VALUE=%dB>School Level 1 ($50)\n", loc);
+                fprintf (fd, "<option value=\"%dB\">School Level 1 ($50)</option>\n", loc);
               if ((player->skills[parameter] & skill_bit (school_skill, 2)) ==
                   0)
-                fprintf (fd, "<OPTION VALUE=%dC>School Level 2 ($100)\n",
+                fprintf (fd, "<option value=\"%dC\">School Level 2 ($100)</option>\n",
                          loc);
             }
           break;
@@ -1579,7 +1579,7 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
               if ((player->
                    experience[science] & (1 << locations[loc].parameter)) ==
                   0)
-                fprintf (fd, "<OPTION VALUE=%d>Access Starnet\n", loc);
+                fprintf (fd, "<OPTION VALUE=\"%d\">Access Starnet</option>\n", loc);
             }
           break;
         default:
@@ -1589,7 +1589,7 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
   loc = star_has_loc (player->star, terminal);
   if (loc != NO_LOCATION && (player->experience[science] & (1 << loc)))
     for (i = 0; i < 4; i++)
-      fprintf (fd, "<OPTION VALUE=V%d>Use Password %s\n",
+      fprintf (fd, "<option value=\"V%d\">Use Password %s</option>\n",
                i + sort * 4, password (i + sort * 4));
   generate_evil_options (fd, player, sort);
 }
@@ -1627,8 +1627,8 @@ show_scrap_options (FILE * fd, struct PLAYER *player)
 {
   struct ITEM *item;
 
-  fprintf (fd, "<TD><SELECT NAME=\"b\" SIZE=6 MULTIPLE>\n");
-  fprintf (fd, "<OPTION VALUE=\"\">Nothing\n");
+  fprintf (fd, "<td><select name=\"b\" size=\"6\" multiple>\n");
+  fprintf (fd, "<option value=\"\">Nothing</option>\n");
   item = items + player->ship;
   while (item != items)
     {
@@ -1636,13 +1636,13 @@ show_scrap_options (FILE * fd, struct PLAYER *player)
         {
           if (item->reliability < BASE_UNIT)
             {
-              fprintf (fd, "<OPTION VALUE=-%d>Scrap %d %s\n",
+              fprintf (fd, "<option value=\"-%d\">Scrap %d %s</option>\n",
                        item - items, item->collection,
                        goods[item->reliability].name);
             }
           else
             {
-              fprintf (fd, "<OPTION VALUE=-%d>Demob %s\n",
+              fprintf (fd, "<option value=\"-%d\">Demob %s</option>\n",
                        item - items, units[item->reliability - BASE_UNIT].name);
             }
 
@@ -1653,16 +1653,16 @@ show_scrap_options (FILE * fd, struct PLAYER *player)
   while (item != items)
     {
       if ((!(item->flags & ITEM_DEMO)) && (item->sort != pod))
-        fprintf (fd, "<OPTION VALUE=%d>Scrap %s\n",
+        fprintf (fd, "<option value=\"%d\">Scrap %s</option>\n",
                  item - items, item_string (item));
       item = items + item->link;
     }
-  fprintf (fd, "</SELECT></TD>\n");
+  fprintf (fd, "</select></td>\n");
 
-  fprintf (fd, "</TR>\n<TR>\n");
+  fprintf (fd, "</tr>\n<tr>\n");
   
-  fprintf (fd, "<TD ALIGN=\"CENTER\"><SELECT NAME=\"D\" SIZE=6 MULTIPLE>\n");
-  fprintf (fd, "<OPTION VALUE=\"\">Nothing\n");
+  fprintf (fd, "<td><select name=\"D\" size=\"6\" multiple>\n");
+  fprintf (fd, "<option value=\"\">Nothing</option>\n");
   item = items + player->ship;
 
   while (item != items)
@@ -1670,11 +1670,11 @@ show_scrap_options (FILE * fd, struct PLAYER *player)
       // Putting demos back on the shut down list
       if (item->sort < pod && !(item->flags & ITEM_BROKEN) )
       // if (item->sort < pod && !(item->flags & ITEM_BROKEN) && !(item->flags & ITEM_DEMO))
-        fprintf (fd, "<OPTION VALUE=%d>Shut down %s\n",
+        fprintf (fd, "<option value=\"%d\">Shut down %s</option>\n",
                  item - items, item_string (item));
       item = items + item->link;
     }
-  fprintf (fd, "</SELECT></TD>\n");
+  fprintf (fd, "</select></td>\n");
 }
 
 void
@@ -1749,7 +1749,7 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf(fd, "Your information-sharing url is: share_%s.htm<br>\n",
           uint32_name(public_password(player->password)));
   fprintf (fd,
-           "<FORM ACTION=\"http://%s/cgi-bin/submit.crm\" METHOD=\"POST\">\n",
+           "<form action=\"http://%s/cgi-bin/submit.crm\" method=\"post\">\n",
            server);
   //      if (player->star != HOLIDAY && player->star < MAX_STAR)
   {
@@ -1757,63 +1757,63 @@ show_orders (FILE *fd, struct PLAYER *player)
     generate_presidential_options (fd, player);
     generate_prophet_options (fd, player);
   }
-  fprintf (fd, "<TABLE BORDER=1>\n");
+  fprintf (fd, "<table class=\"show_orders\">\n");
   for (sort = engineering; sort <= weaponry; sort++)
     {
-      fprintf (fd, "<TR><TH COLSPAN=4>%s skills (%d = %d+%d)</TH></TR>\n",
+      fprintf (fd, "<tr><th colspan=\"4\">%s skills (%d = %d+%d)</th></tr>\n",
                skill_names[sort], effective_skill_level (player, sort),
                skill_level (player->skills[sort]),
                effective_skill_level (player, sort) -
                skill_level (player->skills[sort]));
-      fprintf (fd, "<TR ALIGN=CENTER><TD COLSPAN=2><SELECT NAME=\"%c\">\n",
+      fprintf (fd, "<tr><td colspan=\"2\"><select name=\"%c\">\n",
                skill_names[sort][0]);
-      fprintf (fd, "<OPTION VALUE=.>Stand by\n");
+      fprintf (fd, "<option value=\".\">Stand by</option>\n");
       generate_options (fd, player, sort);
-      fprintf (fd, "</SELECT></TD>\n");
-      fprintf (fd, "<TD COLSPAN=2><SELECT NAME=\"x\">\n");
-      fprintf (fd, "<OPTION VALUE=.>No Spells\n");
+      fprintf (fd, "</select></td>\n");
+      fprintf (fd, "<td colspan=\"2\"><select name=\"x\">\n");
+      fprintf (fd, "<option value=\".\">No Spells</option>\n");
       generate_magic_options (fd, player, sort, enemy);
-      fprintf (fd, "</SELECT></TD></TR>\n");
+      fprintf (fd, "</select></td></tr>\n");
     }
-  fprintf (fd, "<TR><TH COLSPAN=4>");
+  fprintf (fd, "<tr><th colspan=\"4\">");
   print_rules_link (fd, "Movement", "Jump To");
-  fprintf (fd, " (use one menu only):</TH></TR>\n");
-  fprintf (fd, "<TR ALIGN=CENTER><TH>Short</TH><TH>Medium</TH><TH>Long</TH><TH>Impossible</TH></TR>\n");
-  fprintf (fd, "<TR ALIGN=CENTER><TD>\n");
+  fprintf (fd, " (use one menu only):</th></tr>\n");
+  fprintf (fd, "<tr><th>Short</th><th>Medium</th><th>Long</th><th>Impossible</th></tr>\n");
+  fprintf (fd, "<tr><td>\n");
   r1 = 0;
   r2 = inverse_jump_cost(player-players, 100);
   show_destinations (fd, player - players, player->star, r1, r2, 1);
-  fprintf (fd, "</TD><TD>\n");
+  fprintf (fd, "</td><td>\n");
   r1 = r2;
   r2 = inverse_jump_cost(player-players, 1000);
   show_destinations (fd, player - players, player->star, r1, r2, 1);
-  fprintf (fd, "</TD><TD>\n");
+  fprintf (fd, "</td><td>\n");
   r1 = r2;
   r2 = inverse_jump_cost(player-players, energy);
   show_destinations (fd, player - players, player->star, r1, r2, 1);
-  fprintf (fd, "</TD><TD>\n");
+  fprintf (fd, "</td><td>\n");
   r1 = r2;
   r2 = BIG_NUMBER;
   show_destinations (fd, player - players, player->star, r1, r2, 0);
-  fprintf (fd, "</TD></TR>\n");
-  fprintf (fd, "</TABLE>\n");
-  fprintf (fd, "<TABLE BORDER=1>\n");
-  fprintf (fd, "<TR><TH ALIGN=CENTER>Minor Options<div style=\"font-size:8pt;\">Hold control or command key to select multiple options.</div></TH></TR>\n");
-  fprintf (fd, "<TR ALIGN=CENTER>\n");
+  fprintf (fd, "</td></tr>\n");
+  fprintf (fd, "</table>\n");
+  fprintf (fd, "<table class=\"minor_options\">\n");
+  fprintf (fd, "<tr><th>Minor Options<div style=\"font-size:8pt;\">Hold control or command key to select multiple options.</div></th></tr>\n");
+  fprintf (fd, "<tr>\n");
   show_scrap_options (fd, player);
-  fprintf (fd, "</TR><TR ALIGN=CENTER>\n");
+  fprintf (fd, "</tr><tr>\n");
   show_system_options (fd, player, player->star);
   show_general_options (fd, player);
-  fprintf (fd, "</TABLE>\n");
+  fprintf (fd, "</table>\n");
   if (enemy && player->star != HOLIDAY && enemy != dybuk)
     show_combat_options (fd, player, enemy);
   show_merc_options (fd, player);
-  fprintf (fd, "<HR><H2>Flag to Display</H2>\n");
-  fprintf (fd, "<INPUT TYPE=TEXT SIZE=70 NAME=\"f\" VALUE=\"%s\">",
+  fprintf (fd, "<hr><h2>Flag to Display</h2>\n");
+  fprintf (fd, "<input type=\"text\" size=\"70\" name=\"f\" value=\"%s\">",
            player->banner_source);
-  fprintf (fd,
+/*  fprintf (fd,
            "<br>(No HTML allowed. Images can be accessed as a special case, but only from the %s server's <a href=\"http://%s/images\">images</a> directory, uploaded via your w++ account page. To set one of these images as your banner, use the hash character and its filename, eg #deathstar.gif)\n",
-           server, server);
+           server, server); */
   fprintf (fd, "<h2>Press/Rumours for next issue of ");
   fprintf (fd, "<a href=\"http://%s/times.html\">Subspace Times</A></h2>\n",
            server);
@@ -1916,49 +1916,49 @@ show_orders (FILE *fd, struct PLAYER *player)
 */
   if (player->preferences & 4)
     {
-      fprintf (fd, "<FORM ACTION=\"mailto:tbg@%s\" METHOD=\"POST\">\n",
+      fprintf (fd, "<form action=\"mailto:tbg@%s\" method=\"post\">\n",
                mail_server);
     }
   else
     {
       fprintf (fd,
-               "<FORM ACTION=\"http://%s/cgi-bin/submit.crm\" METHOD=\"POST\">\n",
+               "<form action=\"http://%s/cgi-bin/submit.crm\" method=\"post\">\n",
                server);
-      fprintf (fd, "<INPUT TYPE=\"HIDDEN\" NAME=\"to\" VALUE=\"tbg@%s\">\n",
+      fprintf (fd, "<input type=\"hidden\" name=\"to\" value=\"tbg@%s\">\n",
                mail_server);
     }
-  fprintf (fd, "<Input Name=\"n\" TYPE=HIDDEN VALUE=\"%s\">\n", player->name);
-  fprintf (fd, "<Input Name=\"z\" VALUE=\"%d\" TYPE=HIDDEN>\n", turn + 1);
-  fprintf (fd, "<Input Name=\"y\" VALUE=\"1\" TYPE=HIDDEN>\n");
-  fprintf (fd, "<Input Name=\"k\" VALUE=\"%d\" TYPE=HIDDEN>\n",
+  fprintf (fd, "<input name=\"n\" type=\"hidden\" value=\"%s\">\n", player->name);
+  fprintf (fd, "<input name=\"z\" value=\"%d\" type=\"hidden\">\n", turn + 1);
+  fprintf (fd, "<input name=\"y\" value=\"1\" type=\"hidden\">\n");
+  fprintf (fd, "<input name=\"k\" value=\"%d\" type=\"hidden\">\n",
            make_key (player->name, turn + 1));
-  fprintf (fd, "<Input Name=\"Z\" VALUE=\"1\" TYPE=HIDDEN>\n");
+  fprintf (fd, "<input name=\"Z\" value=\"1\" type=\"hidden\">\n");
   fprintf (fd,
-           "<INPUT TYPE=submit VALUE=\"New Position (ie discard current ship and crew completely!)\">");
-  fprintf (fd, "</FORM>\n");
+           "<input type=\"submit\" value=\"New Position (ie discard current ship and crew completely!)\">");
+  fprintf (fd, "</form>\n");
 
   if (player->preferences & 4)
     {
-      fprintf (fd, "<FORM ACTION=\"mailto:tbg@%s\" METHOD=\"POST\">\n",
+      fprintf (fd, "<form action=\"mailto:tbg@%s\" method=\"post\">\n",
                mail_server);
     }
   else
     {
       fprintf (fd,
-               "<FORM ACTION=\"http://%s/cgi-bin/submit.crm\" METHOD=\"POST\">\n",
+               "<form action=\"http://%s/cgi-bin/submit.crm\" method=\"post\">\n",
                server);
-      fprintf (fd, "<INPUT TYPE=\"HIDDEN\" NAME=\"to\" VALUE=\"tbg@%s\">\n",
+      fprintf (fd, "<input type=\"hidden\" name=\"to\" value=\"tbg@%s\">\n",
                mail_server);
     }
-  fprintf (fd, "<Input Name=\"n\" TYPE=HIDDEN VALUE=\"%s\">\n", player->name);
-  fprintf (fd, "<Input Name=\"z\" VALUE=\"%d\" TYPE=HIDDEN>\n", turn + 1);
-  fprintf (fd, "<Input Name=\"k\" VALUE=\"%d\" TYPE=HIDDEN>\n",
+  fprintf (fd, "<input name=\"n\" type=\"hidden\" value=\"%s\">\n", player->name);
+  fprintf (fd, "<input name=\"z\" value=\"%d\" type=\"hidden\">\n", turn + 1);
+  fprintf (fd, "<input name=\"k\" value=\"%d\" type=\"hidden\">\n",
            make_key (player->name, turn + 1));
-  fprintf (fd, "<Input Name=\"Z\" VALUE=\"1\" TYPE=HIDDEN>\n");
-  fprintf (fd, "<Input Name=\"y\" VALUE=\"-1\" TYPE=HIDDEN>\n");
+  fprintf (fd, "<input name=\"Z\" value=\"1\" type=\"hidden\">\n");
+  fprintf (fd, "<input name=\"y\" value=\"-1\" type=\"hidden\">\n");
   fprintf (fd,
-           "<INPUT TYPE=submit VALUE=\"Drop Out (ie stop playing completely!)\">");
-  fprintf (fd, "</FORM>\n");
+           "<input type=\"submit\" value=\"Drop Out (ie stop playing completely!)\">");
+  fprintf (fd, "</form>\n");
 
   if (!temp)
     {
@@ -1982,7 +1982,7 @@ show_player (FILE * fd, struct PLAYER *player)
 {
   if (player->star >= MAX_STAR)
     fprintf (fd,
-             "<P>(ending turn at star system %s Planet for %s with $%d of energy and crew health of %d.%d%%\n",
+             "<p>(ending turn at star system %s Planet for %s with $%d of energy and crew health of %d.%d%%</p>\n",
              mothballed (player - players) ? "Mothball" : "Holiday",
              name_string (player->name), player->energy, player->health / 10,
              player->health % 10);
@@ -3216,7 +3216,7 @@ cure (FILE * fd, struct PLAYER *player)
     amount = races[race].plague;
   races[race].plague -= amount;
   player->experience[medical] |= 1 << race;
-  fprintf (fd, "<P>Reduced plague by %d%%\n", amount);
+  fprintf (fd, "<p>Reduced plague by %d%%</p>\n", amount);
 }
 
 
@@ -3272,13 +3272,13 @@ give_favour (FILE * fd, skill_sort skill, struct PLAYER *player,
   if (player->favour[skill] < 10)
     {
       printf ("%s losing ring\n", player->name);
-      fprintf (fd, "<P><EM>Insufficient favour to keep %s ring!</EM>\n",
+      fprintf (fd, "<p>Insufficient favour to keep %s ring!</p>\n",
                skill_names[skill]);
       player->rings_held &= ~(0x10 << skill);
       init_ring (skill + 4);
       return (FALSE);
     }
-  fprintf (fd, "<P>You give some %s favour to %s\n",
+  fprintf (fd, "<p>You give some %s favour to %s</p>\n",
            skill_names[skill], name_string (target->name));
   player->favour[skill] -= 10;
   target->favour[skill] += 10;
@@ -3301,13 +3301,13 @@ check_passwords (FILE * fd, struct PLAYER *player)
         fragment = (password_true & mask) >> (fragment * 8);
       else
         fragment = (password_false & mask) >> (fragment * 8);
-      fprintf (fd, "<P>Starnet Terminal reveals password fragment %s\n",
+      fprintf (fd, "<p>Starnet Terminal reveals password fragment %s</p>\n",
                byte_name (fragment));
       if (player->passwd_flags)
-        fprintf (fd, "<BR>Starnet hacking provides benefits next turn\n");
+        fprintf (fd, "<p>Starnet hacking provides benefits next turn</p>\n");
     }
   if (player->passwd_flags)
-    fprintf (fd, "<BR>Starnet hacking benefits are:\n");
+    fprintf (fd, "<p>Starnet hacking benefits are:</p>\n");
   for (flag = 0; flag < 16; flag++)
     {
       if (player->passwd_flags & (1 << flag))
@@ -3341,10 +3341,10 @@ check_allies (FILE * fd, int player)
   for (p = 0; p < MAX_PLAYER; p++)
     if (p != player && players[p].companion == player)
       {
-        fprintf (fd, "<P>%s has named you as their ally\n",
+        fprintf (fd, "<p>%s has named you as their ally</p>\n",
                  name_string (players[p].name));
         if (players[p].gift)
-          fprintf (fd, " and gave you $%d this turn\n", players[p].gift);
+          fprintf (fd, "<p>and gave you $%d this turn</p>\n", players[p].gift);
       }
 }
 
@@ -3401,11 +3401,11 @@ end_turn ()
               fprintf (fd, "<P>You have %d popcorn\n", p->popcorn);
             }
           p->energy += 50;
-          fprintf (fd, "<P>Ship's power plant generates $50\n");
+          fprintf (fd, "<p>Ship's power plant generates $50</p>\n");
           
           pay = total_collection (items + p->ship);
           p->energy -= pay;
-          fprintf (fd, "<P>Modules consume energy of $%d\n", pay);
+          fprintf (fd, "<p>Modules consume energy of $%d</p>\n", pay);
 
           if (p->energy < 0)
             p->energy = 0;
@@ -3414,13 +3414,13 @@ end_turn ()
           p->energy -= pay;
           if (p - players == ministers[PRESIDENT])
             {
-              fprintf (fd, "<P>After government covers crew costs, total pay for crew and mercenaries is $%d\n", pay);
+              fprintf (fd, "<p>After government covers crew costs, total pay for crew and mercenaries is $%d</p>\n", pay);
               if (p->energy < 0)
                 p->energy = 0;
             }
           else
             {
-              fprintf (fd, "<P>Total pay for crew and mercenaries is $%d\n", pay);
+              fprintf (fd, "<p>Total pay for crew and mercenaries is $%d</p>\n", pay);
             }
           while (p->energy < 0)
             {
@@ -3430,8 +3430,8 @@ end_turn ()
                     kill_crew (p, skill);
                     fprintf (fd,
                              /* strings concatenated */
-                             "<BR><EM>A %s crew-person deserted "
-                             "for lack of pay</EM>\n",
+                             "<p>A %s crew-person deserted "
+                             "for lack of pay</p>\n",
                              skill_names[skill]);
                   }
               p->energy++;
@@ -3507,9 +3507,9 @@ show_experience (FILE * fd, struct PLAYER *player)
 {
   int loc, ad, parameter, crim;
 
-  fprintf (fd, "<H2>");
+  fprintf (fd, "<h2>");
   print_rules_link(fd, "Adventures", "Adventures");
-  fprintf (fd, " Known at:</H2>\n");
+  fprintf (fd, " Known at:</h2>\n");
 
   // New adventure table header
   fprintf (fd, "<table class=\"adventures\">\n<thead>\n");
@@ -3548,9 +3548,9 @@ show_experience (FILE * fd, struct PLAYER *player)
                  star_names[adventures[ad].star]);
       }   */
 
-  fprintf (fd, "<H2>");
+  fprintf (fd, "<h2>");
   print_rules_link(fd, "Terminals", "Terminals");
-  fprintf (fd, " Accessed at:</H2>\n");
+  fprintf (fd, " Accessed at:</h2>\n");
   for (loc = 0; loc < MAX_LOCATION; loc++)
     if (locations[loc].sort == terminal
         && player->experience[science] & (1 << locations[loc].parameter))
@@ -3558,9 +3558,9 @@ show_experience (FILE * fd, struct PLAYER *player)
   if (player->experience[science] == 0)
     fprintf (fd, "None\n");
 
-  fprintf (fd, "<H2>");
+  fprintf (fd, "<h2>");
   print_rules_link(fd, "Cure", "Plagues");
-  fprintf (fd, " Cured at:</H2>\n");
+  fprintf (fd, " Cured at:</h2>\n");
   for (loc = 0; loc < MAX_LOCATION; loc++)
     if (locations[loc].sort == homeworld
         && player->experience[medical] & (1 << locations[loc].parameter))
@@ -3568,9 +3568,9 @@ show_experience (FILE * fd, struct PLAYER *player)
   if (player->experience[medical] == 0)
     fprintf (fd, "None\n");
 
-  fprintf (fd, "<H2>");
+  fprintf (fd, "<h2>");
   print_rules_link(fd, "Criminals", "Criminals");
-  fprintf (fd, " Known:</H2>\n");
+  fprintf (fd, " Known:</h2>\n");
   for (crim = 0; crim < MAX_CRIMINAL; crim++)
     if (get_crim (player, crim))
       {
@@ -3589,7 +3589,7 @@ pw_train (FILE * fd, struct PLAYER *player, skill_sort sort)
 {
   if (player->crew[sort] == 0)
     return;
-  fprintf (fd, "<BR>%s crew access starnet terminal for extra training\n",
+  fprintf (fd, "<li>%s crew access starnet terminal for extra training</li>\n",
            skill_names[sort]);
   player->pools[sort] += player->crew[sort];
   if ((player->pools[sort] / player->crew[sort]) >
@@ -3742,7 +3742,7 @@ unload_medicine (FILE * fd, struct PLAYER *player)
   fee = (player->medicine % 1000) * 50;
   if (homeworlds[race] == player->star)
     {
-      fprintf (fd, "<P>Medicine sold to %s homeworld for $%d\n",
+      fprintf (fd, "<p>Medicine sold to %s homeworld for $%d</p>\n",
                races[race].name, fee);
       player->medicine = 0;
       player->energy += fee;
@@ -3921,11 +3921,11 @@ read_all_orders ()
     }
   active_players = total_hits;
   fprintf (times,
-           "<HR><H2>Player Stats</H2>%d notionally active players, %d missed this turn, %d on holiday.\n",
+           "<hr><h2>Player Stats</H2>%d notionally active players, %d missed this turn, %d on holiday.</h2>\n",
            total_players - moths,
            total_players - total_hits - holidays - moths,
            holidays);
-  fprintf (times, "Average number of orders for last 10 turns was %d<P>\n",
+  fprintf (times, "<p>Average number of orders for last 10 turns was %d</p>\n",
            player_load ());
 }
 
@@ -4528,7 +4528,7 @@ make_web_pages ()
       printf ("Can't open web page file\n");
       exit (1);
     }
-  fprintf (fd, "<html><head><title>TBG Utilities</title>\n");
+  fprintf (fd, "<!DOCTYPE html>\n<html><head><title>TBG Utilities</title>\n");
   fprintf (fd, "</head><body><div style=\"background-color:black;color:#ff8;float:right;\">\n");
   fprintf (fd, "<div id=\"all\">\n<h1>Anonymous Mail</h2>\n");
   fprintf (fd, "<div id=\"anon_mail\">\n");
@@ -4718,7 +4718,7 @@ show_candidates ()
 {
   int p;
 
-  fprintf (times, "<HR><div class=\"politics\">");
+  fprintf (times, "<hr><div class=\"politics\">");
   fprintf (times, "<table border=1>\n");
   fprintf (times, "<tr><th colspan=2>The Galactic Council</th></tr>\n");
   fprintf (times, "<tr align=center><td>President</td><td>%s</td></tr>\n",
@@ -4801,7 +4801,7 @@ make_index ()
   snprintf (fname, sizeof (fname), "%s/results/%d/index.html", webroot, 1);
   
   fd = fopen (fname, "w");
-  fprintf (fd, "<html>\n <head>\n  <title>TBG player index</title>\n </head>\n");
+  fprintf (fd, "<!DOCTYPE html>\n<html>\n <head>\n  <title>TBG player index</title>\n </head>\n");
   fprintf (fd, " <body>\n  <h1>TBG player index</h1>\n  <table>\n");
   
   for (p = 0 ; p < MAX_PLAYER ; p++)

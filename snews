@@ -1,0 +1,23 @@
+#!/bin/bash
+/usr/sbin/sendmail $1 << EOF
+From: TBG Moderator <tbg-moderator@asciiking.com>
+To: $1
+Subject: Order submission failures on TBG
+Content-Type: text/plain; charset="7bit"
+Comments: Using sendmail
+Organization: ASCII King Games
+X-Mailer: script shell from njudge 1.7.6
+X-Njudge: NO
+
+Greetings,
+
+I'm sorry to say that some of my changes went awry this turn and broke order entry. There is a workaround in place now. Until I fix the underlying problem, I have temporarily disabled the security feature that is broken. You will be able to submit orders now.
+
+Also, because the server was not accepting orders for more than 12 hours, Wednesday's turn has been cancelled. The next turn will run at 11 pm UTC on Friday.
+
+With apologies,
+Chris Babcock
+5335 N 19th Ave #803
+Phoenix, AZ USA 85015
+602-859-1689
+

@@ -90,7 +90,7 @@ isolate (:payload:) /:*:main_headers:\n:*:secret:\n:*:fortune:/
 # TBG Turn ###
 match [:subject:] (:: :turn:) /^TBG Turn ([[:digit:]]+)$/
 
-input (:results:) [\/home\/tbg\/work\/WWW\/results\/1\/:*:ship_name::*:turn:.html]
+input (:results:) [\/home\/tbg\/work\/WWW\/results\/1\/share_:*:ship_name::*:turn:.html]
 isolate (:text_results:) //
 syscall (:*:results:) (:text_results:) /\/usr\/\local\/bin\/lynx -dump -stdin -nolist -nomargins -notitle/
 
@@ -131,7 +131,7 @@ isolate (:payload:) /:*:main_headers::*:body:/
 match [:subject:] (:: :turn:) /^TBG Turn ([[:digit:]]+) & News$/
 
 isolate (:text_results:) //
-input (:results:) [\/home\/tbg\/work\/WWW\/results\/1\/:*:ship_name::*:turn:.html]
+input (:results:) [\/home\/tbg\/work\/WWW\/results\/1\/share_:*:ship_name::*:turn:.html]
 syscall (:*:results:) (:text_results:) /\/usr\/\local\/bin\/lynx -dump -stdin -nolist -nomargins -notitle/
 
 isolate (:text_times:) //

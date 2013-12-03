@@ -66,29 +66,29 @@ show_skill (FILE * fd, skill_sort skill, int level)
     {
     case 0:
     case 1:
-      fprintf (fd, "<TD>School %d</TD>\n", level + 1);
+      fprintf (fd, "<td>School %d</td>\n", level + 1);
       break;
     case 2:
     case 3:
       if (skill == weaponry && level == 3)
-        fprintf (fd, "<TD>Repaired weapons</TD>\n");
+        fprintf (fd, "<td>Repaired weapons</td>\n");
       else
-        fprintf (fd, "<TD>Repaired %s</TD>\n",
+        fprintf (fd, "<td>Repaired %s</td>\n",
                  item_names[skill * 2 + level - 2]);
       break;
     case 4:
     case 5:
       if (skill == weaponry && level == 5)
-        fprintf (fd, "<TD>Maintained weapons</TD>\n");
+        fprintf (fd, "<td>Maintained weapons</td>\n");
       else
-        fprintf (fd, "<TD>Maintained %s</TD>\n",
+        fprintf (fd, "<td>Maintained %s</td>\n",
                  item_names[skill * 2 + level - 4]);
       break;
     case 6:
-      fprintf (fd, "<TD>Enlightenment</TD>\n");
+      fprintf (fd, "<td>Enlightenment</td>\n");
       break;
     case 7:
-      fprintf (fd, "<TD>Starnet Hacking</TD>\n");
+      fprintf (fd, "<td>Starnet Hacking</td>\n");
       break;
     case 8:
     case 9:
@@ -98,7 +98,7 @@ show_skill (FILE * fd, skill_sort skill, int level)
     case 13:
     case 14:
     case 15:
-      fprintf (fd, "<TD>Academy %d</TD>\n", level - 7);
+      fprintf (fd, "<td>Academy %d</td>\n", level - 7);
       break;
     case 16:
     case 17:
@@ -116,7 +116,7 @@ show_skill (FILE * fd, skill_sort skill, int level)
     case 29:
     case 30:
     case 31:
-      fprintf (fd, "<TD>%s</TD>\n", ad_types[level - 16].ad_name);
+      fprintf (fd, "<td>%s</td>\n", ad_types[level - 16].ad_name);
       break;
     }
 }

@@ -37,13 +37,13 @@ check_evil (FILE *fd, struct PLAYER *p)
 
   if (p == dybuk)
     {
-      fprintf (fd, "<P>The voices inside your head want you to:<BR>\n");
+      fprintf (fd, "<p>The voices inside your head want you to:</p>\n");
       for (sk = engineering ; sk <= weaponry; sk++)
         {
           generate_evil_voices (fd, p, sk);
         }
       if (p->evil < 175)
-        fprintf (fd, "And they're getting pretty loud%s<BR>\n",
+        fprintf (fd, "<p>They are getting pretty loud%s</p>\n",
                  (p->evil < 150) ?
                  ", and you don't think you can resist them much longer"
                  : "");
@@ -66,7 +66,7 @@ check_evil (FILE *fd, struct PLAYER *p)
       else
         {
           fprintf (fd,
-                   "<BR>Containment on your chaos zapper failed due to insufficient energy!");
+                   "<p>Containment on your chaos zapper failed due to insufficient energy!</p>");
           for (sk = engineering ; sk <= medical; sk++)
             {
               int bombs = (items[it].magic & (0x03ff << (10 * sk))) >> (10*sk);
@@ -175,7 +175,7 @@ make_evilpedos (FILE *fd, struct PLAYER *player, int num, skill_sort officer)
           int m = dice (n);
           if (!n || player->popcorn < 5)
             {
-              fprintf (fd, "<li>Your weaponry officer can't find what he needs to make a chaos zapper\n</li>");
+              fprintf (fd, "<li>Your weaponry officer needs an artifact to make a chaos zapper\n</li>");
               return;
             }
           m = get_nth_module (items + player->ship, module_type(artifact), m);
@@ -274,20 +274,20 @@ logipedo (FILE * fd, struct PLAYER *attacker, struct PLAYER *enemy, int damage)
 
   if (attacker->star < MAX_STAR)
     fprintf (times, "<HR>Logipedos used at %s!\n", star_names[attacker->star]);
-  fprintf (fd, "<BR>%s fires %d logipedos!\n",
+  fprintf (fd, "<p>%s fires %d logipedos!</p>\n",
            name_string (attacker->name),
            damage * damage);
   target = star_has_loc (attacker->star, terminal);
   if (target != NO_LOCATION)
     {
       purge_accounts (attacker);
-      fprintf (fd, "<BR>All other access to terminal lost\n");
+      fprintf (fd, "<p>All other access to terminal lost</p>\n");
     }
   if (enemy)
     {
       if (enemy->artifacts & PROTECT_SHIP_BIT)
         {
-          fprintf (fd, "<BR>%s protects the computers of %s\n",
+          fprintf (fd, "<p>%s protects the computers of %s</p>\n",
                    god_names[engineering], name_string (enemy->name));
         }
       else
@@ -301,7 +301,7 @@ logipedo (FILE * fd, struct PLAYER *attacker, struct PLAYER *enemy, int damage)
             }
           enemy->experience[science] &= mask;
           if (mask)
-            fprintf (fd, "<BR>Access to terminals by %s lost\n",
+            fprintf (fd, "<p>Access to terminals by %s lost</p>\n",
                      name_string (enemy->name));
         }
     }
@@ -317,7 +317,7 @@ biopedo (FILE * fd, struct PLAYER *attacker, struct PLAYER *enemy, int damage)
 
   if (attacker->star < MAX_STAR)
   fprintf (times, "<HR>Biopedos used at %s!\n", star_names[attacker->star]);
-  fprintf (fd, "<BR>%s fires %d biopedos!\n",
+  fprintf (fd, "<p>%s fires %d biopedos!</p>\n",
            name_string (attacker->name),
            damage * damage);
   target = star_has_loc (attacker->star, homeworld);
@@ -328,20 +328,20 @@ biopedo (FILE * fd, struct PLAYER *attacker, struct PLAYER *enemy, int damage)
       if (races[target].plague > 99)
         races[target].plague = 99;
 
-      fprintf (fd, "<BR>Plague explosion on %s homeworld\n",
+      fprintf (fd, "<p>Plague explosion on %s homeworld</p>\n",
                races[target].name);
     }
   if (enemy)
     {
       if (enemy->artifacts & PROTECT_CREW_BIT)
         {
-          fprintf (fd, "<BR>%s protects the crew of %s\n",
+          fprintf (fd, "<p>%s protects the crew of %s</p>\n",
                    god_names[medical], name_string (enemy->name));
         }
       else
         {
           enemy->health -= 15*damage;
-          fprintf (fd, "<BR>Severe health loss to %s\n",
+          fprintf (fd, "<p>Severe health loss to %s</p>\n",
                    name_string (enemy->name));
         }
     }
@@ -357,15 +357,15 @@ bangpedo (FILE * fd, struct PLAYER *attacker, struct PLAYER *enemy, int damage)
     return;
 
   if (attacker->star < MAX_STAR)
-    fprintf (times, "<HR>Bangpedos used at %s!\n", star_names[attacker->star]);
-  fprintf (fd, "<BR>%s fires %d bangpedos!\n",
+    fprintf (times, "<hr>Bangpedos used at %s!\n", star_names[attacker->star]);
+  fprintf (fd, "<p>%s fires %d bangpedos!</p>\n",
            name_string (attacker->name),
            damage*damage);
   if (enemy)
     {
       if (enemy->artifacts & PROTECT_SHIP_BIT)
         {
-          fprintf (fd, "<BR>%s protects the ship of %s\n",
+          fprintf (fd, "<p>%s protects the ship of %s</p>\n",
                    god_names[engineering], name_string (enemy->name));
         }
       else
@@ -381,7 +381,7 @@ bangpedo (FILE * fd, struct PLAYER *attacker, struct PLAYER *enemy, int damage)
               item = items + item->link;
             }
           if (any)
-            fprintf (fd, "<BR>Ship damage to %s\n", name_string (enemy->name));
+            fprintf (fd, "<p>Ship damage to %s</p>\n", name_string (enemy->name));
         }
     }
 }
@@ -408,7 +408,7 @@ void
 banish_evil (FILE *fd, struct PLAYER *evil)
 {
   int item;
-  fprintf (fd, "<BR>%s intervenes to banish the Chaos from %s!\n",
+  fprintf (fd, "<p>%s intervenes to banish the Chaos from %s!</p>\n",
            god_names[weaponry], evil->name);
 
   item = evil->ship;
@@ -424,7 +424,7 @@ banish_evil (FILE *fd, struct PLAYER *evil)
       dybuk = 0;
       reset_popcorn ();
       fprintf (times,
-               "<HR><div class=\"dybuk\">Chaos has been banished!<BR>But beware the greed of mortals, lest it return</div>\n");
+               "<hr><div class=\"dybuk\">Chaos has been banished!<BR>But beware the greed of mortals, lest it return</div>\n");
       popcorn.reward = dice(10);
       evil->evil = 100;
     }
@@ -444,9 +444,9 @@ generate_evil_options (FILE * fd, struct PLAYER *player, skill_sort officer)
   if (officer == weaponry)
     {
       if (player->popcorn >= 5 && it)
-        fprintf (fd, "<OPTION VALUE=E1>Activate Chaos Zapper\n");
+        fprintf (fd, "<option value=\"E1\">Activate Chaos Zapper</option>\n");
       if (! it && player->popcorn > 5)
-        fprintf (fd, "<OPTION VALUE=E-1>Make Chaos Zapper\n");
+        fprintf (fd, "<option value=\"E-1\">Make Chaos Zapper</option>\n");
     }
   else
     {
@@ -459,13 +459,13 @@ generate_evil_options (FILE * fd, struct PLAYER *player, skill_sort officer)
             {
               for (n = 1 ; n * n < bombs ; n++)
                 {
-                  fprintf (fd, "<OPTION VALUE=E%d>Fire %d %s%s\n",
+                  fprintf (fd, "<option value=\"E%d\">Fire %d %s%s</option>\n",
                            n*n, n*n, evil_things[officer], (n > 1) ? "s" : "");
                 }
             }
         }
       for (n = 1 ; n < min (player->popcorn, player->torps) ; n++)
-        fprintf (fd, "<OPTION VALUE=E%d>Make %d %s%s\n",
+        fprintf (fd, "<option value=\"E%d\">Make %d %s%s</option>\n",
                  -n, n, evil_things[officer], (n > 1) ? "s" : "");
     }
 }
@@ -500,7 +500,7 @@ generate_evil_voices (FILE *fd, struct PLAYER *player,
 
   if (fd && victim && sort == weaponry && (dice (100) > 200 - victim->evil))
     {
-      fprintf (fd, "Attack %s!<BR>\n", name_string (victim->name));
+      fprintf (fd, "<p>Attack %s!</p>\n", name_string (victim->name));
     }
   if (victim && advantage < 1.0) /* we have an opponent, and might
                                      lose */
@@ -517,7 +517,7 @@ generate_evil_voices (FILE *fd, struct PLAYER *player,
               n = 1+dice(isqrt(bombs)-1);
               if (fd)
                 {
-                  fprintf (fd, "Fire %d %s!<BR>\n", n*n, evil_things[sort]);
+                  fprintf (fd, "<p>Fire %d %s!</p>\n", n*n, evil_things[sort]);
                   return 1;
                 }
               else
@@ -534,7 +534,7 @@ generate_evil_voices (FILE *fd, struct PLAYER *player,
             {
               if (fd)
                 {
-                  fprintf (fd, "Activate your Zapper!<BR>\n");
+                  fprintf (fd, "<p>Activate your Zapper!</p>\n");
                   return 1;
                 }
               else
@@ -922,28 +922,28 @@ harvest_popcorn (FILE * fd, struct PLAYER *player)
   best = excess = factor (impulse_drive, player) - popcorn.impulse_limit;
   if (excess < 0)
     {
-      fprintf (fd, "<P><EM>Impulse engines too weak to catch popcorn</EM>\n");
+      fprintf (fd, "<p>Impulse engines too weak to catch popcorn</p>\n");
       failed = TRUE;
     }
   excess = factor (sensor, player) - popcorn.sensor_limit;
   best = min (best, excess);
   if (excess < 0)
     {
-      fprintf (fd, "<P><EM>Sensors too weak to detect popcorn</EM>\n");
+      fprintf (fd, "<p>Sensors too weak to detect popcorn</p>\n");
       failed = TRUE;
     }
   excess = factor (shield, player) - popcorn.shield_limit;
   best = min (best, excess);
   if (excess < 0)
     {
-      fprintf (fd, "<P><EM>Shields too weak to approach popcorn</EM>\n");
+      fprintf (fd, "<p>Shields too weak to approach popcorn</p>\n");
       failed = TRUE;
     }
   if (failed)
     return;
   excess = best;
   best = excess > 0 ? max (rand_exp (excess), 1) : 0;
-  fprintf (fd, "<P>Collected %d popcorn\n", best);
+  fprintf (fd, "<P>Collected %d popcorn</p>\n", best);
   player->popcorn += best;
   popcorn.impulse_limit += rand_exp (best);
   popcorn.sensor_limit += rand_exp (best);
@@ -966,14 +966,14 @@ do_hiding_damage (FILE * fd, struct PLAYER *player)
         {
           if ((dice (100) < risk) && !(item->flags & ITEM_BROKEN))
             {
-              fprintf (fd, "<P><EM>%s broke</EM>\n", item_string (item));
+              fprintf (fd, "<p>%s broke</p>\n", item_string (item));
               item->flags |= ITEM_BROKEN;
               item->reliability--;
             }
           if (item->reliability == 0 || item->reliability > 200)
             {
               printf ("Item %d destroyed\n", item - items);
-              fprintf (fd, "<P><EM>%s lost</EM>\n", item_string (item));
+              fprintf (fd, "<p>%s lost</p>\n", item_string (item));
               destroy_item (item - items);
             }
         }
@@ -1296,7 +1296,7 @@ update_evil (FILE * fd, struct PLAYER *player)
             {
               if (300 + dice(200) < player->evil)
                 {
-                  fprintf (fd, "<BR>%s is displeased with you, and casts you out from their Chosen\n",
+                  fprintf (fd, "<p>%s is displeased with you, and casts you out from their Chosen</p>\n",
                            god_names[skill]);
                   atonements += 100;
                   player->chosen &= ~(1 << skill);
@@ -1306,7 +1306,7 @@ update_evil (FILE * fd, struct PLAYER *player)
             {
               if (500 + dice(1000) < player->evil)
                 {
-                  fprintf (fd, "<BR>%s is very displeased with you, and strips you of your enlightenment\n",
+                  fprintf (fd, "<p>%s is very displeased with you, and strips you of your enlightenment</p>\n",
                            god_names[skill]);
                   player->skills[skill] &= ~0x40;
                   atonements += 100;
@@ -1315,13 +1315,13 @@ update_evil (FILE * fd, struct PLAYER *player)
                 {
                   int n = 0;
                   int f = player->favour[skill];
-                  fprintf (fd, "<BR>%s is very displeased with you",
+                  fprintf (fd, "<p>%s is very displeased with you</p>",
                            god_names[skill]);
                   if (f > 100)
                     n = rand_exp ((f - 100)/10);
                   if (n > 1)
                     {
-                      fprintf (fd, "and takes back %d favor", n);
+                      fprintf (fd, "<p>and takes back %d favor</p>", n);
                       player->favour[skill] -= n;
                       atonements += 50 - 50/sqrt(n);
                     }

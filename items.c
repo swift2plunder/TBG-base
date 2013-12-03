@@ -277,7 +277,7 @@ check_reliability (FILE * fd, struct PLAYER *player)
           else if (item->flags & ITEM_DEMO && item->reliability < 60)
             {
               fprintf (fd,
-                       "<p>You have a severely unreliable demo module (%s), you should probably discard it.</p>\n",
+                       "<p class=\"warning\">You have a severely unreliable demo module (%s), you should probably discard it.</p>\n",
                        item_string (item));
               fprintf (fd,
                        "<p>If your ship is mainly like this, you should probably restart.</p>\n");

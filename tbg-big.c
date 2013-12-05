@@ -1826,17 +1826,17 @@ show_orders (FILE *fd, struct PLAYER *player)
 
   fprintf (fd, "<HR>\n");
   fprintf (fd,
-           "<H2>Links to Useful Resources - Don't Die of Ignorance!</H2>\n");
+           "<h2>Links to Useful Resources</h2>\n");
   fprintf (fd,
-           "<LI>The <A HREF=\"http://%s/Rules.html\"><EM>RULES</EM></A>: if you want to do well, read early and often\n",
+           "<li>The <a href=\"http://%s/Rules.html\"><em>RULES</em></a>: if you want to do well, read early and often</li>\n",
            server);
   fprintf (fd,
-           "<LI>To contact other players you can use these <A HREF=\"http://%s/alias.html\">utilities</A> for sending anonymous mail to other players and other odd services. Remember to sign mail if you want a reply.\n",
+           "<li>Use these <a href=\"http://%s/alias.html\">utilities</a> to contact other players.</li>\n",
            server);
   fprintf (fd,
-           "<LI>Keep up with news, gossip, and libel with the latest issue of the <A HREF=\"http://%s/times.html\">Subspace Times</A>, \n",
+           "<li>Check out the latest issue of the <a href=\"http://%s/times.html\">Subspace Times</a>.</li>\n",
            server);
-  fprintf (fd,
+/*  fprintf (fd,
            "or browse back copies via the <A HREF=\"http://%s/news/times.cgi\">SST Times archive</A>\n",
            server);
   fprintf (fd,
@@ -1844,19 +1844,18 @@ show_orders (FILE *fd, struct PLAYER *player)
            server);
   fprintf (fd,
            "<LI>Use <A HREF=\"http://%s/open.html\">this form</A> to open a w++ account. For TBG this gives you a web page on %s linked to your shipname and a way to put images in your banner.\n",
-           server, server, server);
+           server, server, server); */
   fprintf (fd,
-           "<LI>There's a mailing list for design discussion on TBG and our other games, hosted by <A HREF=\"http://groups.yahoo.com/subscribe/TBG_Design\">Yahoo groups</A>. To join, register with Yahoo and then subscribe to TBG_Design\n");
+           "<li>Join the <a href=\"http://groups.yahoo.com/subscribe/TBG_Design\">design discussion</a> on Yahoo Groups.</li>\n");
   fprintf (fd,
-           "<LI>For wider discussions, you can also check out the TBG <A HREF=\"http://groups.yahoo.com/subscribe/TBG_OpenForum\">Open Forum</A>. Also provided by yahoo groups.\n");
+           "<li>For in game discussions, check out the TBG <a href=\"http://groups.yahoo.com/subscribe/TBG_OpenForum\">Open Forum</a>.</li>\n");
   fprintf (fd,
-           "<LI>Here are just the <a href=\"http://%s/cgi-bin/rank.crm?%s\">ranking lists</a> that contain your ship.\n",
+           "<li>Here are the <a href=\"http://%s/cgi-bin/rank.crm?%s\">ranking lists</a> that contain your ship.</li>\n</ul>\n",
            server, url_shipname (player->name));
   fprintf (fd,
-           "<P><HR><H2>Administrative Section (Not needed in normal turns)</H2>\n");
+           "<hr><h2>Administrative Section (Not needed in normal turns)</h2>\n");
   if (player->x_from[0])
-    fprintf (fd, "Your orders this turn came from %s.\n", player->x_from);
-/* Bug 192.4 - Drop admin section of turns
+    fprintf (fd, "<p>Your orders this turn came from %s.</p>\n", player->x_from);
   fprintf (fd, "<H2>Preferences</H2>\n");
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Separate Times Mailing\n",
@@ -1865,14 +1864,14 @@ show_orders (FILE *fd, struct PLAYER *player)
            player->preferences & 1 ? "SELECTED" : "");
   fprintf (fd, "</SELECT>\n");
 
-
+/*
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Mail via server\n",
            player->preferences & 4 ? "" : "SELECTED");
   fprintf (fd, "<OPTION VALUE=4 %s>Mail directly\n",
            player->preferences & 4 ? "SELECTED" : "");
   fprintf (fd, "</SELECT>\n");
-// Bug 8 - Do not offer direct mail
+// Bug 8 - Do not offer direct mail  */
 
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Restart on loss of ship\n",
@@ -1887,14 +1886,13 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf (fd, "<OPTION VALUE=16 %s>Acknowledge Orders\n",
            player->preferences & 16 ? "SELECTED" : "");
   fprintf (fd, "</SELECT>\n");
-*/
+
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Keep secret URL %s\n",
            "SELECTED", uint32_name (player->password));
   fprintf (fd, "<OPTION VALUE=64>Change to new secret URL\n");
   fprintf (fd, "</SELECT>\n");
 
-/* Bug 192.4 - Drop admin section of turns
   fprintf (fd, "<SELECT NAME=\"u\">\n");
   fprintf (fd, "<OPTION VALUE=0 %s>Mail Full Results\n",
            player->preferences & 128 ? "" : "SELECTED");
@@ -1913,7 +1911,7 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf (fd, "<INPUT TYPE=TEXT SIZE=70 NAME=\"w\" VALUE=\"%s\">",
            player->web_source);
   fprintf (fd, "</FORM>\n");
-*/
+
   if (player->preferences & 4)
     {
       fprintf (fd, "<form action=\"mailto:tbg@%s\" method=\"post\">\n",
@@ -4446,9 +4444,10 @@ make_links ()
                 webroot, uint32_name (players[p].password));
       unlink (buffer);
 
+      /* Bug 234.1 - Shut down PHP turnulator
       snprintf (buffer, 256, "%s/%s.php",
                 webroot, uint32_name (players[p].password));
-      unlink (buffer);
+      unlink (buffer); */
 
       snprintf (buffer, 256, "%s/share_%s.htm", webroot,
                uint32_name (public_password(players[p].password)));
@@ -4460,10 +4459,11 @@ make_links ()
                 uint32_name (players[p].password));
       force_symlink (buffer, buf2);
 
+      /* Bug 234.1 - Shut down PHP turnulator
       snprintf (buffer, 256, "%s/turnulator.php", webroot);
       snprintf (buf2, 256, "%s/%s.php", webroot,
                 uint32_name (players[p].password));
-      force_symlink (buffer, buf2);
+      force_symlink (buffer, buf2); */
 
       snprintf (buffer, 256,
                "%s/results/%d/share_%s%d.html",

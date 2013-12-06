@@ -1836,10 +1836,10 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf (fd,
            "<li>Check out the latest issue of the <a href=\"http://%s/times.html\">Subspace Times</a>.</li>\n",
            server);
-/*  fprintf (fd,
-           "or browse back copies via the <A HREF=\"http://%s/news/times.cgi\">SST Times archive</A>\n",
-           server);
   fprintf (fd,
+           "<li>Browse back copies via the <a href=\"http://%s/news/\">Subspace Times archive</a></li>\n",
+           server);
+/*  fprintf (fd,
            "<LI>Some players have <A HREF=\"http://%s/players\">pages</A> on the TBG server. Note that while the bigger ones are generally more interesting, some of the small ones are just links to interesting TBG pages on other servers.",
            server);
   fprintf (fd,

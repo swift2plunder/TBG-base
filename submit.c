@@ -64,7 +64,6 @@ int
 check_key (char *name, int turn, int key)
 {
   int checksum;
-  return (TRUE); // TEMPORARILY disable key checking
 
   checksum = make_key(name,turn);
   if (checksum != key)

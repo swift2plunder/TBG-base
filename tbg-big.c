@@ -1850,8 +1850,11 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf (fd,
            "<li>For in game discussions, check out the TBG <a href=\"http://groups.yahoo.com/subscribe/TBG_OpenForum\">Open Forum</a>.</li>\n");
   fprintf (fd,
-           "<li>Here are the <a href=\"http://%s/cgi-bin/rank.crm?%s\">ranking lists</a> that contain your ship.</li>\n</ul>\n",
+           "<li>Here are the <a href=\"http://%s/cgi-bin/rank.crm?%s\">ranking lists</a> that contain your ship.</li>\n",
            server, url_shipname (player->name));
+  fprintf (fd,
+           "<li>Please help support development of TBG. Become a <a href=\"http://%s/donors.html\">donor</a> today.</li>\n</ul>\n");
+
   fprintf (fd,
            "<hr><h2>Administrative Section (Not needed in normal turns)</h2>\n");
   if (player->x_from[0])

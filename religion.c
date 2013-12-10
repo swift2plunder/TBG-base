@@ -1101,8 +1101,12 @@ check_favour (FILE * fd, struct PLAYER *player)
     }
 
 
+  fprintf (fd, "<ul class=\"favour\">\n");
+
   for (skill = engineering; skill <= weaponry; skill++)
-    fprintf (fd, "<LI>%s: %d\n", skill_names[skill], player->favour[skill]);
+    fprintf (fd, "<li>%s: %d</li>\n", skill_names[skill], player->favour[skill]);
+
+  fprintf (fd, "</ul>\n");
 
   if (player->star == popcorn.star && ! dybuk)
     {

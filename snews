@@ -2,7 +2,7 @@
 /usr/sbin/sendmail $1 << EOF
 From: TBG Moderator <tbg-moderator@asciiking.com>
 To: $1
-Subject: Order submission failures on TBG
+Subject: TBG will be back soon with your regular ship still in progress
 Content-Type: text/plain; charset="7bit"
 Comments: Using sendmail
 Organization: ASCII King Games
@@ -11,9 +11,9 @@ X-Njudge: NO
 
 Greetings,
 
-I'm sorry to say that some of my changes went awry this turn and broke order entry. There is a workaround in place now. Until I fix the underlying problem, I have temporarily disabled the security feature that is broken. You will be able to submit orders now.
+I'm sorry to say that some of my changes went much more awry than I hithertofore expected. As a consequence, everyone was restarted. This obviously cannot be allowed to stand and it won't. You'll be able to pick up with your ship as it was last turn once I am done.
 
-Also, because the server was not accepting orders for more than 12 hours, Wednesday's turn has been cancelled. The next turn will run at 11 pm UTC on Friday.
+I will restore the server to the most recent turn possible and run this turn again, at which point I will let you know when the next turn will run.
 
 With apologies,
 Chris Babcock

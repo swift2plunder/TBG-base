@@ -1749,7 +1749,7 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf(fd, "Your information-sharing url is: share_%s.htm<br>\n",
           uint32_name(public_password(player->password)));
   fprintf (fd,
-           "<form action=\"http://%s/cgi-bin/submit.crm\" method=\"post\">\n",
+           "<form action=\"http://%s/cgi-bin/submit_flags.crm\" method=\"post\">\n",
            server);
   //      if (player->star != HOLIDAY && player->star < MAX_STAR)
   {
@@ -1923,7 +1923,7 @@ show_orders (FILE *fd, struct PLAYER *player)
   else
     {
       fprintf (fd,
-               "<form action=\"http://%s/cgi-bin/submit.crm\" method=\"post\">\n",
+               "<form action=\"http://%s/cgi-bin/submit_flags.crm\" method=\"post\">\n",
                server);
       fprintf (fd, "<input type=\"hidden\" name=\"to\" value=\"tbg@%s\">\n",
                mail_server);
@@ -1946,7 +1946,7 @@ show_orders (FILE *fd, struct PLAYER *player)
   else
     {
       fprintf (fd,
-               "<form action=\"http://%s/cgi-bin/submit.crm\" method=\"post\">\n",
+               "<form action=\"http://%s/cgi-bin/submit_flags.crm\" method=\"post\">\n",
                server);
       fprintf (fd, "<input type=\"hidden\" name=\"to\" value=\"tbg@%s\">\n",
                mail_server);

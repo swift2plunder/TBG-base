@@ -1856,13 +1856,13 @@ show_orders (FILE *fd, struct PLAYER *player)
            "<hr><h2>Administrative Section (Not needed in normal turns)</h2>\n");
   if (player->x_from[0])
     fprintf (fd, "<p>Your orders this turn came from %s.</p>\n", player->x_from);
-  fprintf (fd, "<H2>Preferences</H2>\n");
-  fprintf (fd, "<SELECT NAME=\"u\">\n");
-  fprintf (fd, "<OPTION VALUE=0 %s>Separate Times Mailing\n",
-           player->preferences & 1 ? "" : "SELECTED");
-  fprintf (fd, "<OPTION VALUE=1 %s>Results & Times in Same Mailing\n",
-           player->preferences & 1 ? "SELECTED" : "");
-  fprintf (fd, "</SELECT>\n");
+  fprintf (fd, "<h3>Preferences</h3>\n");
+  fprintf (fd, "<select name=\"u\">\n");
+  fprintf (fd, "<option value=\"0\" %s>Separate Times Mailing</option>\n",
+           player->preferences & 1 ? "" : "selected");
+  fprintf (fd, "<option value=\"1\" %s>Results & Times in Same Mailing</option>\n",
+           player->preferences & 1 ? "selected" : "");
+  fprintf (fd, "</select>\n");
 
 /*
   fprintf (fd, "<SELECT NAME=\"u\">\n");
@@ -1873,44 +1873,44 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf (fd, "</SELECT>\n");
 // Bug 8 - Do not offer direct mail  */
 
-  fprintf (fd, "<SELECT NAME=\"u\">\n");
-  fprintf (fd, "<OPTION VALUE=0 %s>Restart on loss of ship\n",
-           player->preferences & 8 ? "" : "SELECTED");
-  fprintf (fd, "<OPTION VALUE=8 %s>No automatic restart\n",
-           player->preferences & 8 ? "SELECTED" : "");
-  fprintf (fd, "</SELECT>\n");
+  fprintf (fd, "<select name=\"u\">\n");
+  fprintf (fd, "<option value=\"0\" %s>Restart on loss of ship</option>\n",
+           player->preferences & 8 ? "" : "selected");
+  fprintf (fd, "<option value=\"8\" %s>No automatic restart</option>\n",
+           player->preferences & 8 ? "selected" : "");
+  fprintf (fd, "</select>\n");
 
-  fprintf (fd, "<SELECT NAME=\"u\">\n");
-  fprintf (fd, "<OPTION VALUE=0 %s>Don't Acknowledge Orders\n",
-           player->preferences & 16 ? "" : "SELECTED");
-  fprintf (fd, "<OPTION VALUE=16 %s>Acknowledge Orders\n",
-           player->preferences & 16 ? "SELECTED" : "");
-  fprintf (fd, "</SELECT>\n");
+  fprintf (fd, "<select name=\"u\">\n");
+  fprintf (fd, "<option value=\"0\" %s>Don't Acknowledge Orders</option>\n",
+           player->preferences & 16 ? "" : "selected");
+  fprintf (fd, "<option value=\"16\" %s>Acknowledge Orders</option>\n",
+           player->preferences & 16 ? "selected" : "");
+  fprintf (fd, "</select>\n");
 
-  fprintf (fd, "<SELECT NAME=\"u\">\n");
-  fprintf (fd, "<OPTION VALUE=0 %s>Keep secret URL %s\n",
-           "SELECTED", uint32_name (player->password));
-  fprintf (fd, "<OPTION VALUE=64>Change to new secret URL\n");
-  fprintf (fd, "</SELECT>\n");
+  fprintf (fd, "<select name=\"u\">\n");
+  fprintf (fd, "<option value=\"0\" %s>Keep secret URL %s</option>\n",
+           "selected", uint32_name (player->password));
+  fprintf (fd, "<option value=64>Change to new secret URL\n");
+  fprintf (fd, "</select>\n");
 
-  fprintf (fd, "<SELECT NAME=\"u\">\n");
-  fprintf (fd, "<OPTION VALUE=0 %s>Mail Full Results\n",
-           player->preferences & 128 ? "" : "SELECTED");
-  fprintf (fd, "<OPTION VALUE=128 %s>Mail Only Secret URL\n",
-           player->preferences & 128 ? "SELECTED" : "");
-  fprintf (fd, "</SELECT>\n");
+  fprintf (fd, "<select name=\"u\">\n");
+  fprintf (fd, "<option value=\"0\" %s>Mail Full Results</option>\n",
+           player->preferences & 128 ? "" : "selected");
+  fprintf (fd, "<option value=\"128\" %s>Mail Only Secret URL</option>\n",
+           player->preferences & 128 ? "selected" : "");
+  fprintf (fd, "</select>\n");
 
-  fprintf (fd, "<SELECT NAME=\"u\">\n");
-  fprintf (fd, "<OPTION VALUE=0 %s>Minimise Ship Details\n",
-           player->preferences & 256 ? "" : "SELECTED");
-  fprintf (fd, "<OPTION VALUE=256 %s>Full Ship Details\n",
-           player->preferences & 256 ? "SELECTED" : "");
-  fprintf (fd, "</SELECT>\n");
+  fprintf (fd, "<select name=\"u\">\n");
+  fprintf (fd, "<option value=\"0\" %s>Minimise Ship Details</option>\n",
+           player->preferences & 256 ? "" : "selected");
+  fprintf (fd, "<option value=\"256\" %s>Full Ship Details</option>\n",
+           player->preferences & 256 ? "selected" : "");
+  fprintf (fd, "</select>\n");
 
-  fprintf (fd, "<H2>New Web Root</H2>\n");
-  fprintf (fd, "<INPUT TYPE=TEXT SIZE=70 NAME=\"w\" VALUE=\"%s\">",
+  fprintf (fd, "<!-- <H2>New Web Root</H2> -->\n");
+  fprintf (fd, "<input type=\"hidden\" size=\"70\" name=\"w\" value=\"%s\">",
            player->web_source);
-  fprintf (fd, "</FORM>\n");
+  fprintf (fd, "</form>\n");
 
   if (player->preferences & 4)
     {
@@ -1972,7 +1972,7 @@ show_orders (FILE *fd, struct PLAYER *player)
     }
   else
     fclose (temp);
-    fprintf(fd, "<!-- Order submission ends -->\n");
+  fprintf(fd, "<!-- Order submission ends -->\n");
 }
 
 void

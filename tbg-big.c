@@ -3922,11 +3922,11 @@ read_all_orders ()
     }
   active_players = total_hits;
   fprintf (times,
-           "<hr><h2>Player Stats</H2>%d notionally active players, %d missed this turn, %d on holiday.</h2>\n",
+           "<hr><h2>Player Stats</h2><p>%d notionally active players, %d missed this turn, %d on holiday. ",
            total_players - moths,
            total_players - total_hits - holidays - moths,
            holidays);
-  fprintf (times, "<p>Average number of orders for last 10 turns was %d</p>\n",
+  fprintf (times, "Average number of orders for last 10 turns was %d</p>\n",
            player_load ());
 }
 

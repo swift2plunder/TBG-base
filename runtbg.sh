@@ -22,5 +22,5 @@ cp /home/tbg/work/WWW/results/1/times* /home/tbg/work/WWW/news/
 
 # Cleanup old order files and broken symlinks
 find /home/tbg/work/WWW/orders/1/ -mtime +14 -exec rm {} \;
-find -L /home/tbg/work/WWW/ -type l -delete
+find -L /home/tbg/work/WWW/ -type l -delete 2> /dev/null
 

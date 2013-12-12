@@ -1222,6 +1222,7 @@ show_gif_map (FILE * fd, struct PLAYER *player)
   int jump;
 
   fprintf (fd, "<hr><div id=\"starmap\"><h2>Starmap</h2>\n");
+  fprintf (fd, "<p class=\"hint\">Hover over star icon to reveal jump costs.</p>");
 /*if ((player->star >= 0 && player->star < MAX_STAR)
       || player->star == OLYMPUS)
     {
@@ -1296,7 +1297,6 @@ show_gif_map (FILE * fd, struct PLAYER *player)
       fprintf (fd, "</tr>\n");
     }
   fprintf (fd, "</table>\n");
-  fprintf (fd, "<p>Hover over star icon to reveal jump costs.</p>");
   fprintf (fd, "</div><hr>\n");  
 }
 
@@ -1798,7 +1798,7 @@ show_orders (FILE *fd, struct PLAYER *player)
   fprintf (fd, "</td></tr>\n");
   fprintf (fd, "</table>\n");
   fprintf (fd, "<table class=\"minor_options\">\n");
-  fprintf (fd, "<tr><th>Minor Options<div style=\"font-size:8pt;\">Hold control or command key to select multiple options.</div></th></tr>\n");
+  fprintf (fd, "<tr><th>Minor Options<div class=\"hint\">Hold control or command key to select multiple options.</div></th></tr>\n");
   fprintf (fd, "<tr>\n");
   show_scrap_options (fd, player);
   fprintf (fd, "</tr><tr>\n");

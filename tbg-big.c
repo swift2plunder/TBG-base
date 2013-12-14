@@ -1809,7 +1809,7 @@ show_orders (FILE *fd, struct PLAYER *player)
     show_combat_options (fd, player, enemy);
   show_merc_options (fd, player);
   fprintf (fd, "<hr><h2>Flag to Display</h2>\n");
-  fprintf (fd, "<textarea rows=\"5\" cols=\"70\" name=\"f\" value=\"%%edit_flag%%%s%%\"></textarea>",
+  fprintf (fd, "<textarea rows=\"5\" cols=\"70\" name=\"f\">%%edit_flag%%%s%%</textarea>",
            player->banner_source);
 /*  fprintf (fd,
            "<br>(No HTML allowed. Images can be accessed as a special case, but only from the %s server's <a href=\"http://%s/images\">images</a> directory, uploaded via your w++ account page. To set one of these images as your banner, use the hash character and its filename, eg #deathstar.gif)\n",

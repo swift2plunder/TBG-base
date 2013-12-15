@@ -4805,7 +4805,7 @@ make_index ()
   
   fd = fopen (fname, "w");
   fprintf (fd, "<!DOCTYPE html>\n<html>\n <head>\n  <title>TBG player index</title>\n </head>\n");
-  fprintf (fd, " <body>\n  <h1>TBG player index</h1>\n  <table>\n");
+  fprintf (fd, " <body>\n  <h1>TBG player index</h1>\n  <table id=\"admin\">\n");
   
   for (p = 0 ; p < MAX_PLAYER ; p++)
     {

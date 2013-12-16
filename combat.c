@@ -1304,6 +1304,7 @@ resolve_combat (FILE * fd, struct PLAYER *attacker, struct PLAYER *defender)
                                               20 + 5 * range);
         }
 
+      fprintf (fd, "<h5 class=\"phase\">End of Round</h5>");
       if (resolve_retreats (fd, attacker, defender, range))
         winner = defender;
       else if (resolve_retreats (fd, defender, attacker, range))

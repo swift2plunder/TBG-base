@@ -410,6 +410,12 @@ priority (FILE * fd, struct PLAYER *player, skill_sort officer)
                    skill_names[repairers[it->sort]], item_string (it),
                    it->reliability);
         }
+      else
+        {
+        fprintf (fd,
+                   "<li>%s crew reports priority maintenance not possible on %s</li>\n",
+                   skill_names[repairers[it->sort]], item_string (it));
+        }
     }
   free (array);
 }

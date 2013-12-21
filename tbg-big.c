@@ -1347,7 +1347,8 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
   struct ITEM *item = items + player->ship;
   int i, loc, level, parameter, criminal;
   int done_popcorn = FALSE, done_medicine = FALSE;
-
+  int can_maintain = FALSE;
+  
   if (sort == engineering && total_item (warp_drive, items + player->ship) == 0 &&
       player->energy >= 500)
     {
@@ -1400,7 +1401,6 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
     }
   if (player->crew[sort])
     fprintf (fd, "<option value=\"T%d\">Train Crew</option>\n", sort);
-  fprintf (fd, "<option value=\"m\">Priority Maintenance</option>\n");
   while (item - items)
     {
       if (repairers[item->sort] == sort && item->sort < pod)
@@ -1411,11 +1411,14 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
           if (effective_skill_level (player, sort) >
               item->efficiency * item->efficiency
               && !(item->flags & ITEM_DEMO) && item->reliability < 99)
+            can_maintain = TRUE;
             fprintf (fd, "<option value=\"M%d\">Maintain %s %s (%d%%)</option>\n",
                      item - items, tech_level_names[item->efficiency], item_string (item), item->reliability);
         }
       item = items + item->link;
     }
+  if can_maintain
+    fprintf (fd, "<option value=\"m\">Priority Maintenance</option>\n");
   for (loc = 0; loc < MAX_ADVENTURE; loc++)
     {
       parameter = adventures[loc].parameter;

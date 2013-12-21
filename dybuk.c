@@ -445,7 +445,8 @@ generate_evil_options (FILE * fd, struct PLAYER *player, skill_sort officer)
     {
       if (player->popcorn >= 5 && it)
         fprintf (fd, "<option value=\"E1\">Activate Chaos Zapper</option>\n");
-      if (! it && player->popcorn > 5)
+      if (! it && player->popcorn > 5
+          && count_modules (items + player->ship, (module_type (artifact))))
         fprintf (fd, "<option value=\"E-1\">Make Chaos Zapper</option>\n");
     }
   else

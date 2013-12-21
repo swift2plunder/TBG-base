@@ -1417,7 +1417,7 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
         }
       item = items + item->link;
     }
-  if can_maintain
+  if (can_maintain)
     fprintf (fd, "<option value=\"m\">Priority Maintenance</option>\n");
   for (loc = 0; loc < MAX_ADVENTURE; loc++)
     {

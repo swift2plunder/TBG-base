@@ -391,7 +391,7 @@ generate_prophet_options (FILE * fd, struct PLAYER *player)
       do_some = TRUE;
   if (!do_some)
     return;
-  fprintf (fd, "<table id=\"prophet_options\">\n");
+  fprintf (fd, "<table class=\"prophet_options\">\n");
   for (sort = engineering; sort <= weaponry; sort++)
     if (prophets[sort] == player - players)
       {

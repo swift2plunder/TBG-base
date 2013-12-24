@@ -1411,9 +1411,11 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
           if (effective_skill_level (player, sort) >
               item->efficiency * item->efficiency
               && !(item->flags & ITEM_DEMO) && item->reliability < 99)
+            {
             can_maintain = TRUE;
             fprintf (fd, "<option value=\"M%d\">Maintain %s %s (%d%%)</option>\n",
                      item - items, tech_level_names[item->efficiency], item_string (item), item->reliability);
+            }
         }
       item = items + item->link;
     }

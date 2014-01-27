@@ -2958,7 +2958,7 @@ collect (FILE * fd, struct PLAYER *player, int loc, char qualifier)
           break;
         }
       amount = fuzz(5 * locations[loc].risk);
-      fprintf (fd, "<li class=\"officer\">Gained $%d skimming star>\n", amount);
+      fprintf (fd, "<li class=\"officer\">Gained $%d skimming star\n", amount);
       player->energy += amount;
       if (dice (100) < locations[loc].risk)
         {

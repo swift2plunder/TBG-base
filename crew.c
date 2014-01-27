@@ -107,7 +107,7 @@ check_health (FILE * fd, struct PLAYER *p)
   if (p->popcorn > 0)
     {
       p->health -= p->popcorn * 5;
-      fprintf (fd, "<p>Popcorn cargo reduces health by %d%%</p>\n", p->popcorn);
+      fprintf (fd, "<p>Popcorn cargo reduces crew health</p>\n");
     }
   p->health += factor (life_support, p)/2;
   if (p->health > 999)

@@ -1476,7 +1476,7 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
             {
             case engineering:
               if (effective_skill_level (player, engineering) > 0)
-                 fprintf (fd, "<option value \"U%d\">Destabilize orbit of %s %d</option>\n",
+                 fprintf (fd, "<option value=\"U%d\">Destabilize orbit of %s %d</option>\n",
                           loc, location_types[type].name, loc);
               break;
             case science:

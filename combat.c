@@ -1390,13 +1390,21 @@ steal_skills (FILE * fd, int skill,
   defender->skills[skill] &= ~extra_skills;
   fprintf (fd, "<p>%s uses %s Ring of Chaos to steal skills from ",
            name_string (attacker->name), skill_names[skill]);
-  fprintf (fd, "%s: \n", name_string (defender->name));
+  fprintf (fd, "%s: <br>\n", name_string (defender->name));
   if (extra_skills == 0)
     fprintf (fd, "None");
   else
+    {
+    fprintf (fd, "<table class=\"stolen_skills\">\n");
     for (bit = 0; bit < 32; bit++)
       if (extra_skills & (1 << bit))
+        {
+        fprintf (fd, "<tr>");
         show_skill (fd, skill, bit);
+        fprintf (fd, "</tr>");
+        }
+    fprintf (fd, "</table>");
+    }
   return (extra_skills);
 }
 

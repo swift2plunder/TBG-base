@@ -103,7 +103,7 @@ check_health (FILE * fd, struct PLAYER *p)
             }
         }
     }
-  p->health -= rand_exp (all_crew/2);
+  p->health -= (rand_exp (all_crew/2) % (all_crew*4));
   if (p->popcorn > 0)
     {
       p->health -= p->popcorn * 5;

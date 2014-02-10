@@ -94,13 +94,13 @@ generate_voting_options (FILE * fd, struct PLAYER *player)
       fprintf (fd, " of the People</th></tr>\n");
       fprintf (fd, "<tr><th>(Votes last turn shown in brackets)</th></tr>\n");
       fprintf (fd, "<tr><td><select name=\"P\">\n");
-      fprintf (fd, "<option value=T0>No-one\n");
+      fprintf (fd, "<option value=\"T0\">No-one\n");
       for (p = 1; p < MAX_PLAYER; p++)
         if ((turn - players[p].last_restart < 100)
             && (players[p].plebs || player - players == p)
             && p != ministers[VEEP]
             && p != ministers[PRESIDENT])
-          fprintf (fd, "<option value=T%d %s>%s (%d)</option>\n",
+          fprintf (fd, "<option value=\"T%d\" %s>%s (%d)</option>\n",
                    p,
                    p == player->trib ? "selected" : "",
                    name_string (players[p].name),

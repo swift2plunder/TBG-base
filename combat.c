@@ -362,11 +362,11 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
 
   fprintf (fd, "<td><select name=\"dg\" size=\"5\" multiple>\n");
   fprintf (fd, "<option value=\"\">None</option>\n");
-  fprintf (fd, "<option value=-1>Any one module</option>\n");
+  fprintf (fd, "<option value=\"-1\">Any one module</option>\n");
   item = items + player->ship;
   while (item - items)
     {
-      fprintf (fd, "<option value=%d>%s %s (%d%%)\n</option>",
+      fprintf (fd, "<option value=\"%d\">%s %s (%d%%)\n</option>",
         item - items, tech_level_names[item->efficiency],
         item_string (item), item->reliability);
       item = items + item->link;
@@ -378,7 +378,7 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
 
   fprintf (fd, "<tr><td><select name=\"di\">\n");
   for (range = 0; range < 7; range++)
-    fprintf (fd, "<option value=%d %s>%s</option>\n",
+    fprintf (fd, "<option value=\"%d\" %s>%s</option>\n",
              range,
              range == find_longest_weapon (items + player->ship) ? "selected" : "",
              range_names[range]);
@@ -389,7 +389,7 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
   item = items + enemy->ship;
   while (item - items)
     {
-      fprintf (fd, "<option value=%d>%s %s (%d%%)</option>\n",
+      fprintf (fd, "<option value=\"%d\">%s %s (%d%%)</option>\n",
         item - items, tech_level_names[item->efficiency],
         item_string (item), item->reliability);
       item = items + item->link;
@@ -401,7 +401,7 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
 
   fprintf (fd, "<tr><td><select name=\"dr\">\n");
   for (i = 0; i < num_items; i++)
-    fprintf (fd, "<option value=%d %s>%d</option>\n", i, i == 1 ? "selected" : "", i);
+    fprintf (fd, "<option value=\"%d\" %s>%d</option>\n", i, i == 1 ? "selected" : "", i);
   fprintf (fd, "</select></td>\n");
 
   fprintf (fd, "<td><select name=\"dp\" size=\"5\" multiple>\n");
@@ -409,7 +409,7 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
   item = items + player->ship;
   while (item - items)
     {
-      fprintf (fd, "<option value=%d>%s %s (%d%%)</option>\n",
+      fprintf (fd, "<option value=\"%d\">%s %s (%d%%)</option>\n",
         item - items, tech_level_names[item->efficiency],
         item_string (item), item->reliability);
       item = items + item->link;
@@ -422,20 +422,20 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
   num_items = isqrt (player->torps);
   fprintf (fd, "<tr><td><select name=\"df\">\n");
   for (i = 0; i <= num_items; i++)
-    fprintf (fd, "<option value=%d>%d per phase</option>\n", i, i * i);
+    fprintf (fd, "<option value=\"%d\">%d per phase</option>\n", i, i * i);
   fprintf (fd, "</select>\n");
   fprintf (fd, "</td>\n");
 
   fprintf (fd, "<td><select name=\"dh\" size=\"5\">\n");
-  fprintf (fd, "<OPTION VALUE=\"\">None</option>\n");
-  fprintf (fd, "<OPTION VALUE=1>Hide in Space</option>\n");
-  fprintf (fd, "<OPTION VALUE=-1>Hunt in Space</option>\n");
+  fprintf (fd, "<option value=\"\">None</option>\n");
+  fprintf (fd, "<option value=\"1\">Hide in Space</option>\n");
+  fprintf (fd, "<option value=\"-1\">Hunt in Space</option>\n");
   for (loc = 0; loc < MAX_LOCATION; loc++)
     if (locations[loc].star == player->star && loc_type (loc, LOC_HIDE))
       {
-        fprintf (fd, "<option value=%d>Hide in %s (%d%%)</option>\n",
+        fprintf (fd, "<option value=\"%d\">Hide in %s (%d%%)</option>\n",
                  loc, loc_string (loc), risk_level (player, loc));
-        fprintf (fd, "<option value=-%d>Hunt in %s (%d%%)</option>\n",
+        fprintf (fd, "<option value=-\"%d\">Hunt in %s (%d%%)</option>\n",
                  loc, loc_string (loc), risk_level (player, loc));
       }
   fprintf (fd, "</select></td></tr>\n");

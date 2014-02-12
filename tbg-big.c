@@ -1074,7 +1074,7 @@ show_general_options (FILE * fd, struct PLAYER *player)
   fprintf (fd, "<input name=\"z\" value=\"%d\" type=\"hidden\">\n", turn + 1);
   fprintf (fd, "<input name=\"k\" value=\"%d\" type=\"hidden\">\n",
            make_key (player->name, turn + 1));
-  fprintf (fd, "<input name=\"Z\" VALUE=\"%d\" type=\"hidden\">\n", game);
+  fprintf (fd, "<input name=\"Z\" value=\"%d\" type=\"hidden\">\n", game);
 
   if (player->popcorn)
     {
@@ -1148,7 +1148,7 @@ show_general_options (FILE * fd, struct PLAYER *player)
                  player->energy / 50);
       if (player->energy / 100 > 0 &&
           players[player->companion].star == player->star)
-        fprintf (fd, "<OPTION VALUE=\"%d\">Give %s $%d</option>\n",
+        fprintf (fd, "<option value=\"%d\">Give %s $%d</option>\n",
                  BIG_NUMBER + player->energy / 100,
                  name_string (players[player->companion].name),
                  player->energy / 100);
@@ -1584,7 +1584,7 @@ generate_options (FILE * fd, struct PLAYER *player, skill_sort sort)
               if ((player->
                    experience[science] & (1 << locations[loc].parameter)) ==
                   0)
-                fprintf (fd, "<OPTION VALUE=\"%d\">Access Starnet</option>\n", loc);
+                fprintf (fd, "<option value=\"%d\">Access Starnet</option>\n", loc);
             }
           break;
         default:

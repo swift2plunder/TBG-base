@@ -340,7 +340,7 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
   item = items + enemy->ship;
   while (item - items)
     {
-      fprintf (fd, "<option value=%d>%s %s (%d%%)</option>\n", 
+      fprintf (fd, "<option value=\"%d\">%s %s (%d%%)</option>\n", 
         item - items, tech_level_names[item->efficiency], 
         item_string (item), item->reliability);
       item = items + item->link;

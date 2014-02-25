@@ -231,7 +231,7 @@ recruit_rogues (FILE * fd, struct PLAYER *player, int loc)
   number = min (number, current - player->crew[skill]);
   if (number == 0)
     {
-      fprintf (fd, "<li>There is no Minister of Justice; No rogues recruited.</li>\n");
+      fprintf (fd, "<li>No rogues recruited.</li>\n");
       return;
     }
 

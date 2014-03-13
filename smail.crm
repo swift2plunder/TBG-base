@@ -1,16 +1,18 @@
 #!/usr/bin/crm
 # smail.crm - mail replacement for TBG built by Chris Babcock
 # Takes parameters:
-# :_pos2: Ship_Name
-# :_pos3: Subject
-# :_pos4: Email of destination
+# :_pos0: Ship_Name
+# :_pos1: Subject
+# :_pos2: Email of destination
 #/ 
 
 window
 
-isolate (:ship_name:) /:*:_pos2:/
-isolate (:subject:)   /:*:_pos3:/
-isolate (:address:)   /:*:_pos4:/
+isolate (:ship_name:) /:*:_pos0:/
+isolate (:subject:)   /:*:_pos1:/
+isolate (:address:)   /:*:_pos2:/
+
+output /:*:ship_name:\n/
 
 {
 # Check the list of banned addresses.
@@ -66,7 +68,7 @@ MIME-Version: 1.0\n/
 
 {
 isolate (:fortune:) //
-syscall (::) (:fortune:) /fortune startrek hitchhiker/
+syscall (::) (:fortune:) /fortune startrek/
 trap //
 }
 
@@ -208,9 +210,9 @@ match [:recv:] /^250/
 isolate (:send:) /QUIT\n/
 syscall (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
 match [:recv:] /^221/
-# output /Sent via SMTP\n/
+output /Sent via SMTP\n/
 return
 }
 
-syscall (:*:smtp_data:) <async> /\/usr\/sbin\/sendmail -ctr tbg-moderator@asciiking.com /
+syscall (:*:smtp_data:) <async> /\/usr\/sbin\/sendmail.postfix -ctr tbg-moderator@asciiking.com /
 return

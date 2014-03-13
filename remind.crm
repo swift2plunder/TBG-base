@@ -95,30 +95,31 @@ liaf
 isolate (:send:) //
 isolate (:recv:) //
 isolate (:status:) //
-syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc localhost 25/
 match [:recv:] /^220/
 isolate (:send:) /HELO localhost\n/
-syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc localhost 25/
 match [:recv:] /^250/
-isolate (:send:) /MAIL FROM: tbg@asciiking.com\n/
-syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+isolate (:send:) /MAIL FROM: tbg@localhost\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc localhost 25/
 match [:recv:] /^250/
-isolate (:send:) /RCPT TO: :*:_pos4:\n/
-syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+isolate (:send:) /RCPT TO: :*:address:\n/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc localhost 25/
 match [:recv:] /^250/
 isolate (:send:) /DATA\n/
-syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc localhost 25/
 match [:recv:] /^354/
 isolate (:send:) /:*:smtp_data:\n.\n/
-syscall <keep> (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+syscall <keep> (:*:send:) (:recv:) (:status:) /nc localhost 25/
 match [:recv:] /^250/
 isolate (:send:) /QUIT\n/
-syscall (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
+syscall (:*:send:) (:recv:) (:status:) /nc localhost 25/
 match [:recv:] /^221/
-# output /Sent via SMTP\n/
+output /Sent via SMTP\n/
 return
 }
 
-syscall (:*:smtp_data:) <async> /\/usr\/sbin\/sendmail -ctr tbg-moderator@asciiking.com /
+output /:*:send:\n:*:recv:\n/
+syscall (:*:smtp_data:) <async> /\/usr\/sbin\/sendmail.postfix -ctr tbg-moderator@asciiking.com /
 return
 

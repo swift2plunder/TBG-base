@@ -115,11 +115,11 @@ match [:recv:] /^250/
 isolate (:send:) /QUIT\n/
 syscall (:*:send:) (:recv:) (:status:) /nc localhost 25/
 match [:recv:] /^221/
-output /Sent via SMTP\n/
+#output /Sent via SMTP\n/
 return
 }
 
-output /:*:send:\n:*:recv:\n/
+#output /:*:send:\n:*:recv:\n/
 syscall (:*:smtp_data:) <async> /\/usr\/sbin\/sendmail.postfix -ctr tbg-moderator@asciiking.com /
 return
 

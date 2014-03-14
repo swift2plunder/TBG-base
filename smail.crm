@@ -12,7 +12,7 @@ isolate (:ship_name:) /:*:_pos0:/
 isolate (:subject:)   /:*:_pos1:/
 isolate (:address:)   /:*:_pos2:/
 
-output /:*:ship_name:\n/
+#output /:*:ship_name:\n/
 
 {
 # Check the list of banned addresses.
@@ -210,7 +210,7 @@ match [:recv:] /^250/
 isolate (:send:) /QUIT\n/
 syscall (:*:send:) (:recv:) (:status:) /nc asciiking.com 25/
 match [:recv:] /^221/
-output /Sent via SMTP\n/
+#output /Sent via SMTP\n/
 return
 }
 

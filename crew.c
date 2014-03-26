@@ -261,8 +261,7 @@ recruit_rogues (FILE * fd, struct PLAYER *player, int loc)
 void
 heal (FILE * fd, struct PLAYER *player)
 {
-  player->health += 4
-    * factor (sick_bay, player);
+  player->health += 40 * factor (sick_bay, player);
   /*  if (player->health > 999)
       player->health = 999;*/
   fprintf (fd, "<li>%s officer healed crew's illness and injuries\n",

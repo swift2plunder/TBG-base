@@ -306,7 +306,7 @@ show_combat_options (FILE * fd, struct PLAYER *player, struct PLAYER *enemy)
 
   if (enemy - players < MAX_PLAYER)
     snprintf (buffer, 1024,
-              "<a href=http://%s/tbg/news/mail.cgi?%d>%s</a>",
+              "<a href=\"http://%s/cgi-bin/mail.crm?id=%d\">%s</a>",
              server, enemy - players, name_string (enemy->name));
   else
     strcpy (buffer, name_string (enemy->name));
